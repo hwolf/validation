@@ -19,7 +19,7 @@ subprojects {
 
     dependencies {
         implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-        implementation("commons-io:commons-io:1.1")
+        implementation("commons-io:commons-io:2.11.0")
 
         testImplementation(platform("org.junit:junit-bom:5.8.2"))
         testImplementation(platform("io.strikt:strikt-bom:0.32.0"))
