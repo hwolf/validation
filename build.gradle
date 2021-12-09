@@ -4,7 +4,6 @@ plugins {
     id "org.jetbrains.dokka" version "1.6.0" apply false
     id "io.gitlab.arturbosch.detekt" version "1.19.0" apply false
     id "com.github.ben-manes.versions" version "0.39.0" apply false
-    id "org.owasp.dependencycheck" version "6.5.0.1" apply false
 }
 
 subprojects {
@@ -13,7 +12,6 @@ subprojects {
     apply plugin: "org.jetbrains.kotlinx.kover"
     apply plugin: "io.gitlab.arturbosch.detekt"
     apply plugin: "com.github.ben-manes.versions"
-    apply plugin: "org.owasp.dependencycheck"
 
     repositories {
         mavenCentral()
@@ -60,27 +58,6 @@ subprojects {
             html.enabled = true
             txt.enabled = false
             xml.enabled = false
-        }
-    }
-
-    dependencyCheck {
-        suppressionFile = "${rootDir}/config/owasp-dependency-suppressions.xml"
-        analyzers {
-            assemblyEnabled = false
-        }
-    }
-
-    dependencyUpdates {
-        gradleReleaseChannel = "current"
-        rejectVersionIf {
-            def isNonStable = { String version ->
-                def stableKeyword = ["RELEASE", "FINAL", "GA"].any { x ->
-                    version.toUpperCase().contains(x)
-                }
-                def regex = /^[0-9,.v-]+(-r)?$/
-                return !stableKeyword && !(version ==~ regex)
-            }
-            isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
         }
     }
 }
