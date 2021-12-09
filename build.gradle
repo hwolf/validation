@@ -3,7 +3,6 @@ plugins {
     id "org.jetbrains.kotlinx.kover" version "0.4.4" apply false
     id "org.jetbrains.dokka" version "1.6.0" apply false
     id "io.gitlab.arturbosch.detekt" version "1.19.0" apply false
-    id "com.github.ben-manes.versions" version "0.39.0" apply false
 }
 
 subprojects {
@@ -11,7 +10,6 @@ subprojects {
     apply plugin: "org.jetbrains.kotlin.jvm"
     apply plugin: "org.jetbrains.kotlinx.kover"
     apply plugin: "io.gitlab.arturbosch.detekt"
-    apply plugin: "com.github.ben-manes.versions"
 
     repositories {
         mavenCentral()
