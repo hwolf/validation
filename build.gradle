@@ -1,0 +1,86 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.6.0" apply false
+    id "org.jetbrains.kotlinx.kover" version "0.4.1" apply false
+    id "org.jetbrains.dokka" version "1.6.0" apply false
+    id "io.gitlab.arturbosch.detekt" version "1.18.1" apply false
+    id "com.github.ben-manes.versions" version "0.39.0" apply false
+    id "org.owasp.dependencycheck" version "6.5.0.1" apply false
+}
+
+subprojects {
+
+    apply plugin: "org.jetbrains.kotlin.jvm"
+    apply plugin: "org.jetbrains.kotlinx.kover"
+    apply plugin: "io.gitlab.arturbosch.detekt"
+    apply plugin: "com.github.ben-manes.versions"
+    apply plugin: "org.owasp.dependencycheck"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+
+        testImplementation(platform("org.junit:junit-bom:5.8.2"))
+        testImplementation(platform("io.strikt:strikt-bom:0.33.0"))
+
+        testImplementation "org.junit.jupiter:junit-jupiter"
+        testImplementation "org.junit.jupiter:junit-jupiter-params"
+        testImplementation "dev.minutest:minutest:2.0.0-rc4"
+        testImplementation "io.strikt:strikt-core"
+        testImplementation "io.mockk:mockk:1.12.1"
+    }
+
+    compileKotlin {
+        kotlinOptions {
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            jvmTarget = "17"
+        }
+    }
+
+    compileTestKotlin {
+        kotlinOptions {
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            jvmTarget = "17"
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        kover {
+            enabled = true
+            //binaryReportFile.set(file("$buildDir/kover/result.bin"))
+        }
+    }
+
+    detekt {
+        config = files("${rootDir}/config/detekt/detekt.yml")
+        reports {
+            html.enabled = true
+            txt.enabled = false
+            xml.enabled = false
+        }
+    }
+
+    dependencyCheck {
+        suppressionFile = "${rootDir}/config/owasp-dependency-suppressions.xml"
+        analyzers {
+            assemblyEnabled = false
+        }
+    }
+
+    dependencyUpdates {
+        gradleReleaseChannel = "current"
+        rejectVersionIf {
+            def isNonStable = { String version ->
+                def stableKeyword = ["RELEASE", "FINAL", "GA"].any { x ->
+                    version.toUpperCase().contains(x)
+                }
+                def regex = /^[0-9,.v-]+(-r)?$/
+                return !stableKeyword && !(version ==~ regex)
+            }
+            isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
+        }
+    }
+}
