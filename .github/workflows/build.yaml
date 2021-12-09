@@ -19,3 +19,7 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Build
         run: ./gradlew build
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v1
+        with:
+          files: test-results/**/*.xml
