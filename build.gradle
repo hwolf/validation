@@ -3,6 +3,15 @@ plugins {
     id "org.jetbrains.kotlinx.kover" version "0.4.4" apply false
     id "org.jetbrains.dokka" version "1.6.0" apply false
     id "io.gitlab.arturbosch.detekt" version "1.19.0" apply false
+    id "org.sonarqube" version "3.3"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "hwolf_validation"
+        property "sonar.organization", "hwolf"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
 
 subprojects {
