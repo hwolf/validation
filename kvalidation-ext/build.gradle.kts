@@ -2,7 +2,7 @@ apply(plugin = "java-library")
 apply(plugin = "org.jetbrains.dokka")
 
 dependencies {
-    implementation(project(":validation"))
+    implementation(project(":kvalidation"))
 
     implementation("commons-validator:commons-validator:1.7") {
         exclude(module = "commons-beanutils")

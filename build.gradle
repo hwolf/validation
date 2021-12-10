@@ -2,7 +2,6 @@ plugins {
     id "org.jetbrains.kotlin.jvm" version "1.6.0" apply false
     id "org.jetbrains.kotlinx.kover" version "0.4.4" apply false
     id "org.jetbrains.dokka" version "1.6.0" apply false
-    id "io.gitlab.arturbosch.detekt" version "1.19.0" apply false
     id "org.sonarqube" version "3.3"
 }
 
@@ -11,6 +10,8 @@ sonarqube {
         property "sonar.projectKey", "hwolf_validation"
         property "sonar.organization", "hwolf"
         property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.junit.reportPaths", "**/build/test-results/**/*.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "**/build/kover/result.xml"
     }
 }
 
@@ -18,7 +19,6 @@ subprojects {
 
     apply plugin: "org.jetbrains.kotlin.jvm"
     apply plugin: "org.jetbrains.kotlinx.kover"
-    apply plugin: "io.gitlab.arturbosch.detekt"
 
     repositories {
         mavenCentral()
@@ -57,13 +57,8 @@ subprojects {
             enabled = true
         }
     }
-
-    detekt {
-        config = files("${rootDir}/config/detekt/detekt.yml")
-        reports {
-            html.enabled = true
-            txt.enabled = false
-            xml.enabled = false
-        }
+    tasks.koverXmlReport {
+        enabled = true
+        xmlReportFile.set(layout.buildDirectory.file("kover/result.xml"))
     }
 }

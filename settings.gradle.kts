@@ -1,4 +1,4 @@
 rootProject.name = "validation"
 
-include("validation")
-include("validation-ext")
+include("kvalidation")
+include("kvalidation-ext")
