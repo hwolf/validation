@@ -22,4 +22,4 @@ jobs:
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
         with:
-          files: '**/build/kover/result.xml'
+          files: '**/build/test-results/**/*.xml'
