@@ -46,7 +46,6 @@ subprojects {
         useJUnitPlatform()
         kover {
             enabled = true
-            //binaryReportFile.set(file("$buildDir/kover/result.bin"))
         }
     }
 
