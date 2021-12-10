@@ -23,7 +23,7 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build sonarqube
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
         with:
