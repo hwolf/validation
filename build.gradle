@@ -22,6 +22,7 @@ subprojects {
     apply plugin: "org.jetbrains.kotlin.jvm"
     apply plugin: "org.jetbrains.kotlinx.kover"
     apply plugin: "org.sonarqube"
+    apply plugin: "maven-publish"
 
     repositories {
         mavenCentral()
@@ -63,5 +64,23 @@ subprojects {
     tasks.koverXmlReport {
         enabled = true
         xmlReportFile.set(layout.buildDirectory.file("kover/result.xml"))
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/hwolf/validation")
+                credentials {
+                    username = project.findProperty("gpr.user")
+                    password = project.findProperty("gpr.key")
+                }
+            }
+        }
+        publications {
+            gpr(MavenPublication) {
+                from(components.java)
+            }
+        }
     }
 }
