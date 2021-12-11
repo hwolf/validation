@@ -19,6 +19,6 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
       - name: Test
-        echo ${GITHUB_REF} && echo ${GITHUB_REF:11}
+        run: echo ${GITHUB_REF} && echo ${GITHUB_REF:11}
       - name: Build
         run: ./gradlew -Pversion=${GITHUB_REF:11} -Pgpr.user= -Pgpr.key=${{ secrets.GITHUB_TOKEN }} --no-daemon build publish
