@@ -24,6 +24,9 @@ subprojects {
         mavenCentral()
     }
 
+    sonarqube {
+    }
+
     dependencies {
         implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
