@@ -24,6 +24,7 @@ subprojects {
     apply plugin: "org.jetbrains.dokka"
     apply plugin: "org.sonarqube"
     apply plugin: "maven-publish"
+    apply plugin: "signing"
 
     repositories {
         mavenCentral()
@@ -100,5 +101,11 @@ subprojects {
                 //artifact tasks.javadocJar
             }
         }
+    }
+    signing {
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingPassword")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.gpr
     }
 }
