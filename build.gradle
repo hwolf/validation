@@ -21,11 +21,16 @@ subprojects {
 
     apply plugin: "org.jetbrains.kotlin.jvm"
     apply plugin: "org.jetbrains.kotlinx.kover"
+    apply plugin: "org.jetbrains.dokka"
     apply plugin: "org.sonarqube"
     apply plugin: "maven-publish"
 
     repositories {
         mavenCentral()
+    }
+
+    java {
+        withJavadocJar()
     }
 
     dependencies {
@@ -66,6 +71,17 @@ subprojects {
         xmlReportFile.set(layout.buildDirectory.file("kover/result.xml"))
     }
 
+    task sourceJar(type: Jar, dependsOn: classes) {
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    tasks.javadocJar {
+        dependsOn dokkaHtml
+        archiveClassifier = "javadoc"
+        from dokkaHtml.outputDirectory
+    }
+
     publishing {
         repositories {
             maven {
@@ -79,7 +95,9 @@ subprojects {
         }
         publications {
             gpr(MavenPublication) {
-                from(components.java)
+                from components.java
+                artifact tasks.sourceJar
+                //artifact tasks.javadocJar
             }
         }
     }
