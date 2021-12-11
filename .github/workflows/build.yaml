@@ -26,9 +26,9 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
       - name: Build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew --no-daemon --info build sonarqube
+        run: ./gradlew --no-daemon -Dsonar.verbose=true build sonarqube
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
         with:
