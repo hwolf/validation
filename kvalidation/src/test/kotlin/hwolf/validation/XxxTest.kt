@@ -1,12 +1,13 @@
 package hwolf.validation
 
-import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.Test
+import java.security.SecureRandom
 
 class XxxTest {
 
     @Test
     fun test() {
-        fail<Nothing>()
+        val sr = SecureRandom("abcdefghijklmnop".toByteArray(charset("us-ascii")))
+        val v = sr.nextInt()
     }
 }
