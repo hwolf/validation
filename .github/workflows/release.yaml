@@ -8,8 +8,8 @@ jobs:
   release:
     name: Publish release
     runs-on: ubuntu-latest
+    if: github.head_ref == 'refs/heads/main'
     steps:
-      - if: github.head_ref == 'refs/heads/main'
       - uses: actions/checkout@v2
       - name: Set up JDK 17
         uses: actions/setup-java@v2
