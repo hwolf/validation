@@ -8,6 +8,7 @@ jobs:
   release:
     name: Publish release
     runs-on: ubuntu-latest
+    if: github.head_ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 17
@@ -22,4 +23,14 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
-        run: ./gradlew -Pversion=${GITHUB_REF:11} -Pgpr.user= -Pgpr.key=${{ secrets.GITHUB_TOKEN }} --no-daemon build publish
+        run: ./gradlew -Pversion=${GITHUB_REF:11} -Pgpr.user= -Pgpr.key=${{ secrets.GITHUB_TOKEN }} build publish
+
+      - name: Generate API documentation
+        run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
+      - name: Publish API documentation
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          folder: build/dokka/htmlMultiModule
+          clean: true
+          branch: gh-pages
+          target-folder: apidoc
