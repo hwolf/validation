@@ -1,4 +1,4 @@
 rootProject.name = "validation"
 
-include("kvalidation")
-include("kvalidation-ext")
+include("kvalidation-core")
+include("kvalidation-common")
