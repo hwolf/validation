@@ -51,7 +51,7 @@ fun <K, V> ConstraintBuilder<out Map<K, V>>.isNotEmpty() = validate(NotEmpty) { 
 
 // hasSize
 
-/** a constraint that validate if the size of value is within the limits (min and max). */
+/** A constraint that validate if the size of value is within the limits (min and max). */
 data class Size(val min: Int, val max: Int) : Constraint
 
 /**  Validates if the [Iterable] property size is within the limits (min and max). */
