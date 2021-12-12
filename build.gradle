@@ -15,9 +15,10 @@ sonarqube {
     }
 }
 
-group = 'hwolf'
-
 allprojects {
+
+    group = 'hwolf.kvalidation'
+
     repositories {
         mavenCentral()
     }
