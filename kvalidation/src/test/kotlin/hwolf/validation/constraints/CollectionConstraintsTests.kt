@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package hwolf.validation.constraints
 
 import dev.minutest.given
@@ -238,29 +240,6 @@ fun isNotEmptyMap() = rootContext<Validator<MapBean>> {
                 propertyType = "Map",
                 propertyValue = value,
                 constraint = NotEmpty))
-        }
-    }
-}
-
-@Testable
-fun hasSizeString() = rootContext<Validator<StringBean>> {
-    given {
-        validator { StringBean::string { hasSize(2, 4) } }
-    }
-    forEach("12", "1234") { value ->
-        test("valid $value") { validator ->
-            val actual = validator.validator(StringBean(value))
-            expectThat(actual).isValid()
-        }
-    }
-    forEach("1", "12345") { value ->
-        test("invalid $value") { validator ->
-            val actual = validator.validator(StringBean(value))
-            expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "string",
-                propertyType = "String",
-                propertyValue = value,
-                constraint = Size(2, 4)))
         }
     }
 }
