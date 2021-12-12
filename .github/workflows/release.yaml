@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew -Pversion=${GITHUB_REF:11} -Pgpr.user= -Pgpr.key=${{ secrets.GITHUB_TOKEN }} build publish
 
       - name: Generate API documentation
-        run: ./gradlew dokkaHtmlMultiModule
+        run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Publish API documentation
         uses: JamesIves/github-pages-deploy-action@4.1.7
         with:
