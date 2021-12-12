@@ -1,0 +1,13 @@
+name: Test
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Env
+    runs-on: ubuntu-latest
+    steps:
+      - name: Env
+        run: env
