@@ -35,14 +35,14 @@ subprojects {
     dependencies {
         implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-        testImplementation(platform("org.junit:junit-bom:5.8.2"))
+        testImplementation(platform("org.junit:junit-bom:5.8.0"))
         testImplementation(platform("io.strikt:strikt-bom:0.33.0"))
 
         testImplementation "org.junit.jupiter:junit-jupiter"
         testImplementation "org.junit.jupiter:junit-jupiter-params"
-        testImplementation "dev.minutest:minutest:2.0.0-rc4"
+        testImplementation "dev.minutest:minutest:2.0.0-rc3"
         testImplementation "io.strikt:strikt-core"
-        testImplementation "io.mockk:mockk:1.12.1"
+        testImplementation "io.mockk:mockk:1.12.0"
     }
 
     compileKotlin {
