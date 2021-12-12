@@ -4,6 +4,7 @@ import kotlin.reflect.KProperty1
 
 typealias ValidationAction<V, U> = ValidationBuilder<V, U>.() -> Unit
 
+/** Builds a [Validator] for the type [V]. */
 fun <V> validator(init: ValidationAction<V, V>): Validator<V> {
     val validators = buildValidators(init)
     return { value, context -> runValidators(validators, value, context) }
@@ -17,7 +18,9 @@ interface ExtConstraintBuilder<T, V> {
     fun validate(constraint: Constraint, test: (V, T) -> Boolean): ConstraintHelper
 }
 
+/** Builder step that can manipulate the constraint. */
 interface ConstraintHelper {
+    /** Changes the message key of the constraint. */
     infix fun messageKey(key: String)
 }
 

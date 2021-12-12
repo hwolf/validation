@@ -21,6 +21,9 @@ interface Constraint {
             .associate { it.name to it.call(this) }
 }
 
+/**
+ * A constraint that validates a value is required (not null).
+ */
 object Required : Constraint
 
 /**
