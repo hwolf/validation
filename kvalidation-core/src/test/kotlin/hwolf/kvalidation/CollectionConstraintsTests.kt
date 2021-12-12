@@ -15,13 +15,13 @@ fun isEmptyString() = rootContext<Validator<StringBean>> {
     }
     forEach("") { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(StringBean(value))
+            val actual = validator.validate(StringBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(" ", "xx") { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(StringBean(value))
+            val actual = validator.validate(StringBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
                 propertyType = "String",
@@ -38,13 +38,13 @@ fun isEmptyIterable() = rootContext<Validator<IterableBean>> {
     }
     forEach(IntRange(1, 0)) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(IterableBean(value))
+            val actual = validator.validate(IterableBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(IntRange(0, 1), IntRange(1, 1)) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(IterableBean(value))
+            val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "range",
                 propertyType = "Iterable",
@@ -61,13 +61,13 @@ fun isEmptyCollection() = rootContext<Validator<ListBean>> {
     }
     forEach(emptyList<String>()) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(ListBean(value))
+            val actual = validator.validate(ListBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(listOf("x1", "x2"), listOf("")) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(ListBean(value))
+            val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "list",
                 propertyType = "List",
@@ -84,13 +84,13 @@ fun isEmptyArray() = rootContext<Validator<ArrayBean>> {
     }
     forEach(emptyArray<String>()) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(ArrayBean(value))
+            val actual = validator.validate(ArrayBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(arrayOf("x1", "x2"), arrayOf("")) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(ArrayBean(value))
+            val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "array",
                 propertyType = "Array",
@@ -107,13 +107,13 @@ fun isEmptyMap() = rootContext<Validator<MapBean>> {
     }
     forEach(emptyMap<String, Int>()) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(MapBean(value))
+            val actual = validator.validate(MapBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(mapOf("x1" to 2, "x2" to 3), mapOf("" to 0)) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(MapBean(value))
+            val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "map",
                 propertyType = "Map",
@@ -130,13 +130,13 @@ fun isNotEmptyString() = rootContext<Validator<StringBean>> {
     }
     forEach(" ", "xx") { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(StringBean(value))
+            val actual = validator.validate(StringBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach("") { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(StringBean(value))
+            val actual = validator.validate(StringBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
                 propertyType = "String",
@@ -153,13 +153,13 @@ fun isNotEmptyIterable() = rootContext<Validator<IterableBean>> {
     }
     forEach(IntRange(0, 1), IntRange(1, 1)) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(IterableBean(value))
+            val actual = validator.validate(IterableBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(IntRange(1, 0)) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(IterableBean(value))
+            val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "range",
                 propertyType = "Iterable",
@@ -176,13 +176,13 @@ fun isNotEmptyCollection() = rootContext<Validator<ListBean>> {
     }
     forEach(listOf("x1", "x2"), listOf("")) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(ListBean(value))
+            val actual = validator.validate(ListBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(emptyList<String>()) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(ListBean(value))
+            val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "list",
                 propertyType = "List",
@@ -199,13 +199,13 @@ fun isNotEmptyArray() = rootContext<Validator<ArrayBean>> {
     }
     forEach(arrayOf("x1", "x2"), arrayOf("")) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(ArrayBean(value))
+            val actual = validator.validate(ArrayBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(emptyArray<String>()) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(ArrayBean(value))
+            val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "array",
                 propertyType = "Array",
@@ -222,13 +222,13 @@ fun isNotEmptyMap() = rootContext<Validator<MapBean>> {
     }
     forEach(mapOf("x1" to 2, "x2" to 3), mapOf("" to 0)) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(MapBean(value))
+            val actual = validator.validate(MapBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(emptyMap<String, Int>()) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(MapBean(value))
+            val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "map",
                 propertyType = "Map",
@@ -245,13 +245,13 @@ fun hasSizeIterable() = rootContext<Validator<IterableBean>> {
     }
     forEach(IntRange(0, 1), IntRange(0, 3)) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(IterableBean(value))
+            val actual = validator.validate(IterableBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(IntRange(2, 2), IntRange(0, 4)) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(IterableBean(value))
+            val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "range",
                 propertyType = "Iterable",
@@ -268,13 +268,13 @@ fun hasSizeCollection() = rootContext<Validator<ListBean>> {
     }
     forEach(listOf("x"), listOf("1", "2", "3", "4")) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(ListBean(value))
+            val actual = validator.validate(ListBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(emptyList(), listOf("1", "2", "3", "4", "5")) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(ListBean(value))
+            val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "list",
                 propertyType = "List",
@@ -291,13 +291,13 @@ fun hasSizeArray() = rootContext<Validator<ArrayBean>> {
     }
     forEach(arrayOf("x"), arrayOf("1", "2", "3", "4")) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(ArrayBean(value))
+            val actual = validator.validate(ArrayBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(arrayOf(), arrayOf("1", "2", "3", "4", "5")) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(ArrayBean(value))
+            val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "array",
                 propertyType = "Array",
@@ -314,13 +314,13 @@ fun hasSizeMap() = rootContext<Validator<MapBean>> {
     }
     forEach(mapOf("x" to 1), mapOf("x1" to 3, "x2" to 5, "x3" to 1)) { value ->
         test("valid $value") { validator ->
-            val actual = validator.validator(MapBean(value))
+            val actual = validator.validate(MapBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(emptyMap(), mapOf("x1" to 6, "x2" to 3, "x3" to 4, "x4" to 8)) { value ->
         test("invalid $value") { validator ->
-            val actual = validator.validator(MapBean(value))
+            val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "map",
                 propertyType = "Map",

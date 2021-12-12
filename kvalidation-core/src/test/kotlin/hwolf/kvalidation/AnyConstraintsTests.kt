@@ -15,13 +15,13 @@ fun isEqual() = rootContext<Validator<TestBean>> {
     }
     forEach(2) { value ->
         test("valid: $value == 2") {
-            val actual = validator(TestBean(prop1 = value))
+            val actual = validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
     forEach(0, 3) { value ->
         test("invalid: $value == 2") {
-            val actual = validator(TestBean(prop1 = value))
+            val actual = validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -38,13 +38,13 @@ fun isEqualWith() = rootContext<Validator<TestBean>> {
     }
     forEach(Pair(3, 3), Pair(2, null)) { (v1, v2) ->
         test("valid: $v1 == $2") {
-            val actual = validator(TestBean(prop1 = v1, prop2 = v2))
+            val actual = validate(TestBean(prop1 = v1, prop2 = v2))
             expectThat(actual).isValid()
         }
     }
     forEach(Pair(0, 1), Pair(2, 1)) { (v1, v2) ->
         test("invalid: $v1 == $v2") {
-            val actual = validator(TestBean(prop1 = v1, prop2 = v2))
+            val actual = validate(TestBean(prop1 = v1, prop2 = v2))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -61,13 +61,13 @@ fun isIn() = rootContext<Validator<TestBean>> {
     }
     forEach(1, 3) { value ->
         test("valid: $value in (1, 3)") {
-            val actual = validator(TestBean(prop1 = value))
+            val actual = validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
     forEach(0, 2, 4) { value ->
         test("invalid: $value in (1, 3)") {
-            val actual = validator(TestBean(prop1 = value))
+            val actual = validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -84,13 +84,13 @@ fun isNotIn() = rootContext<Validator<TestBean>> {
     }
     forEach(0, 2, 4) { value ->
         test("valid: $value not in (1, 3)") {
-            val actual = validator(TestBean(prop1 = value))
+            val actual = validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
     forEach(1, 3) { value ->
         test("invalid: $value not in (1, 3)") {
-            val actual = validator(TestBean(prop1 = value))
+            val actual = validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",

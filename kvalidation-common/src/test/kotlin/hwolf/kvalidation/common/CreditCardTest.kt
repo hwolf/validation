@@ -7,6 +7,7 @@ import dev.minutest.rootContext
 import dev.minutest.test
 import hwolf.kvalidation.ConstraintViolation
 import hwolf.kvalidation.Validator
+import hwolf.kvalidation.validate
 import hwolf.kvalidation.validator
 import org.junit.platform.commons.annotation.Testable
 import strikt.api.expectThat
@@ -26,13 +27,13 @@ fun isCreditCard() = rootContext<Validator<CreditCardBean>> {
     }
     forEach(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
         test("$value is valid credit card") { validator ->
-            val actual = validator.validator(CreditCardBean(value))
+            val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach("4417123456789112", "441712345678X112") { value ->
         test("$value is invalid credit card") { validator ->
-            val actual = validator.validator(CreditCardBean(value))
+            val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "card",
                 propertyType = "String",
@@ -53,13 +54,13 @@ fun `is Mastercard`() = rootContext<Validator<CreditCardBean>> {
     }
     forEach(MASTERCARD) { value ->
         test("$value is valid Mastercard") { validator ->
-            val actual = validator.validator(CreditCardBean(value))
+            val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(VISA, AMEX, DISCOVERS) { value ->
         test("$value is invalid Mastercard") { validator ->
-            val actual = validator.validator(CreditCardBean(value))
+            val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "card",
                 propertyType = "String",
@@ -76,13 +77,13 @@ fun `is Diners card`() = rootContext<Validator<CreditCardBean>> {
     }
     forEach(DINERS) { value ->
         test("$value is valid Diners card") { validator ->
-            val actual = validator.validator(CreditCardBean(value))
+            val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
         test("$value is invalid Diners card") { validator ->
-            val actual = validator.validator(CreditCardBean(value))
+            val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "card",
                 propertyType = "String",

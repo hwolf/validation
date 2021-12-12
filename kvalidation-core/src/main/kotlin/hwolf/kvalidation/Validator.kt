@@ -9,7 +9,7 @@ typealias Validator<T> = (value: T, context: ValidationContext<T>) -> Unit
 /**
  * Validate the object [value] with the receiver [Validator] and returns a [ValidationResult].
  */
-fun <T> Validator<T>.validator(value: T): ValidationResult {
+fun <T> Validator<T>.validate(value: T): ValidationResult {
     val context = ValidationContext(value)
     invoke(value, context)
     return ValidationResult(context.errors)

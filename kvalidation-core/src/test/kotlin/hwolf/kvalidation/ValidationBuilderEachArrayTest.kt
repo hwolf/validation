@@ -15,12 +15,12 @@ class ValidationBuilderEachArrayTest {
 
     @Test
     fun `An empty array is valid`() {
-        expectThat(validator.validator(TestBean(array = emptyArray()))).isValid()
+        expectThat(validator.validate(TestBean(array = emptyArray()))).isValid()
     }
 
     @Test
     fun `One value in the array is invalid`() {
-        expectThat(validator.validator(TestBean(array = arrayOf("1", "2", "3"))))
+        expectThat(validator.validate(TestBean(array = arrayOf("1", "2", "3"))))
             .hasExactlyViolations(
                 ConstraintViolation(
                     propertyName = "array[1]",
