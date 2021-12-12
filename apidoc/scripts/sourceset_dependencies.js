@@ -1,1 +1,1 @@
-sourceset_dependencies = '{":kvalidation:dokkaHtmlPartial/main":[],":kvalidation-ext:dokkaHtmlPartial/main":[]}'
+sourceset_dependencies = '{":kvalidation-common:dokkaHtmlPartial/main":[],":kvalidation-core:dokkaHtmlPartial/main":[]}'

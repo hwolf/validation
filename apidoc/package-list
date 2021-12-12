@@ -1,8 +1,7 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 
-module:kvalidation
-hwolf.validation
-hwolf.validation.constraints
-module:kvalidation-ext
-hwolf.validation.constraints.ext
+module:kvalidation-common
+hwolf.kvalidation.common
+module:kvalidation-core
+hwolf.kvalidation
