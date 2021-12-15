@@ -15,12 +15,12 @@ class ValidationBuilderEachTest {
 
     @Test
     fun `An empty list is valid`() {
-        expectThat(validator.validator(TestBean(list = emptyList()))).isValid()
+        expectThat(validator.validate(TestBean(list = emptyList()))).isValid()
     }
 
     @Test
     fun `One value in the list is invalid`() {
-        expectThat(validator.validator(TestBean(list = listOf("x1", "x2", "x3"))))
+        expectThat(validator.validate(TestBean(list = listOf("x1", "x2", "x3"))))
             .hasExactlyViolations(
                 ConstraintViolation(
                     propertyName = "list[1]",

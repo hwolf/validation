@@ -15,12 +15,12 @@ class ValidationBuilderIfPresentTest {
 
     @Test
     fun `Optional field is not set`() {
-        expectThat(validator.validator(TestBean(field = null))).isValid()
+        expectThat(validator.validate(TestBean(field = null))).isValid()
     }
 
     @Test
     fun `Optional field is set but value is invalid`() {
-        expectThat(validator.validator(TestBean(field = "xx")))
+        expectThat(validator.validate(TestBean(field = "xx")))
             .hasExactlyViolations(ConstraintViolation(
                 propertyName = "field",
                 propertyType = "String",
@@ -31,6 +31,6 @@ class ValidationBuilderIfPresentTest {
 
     @Test
     fun `Optional field is set and value is valid`() {
-        expectThat(validator.validator(TestBean(field = "x1"))).isValid()
+        expectThat(validator.validate(TestBean(field = "x1"))).isValid()
     }
 }

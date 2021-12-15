@@ -15,13 +15,13 @@ fun isNotBlank() = rootContext<Validator<StringBean>> {
     }
     forEach("x", " x  ") { value ->
         test("valid: '$value' is not blank") {
-            val actual = validator(StringBean(string = value))
+            val actual = validate(StringBean(string = value))
             expectThat(actual).isValid()
         }
     }
     forEach("", "   ") { value ->
         test("invalid: '$value' is not blank") {
-            val actual = validator(StringBean(string = value))
+            val actual = validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
                 propertyType = "String",
@@ -38,13 +38,13 @@ fun hasLength() = rootContext<Validator<StringBean>> {
     }
     forEach("123", "12345") { value ->
         test("valid: '$value' is not blank") {
-            val actual = validator(StringBean(string = value))
+            val actual = validate(StringBean(string = value))
             expectThat(actual).isValid()
         }
     }
     forEach("12", "123456") { value ->
         test("invalid: '$value' is not blank") {
-            val actual = validator(StringBean(string = value))
+            val actual = validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
                 propertyType = "String",

@@ -14,7 +14,7 @@ class ValidationBuilderTest {
         val validator = validator<TestBean> {
             TestBean::prop { isEqual("xx") messageKey "message-key" }
         }
-        val actual = validator.validator(TestBean("xy"))
+        val actual = validator.validate(TestBean("xy"))
         expectThat(actual.errors).map { it.constraint.messageKey }.contains("message-key")
     }
 
@@ -23,7 +23,7 @@ class ValidationBuilderTest {
         val validator = validator<TestBean> {
             TestBean::prop { isEqual(TestBean::prop2) messageKey "message-key-x" }
         }
-        val actual = validator.validator(TestBean("xy", prop2 = "yx"))
+        val actual = validator.validate(TestBean("xy", prop2 = "yx"))
         expectThat(actual.errors).map { it.constraint.messageKey }.contains("message-key-x")
     }
 
@@ -35,7 +35,7 @@ class ValidationBuilderTest {
         val validator = validator<TestBean> {
             use(parent)
         }
-        val actual = validator.validator(TestBean("xy", prop2 = "yx"))
+        val actual = validator.validate(TestBean("xy", prop2 = "yx"))
         expectThat(actual).hasViolations(
             ConstraintViolation(
                 propertyName = "prop",

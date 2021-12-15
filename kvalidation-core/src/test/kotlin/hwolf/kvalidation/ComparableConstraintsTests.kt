@@ -15,13 +15,13 @@ fun isLess() = rootContext<Validator<TestBean>> {
     }
     forEach(22) { value ->
         test("valid $value < 23") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
     forEach(23, 24) { value ->
         test("invalid $value < 23") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -38,13 +38,13 @@ fun isLessWith() = rootContext<Validator<TestBean>> {
     }
     forEach(TestBean(20, prop2 = 21), TestBean(20, prop2 = null)) { bean ->
         test("valid ${bean.prop1} < ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).isValid()
         }
     }
     forEach(TestBean(23, prop2 = 23), TestBean(23, prop2 = 22)) { bean ->
         test("invalid ${bean.prop1} < ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -61,13 +61,13 @@ fun isLessOrEqual() = rootContext<Validator<TestBean>> {
     }
     forEach(22, 23) { value ->
         test("valid $value <= 23") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
     forEach(24) { value ->
         test("invalid $value <= 23") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -84,13 +84,13 @@ fun isLessOrEqualWith() = rootContext<Validator<TestBean>> {
     }
     forEach(TestBean(20, prop2 = 21), TestBean(23, prop2 = 23), TestBean(20, prop2 = null)) { bean ->
         test("valid ${bean.prop1} < ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).isValid()
         }
     }
     forEach(TestBean(23, prop2 = 22)) { bean ->
         test("invalid ${bean.prop1} < ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -107,13 +107,13 @@ fun isGreater() = rootContext<Validator<TestBean>> {
     }
     forEach(5) { value ->
         test("valid $value > 4") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
     forEach(3, 4) { value ->
         test("invalid $value > 4") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -130,13 +130,13 @@ fun isGreaterWith() = rootContext<Validator<TestBean>> {
     }
     forEach(TestBean(-4, prop2 = -5), TestBean(-4, prop2 = null)) { bean ->
         test("valid ${bean.prop1} > ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).isValid()
         }
     }
     forEach(TestBean(-1, prop2 = -1), TestBean(4, prop2 = 5)) { bean ->
         test("invalid ${bean.prop1} > ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -153,13 +153,13 @@ fun isGreaterOrEqual() = rootContext<Validator<TestBean>> {
     }
     forEach(4, 5) { value ->
         test("valid $value >= 4") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
     forEach(3) { value ->
         test("invalid $value >= 4") { validator ->
-            val actual = validator.validator(TestBean(prop1 = value))
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -176,13 +176,13 @@ fun isGreaterOrEqualWith() = rootContext<Validator<TestBean>> {
     }
     forEach(TestBean(-1, prop2 = -1), TestBean(-4, prop2 = -5), TestBean(-4, prop2 = null)) { bean ->
         test("valid ${bean.prop1} >= ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).isValid()
         }
     }
     forEach(TestBean(4, prop2 = 5)) { bean ->
         test("invalid ${bean.prop1} >= ${bean.prop2}") { validator ->
-            val actual = validator.validator(bean)
+            val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -199,13 +199,13 @@ fun isBetween() = rootContext<Validator<TestBean>> {
     }
     forEach(5, 6, 7) { value ->
         test("valid: $value is between (5, 7)") { validator ->
-            val actual = validator.validator(TestBean(value))
+            val actual = validator.validate(TestBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(4, 8) { value ->
         test("invalid $value is in (5, 7)") { validator ->
-            val actual = validator.validator(TestBean(value))
+            val actual = validator.validate(TestBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
@@ -222,13 +222,13 @@ fun isNotBetween() = rootContext<Validator<TestBean>> {
     }
     forEach(4, 8) { value ->
         test("valid: $value is not between (5, 7)") { validator ->
-            val actual = validator.validator(TestBean(value))
+            val actual = validator.validate(TestBean(value))
             expectThat(actual).isValid()
         }
     }
     forEach(5, 6, 7) { value ->
         test("invalid $value is in (5, 7)") { validator ->
-            val actual = validator.validator(TestBean(value))
+            val actual = validator.validate(TestBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "prop1",
                 propertyType = "Int",
