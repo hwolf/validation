@@ -8,6 +8,7 @@ data class Email(
     val options: Collection<Options>
 ) : Constraint {
     enum class Options {
+
         /** Should local addresses be considered valid ? */
         AllowLocal
     }
