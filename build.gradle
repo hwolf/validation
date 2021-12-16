@@ -24,7 +24,7 @@ allprojects {
     }
 }
 
-subprojects {
+configure(subprojects.findAll { !it.name.contains("bom") }) {
 
     apply plugin: "org.jetbrains.kotlin.jvm"
     apply plugin: "org.jetbrains.kotlinx.kover"
