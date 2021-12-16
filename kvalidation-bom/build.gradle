@@ -1,0 +1,41 @@
+plugins {
+    id "java-platform"
+    id "maven-publish"
+    id "signing"
+}
+
+dependencies {
+    constraints {
+        api(project(":kvalidation-core"))
+        api(project(":kvalidation-common"))
+    }
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/hwolf/validation")
+            credentials {
+                username = project.findProperty("gpr.user")
+                password = project.findProperty("gpr.key")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from components.javaPlatform
+        }
+    }
+}
+
+signing {
+    def signingKey = findProperty("signingKey")
+    def signingPassword = findProperty("signingPassword")
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign publishing.publications.gpr
+}
