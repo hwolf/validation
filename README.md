@@ -66,3 +66,40 @@ val invalidUserProfile = UserProfile(
         email = "keine Mail")
 val result = userProfileValidator.validate(invalidUserProfile)
 ```
+
+## Creating a custom validation
+
+It's possible to create custom validations in three steps:
+
+### 1. Define the constraint
+
+To create a custom constraint, it's necessary to implement the interface 
+`hwolf.kvalidation.Constraint`, which has these properties:
+* `messageKey`: specifies the name of the key for interpolating messages, the default 
+  value is the qualified class name plus `message` suffix.
+* `parameters`: specifies a `Map<String, Amy?>` containing the parameters to be 
+  replaced in the message, the default values are all class properties, obtained 
+  through reflection.
+
+For example:
+
+```kotlin
+data class MinLength<T>(val min: T) : Constraint
+```
+
+### 2. Create the extension function
+
+The validation logic must be within an extension function of 
+`hwolf.kvalidation.ConstraintBuilder<T>.validate.validate(constraint: Constraint, test: (V) -> Boolean)`, where 
+* `T` represents the type of the property
+* `constraint` the constraint
+* `test` a validation function
+
+For example:
+
+```kotlin
+fun ConstraintBuilder<String>.hasMinLength(min: Int) =
+  validate(MinLength(min)) {
+      it >= min
+  }
+```
