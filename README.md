@@ -69,9 +69,9 @@ val result = userProfileValidator.validate(invalidUserProfile)
 
 ## Creating a custom validation
 
-It's possible to create custom validations in three steps:
+It's possible to create custom validations:
 
-### 1. Define the constraint
+### Define the constraint
 
 To create a custom constraint, it's necessary to implement the interface 
 `hwolf.kvalidation.Constraint`, which has these properties:
@@ -87,7 +87,7 @@ For example:
 data class MinLength<T>(val min: T) : Constraint
 ```
 
-### 2. Create the extension function
+### Create the extension function
 
 The validation logic must be within an extension function of 
 `hwolf.kvalidation.ConstraintBuilder<T>.validate.validate(constraint: Constraint, test: (V) -> Boolean)`, where 
