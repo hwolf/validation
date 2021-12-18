@@ -4,19 +4,15 @@ internal typealias PropertyValidator<V, T> = (value: V, context: ValidationConte
 
 internal class ConstraintValidator<V, T>(
     private val constraint: Constraint,
-    private val maskValue: Boolean,
     private val test: (V, T) -> Boolean
 ) : PropertyValidator<V, T> {
 
     override fun invoke(value: V, context: ValidationContext<T>) {
         if (!test(value, context.bean)) {
-            when (maskValue) {
-                true -> context.constraintViolation(constraint, "****")
-                else -> context.constraintViolation(constraint, value)
-            }
+            context.constraintViolation(constraint, value)
         }
     }
 
     fun updateMessageKey(key: String): ConstraintValidator<V, T> =
-        ConstraintValidator(DefaultConstraint(key, constraint.parameters), maskValue, test)
+        ConstraintValidator(DefaultConstraint(key, constraint.parameters), test)
 }

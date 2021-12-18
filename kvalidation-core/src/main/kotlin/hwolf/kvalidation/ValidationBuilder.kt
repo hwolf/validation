@@ -116,10 +116,9 @@ private fun <V, T> runValidators(validators: List<PropertyValidator<V, T>>, valu
 
 fun <T, V> ValidationBuilder<T, V>.validate(
     constraint: Constraint,
-    maskValue: Boolean = false,
     test: (V, T) -> Boolean
 ): ConstraintHelper {
-    val validator = ConstraintValidator(constraint, maskValue, test)
+    val validator = ConstraintValidator(constraint, test)
     addValidator(validator)
     return ConstraintHelperImpl(validator, this)
 }
