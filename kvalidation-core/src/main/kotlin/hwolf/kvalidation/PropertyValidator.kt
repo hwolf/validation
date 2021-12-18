@@ -1,6 +1,6 @@
 package hwolf.kvalidation
 
-internal typealias PropertyValidator<V, T> =(value: V, context: ValidationContext<T>) -> Unit
+internal typealias PropertyValidator<V, T> = (value: V, context: ValidationContext<T>) -> Unit
 
 internal class ConstraintValidator<V, T>(
     private val constraint: Constraint,

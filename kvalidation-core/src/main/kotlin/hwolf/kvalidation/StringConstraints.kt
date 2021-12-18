@@ -3,13 +3,13 @@ package hwolf.kvalidation
 // isEmpty
 
 /** Validates if the [String] property is empty. */
-fun ConstraintBuilder<String>.isEmpty() = validate(Empty) { it.isEmpty() }
+fun <T> ValidationBuilder<T, String>.isEmpty() = validate(Empty) { v, _ -> v.isEmpty() }
 
 
 // isNotEmpty
 
 /** Validates if the [String] property is not empty. */
-fun ConstraintBuilder<String>.isNotEmpty() = validate(NotEmpty) { it.isNotEmpty() }
+fun <T> ValidationBuilder<T, String>.isNotEmpty() = validate(NotEmpty) { v, _ -> v.isNotEmpty() }
 
 
 // isNotBlank
@@ -18,7 +18,7 @@ fun ConstraintBuilder<String>.isNotEmpty() = validate(NotEmpty) { it.isNotEmpty(
 object NotBlank : Constraint
 
 /** Validates if the [String] property is not blank. */
-fun ConstraintBuilder<String>.isNotBlank() = validate(NotBlank) { it.isNotBlank() }
+fun <T> ValidationBuilder<T, String>.isNotBlank() = validate(NotBlank) { v, _ -> v.isNotBlank() }
 
 
 // hasLength
@@ -27,5 +27,5 @@ fun ConstraintBuilder<String>.isNotBlank() = validate(NotBlank) { it.isNotBlank(
 data class Length(val min: Int, val max: Int) : Constraint
 
 /** Validates if the [String] property length is within the limits (min and max). */
-fun ConstraintBuilder<String>.hasLength(min: Int, max: Int) =
-    validate(Length(min, max)) { it.length in min..max }
+fun <T> ValidationBuilder<T, String>.hasLength(min: Int, max: Int) =
+    validate(Length(min, max)) { v, _ -> v.length in min..max }

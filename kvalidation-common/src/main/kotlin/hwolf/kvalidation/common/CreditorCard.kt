@@ -1,7 +1,8 @@
 package hwolf.kvalidation.common
 
 import hwolf.kvalidation.Constraint
-import hwolf.kvalidation.ConstraintBuilder
+import hwolf.kvalidation.ValidationBuilder
+import hwolf.kvalidation.validate
 import org.apache.commons.validator.routines.CreditCardValidator
 
 /** A constraint that validate if the value is a credit card number. */
@@ -33,18 +34,18 @@ data class CreditorCard(
 }
 
 /** Validates if the property value is a credit card number. */
-fun ConstraintBuilder<String>.isCreditCard() =
+fun <T> ValidationBuilder<T, String>.isCreditCard() =
     isCreditCard(CreditorCard.Type.AMEX,
         CreditorCard.Type.VISA,
         CreditorCard.Type.MASTERCARD,
         CreditorCard.Type.DISCOVER)
 
 /** Validates if the property value is a credit card number. */
-fun ConstraintBuilder<String>.isCreditCard(vararg cardTypes: CreditorCard.Type) =
+fun <T> ValidationBuilder<T, String>.isCreditCard(vararg cardTypes: CreditorCard.Type) =
     isCreditCard(cardTypes.toSet())
 
 /** Validates if the property value is a credit card number. */
-fun ConstraintBuilder<String>.isCreditCard(cardTypes: Collection<CreditorCard.Type>) =
-    validate(CreditorCard(cardTypes)) {
-        CreditCardValidator(cardTypes.sumOf(CreditorCard.Type::x)).isValid(it)
+fun <T> ValidationBuilder<T, String>.isCreditCard(cardTypes: Collection<CreditorCard.Type>) =
+    validate(CreditorCard(cardTypes)) { v, _ ->
+        CreditCardValidator(cardTypes.sumOf(CreditorCard.Type::x)).isValid(v)
     }
