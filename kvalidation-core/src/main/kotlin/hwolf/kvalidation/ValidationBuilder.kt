@@ -10,14 +10,6 @@ fun <V> validator(init: ValidationAction<V, V>): Validator<V> {
     return { value, context -> runValidators(validators, value, context) }
 }
 
-interface ConstraintBuilder<V> {
-    fun validate(constraint: Constraint, test: (V) -> Boolean): ConstraintHelper
-}
-
-interface ExtConstraintBuilder<T, V> {
-    fun validate(constraint: Constraint, test: (V, T) -> Boolean): ConstraintHelper
-}
-
 /** Builder step that can manipulate the constraint. */
 interface ConstraintHelper {
     /** Changes the message key of the constraint. */
@@ -28,8 +20,7 @@ interface ConstraintHelper {
 annotation class Marker
 
 @Marker
-@Suppress("TooManyFunctions")
-class ValidationBuilder<T, V> : ConstraintBuilder<V>, ExtConstraintBuilder<T, V> {
+class ValidationBuilder<T, V> {
 
     private val validators = mutableListOf<PropertyValidator<V, T>>()
 
@@ -89,17 +80,7 @@ class ValidationBuilder<T, V> : ConstraintBuilder<V>, ExtConstraintBuilder<T, V>
         }
     }
 
-    override fun validate(constraint: Constraint, test: (V) -> Boolean): ConstraintHelper {
-        return validate(constraint) { v, _ -> test(v) }
-    }
-
-    override fun validate(constraint: Constraint, test: (V, T) -> Boolean): ConstraintHelper {
-        val validator = ConstraintValidator(constraint, test)
-        validators += validator
-        return ConstraintHelperImpl(validator, this)
-    }
-
-    internal fun addValidator(validator: PropertyValidator<V, T>) {
+    fun addValidator(validator: PropertyValidator<V, T>) {
         validators += validator
     }
 
@@ -133,11 +114,20 @@ private fun <T, V> buildValidators(init: ValidationAction<V, T>) =
 private fun <V, T> runValidators(validators: List<PropertyValidator<V, T>>, value: V, context: ValidationContext<T>) =
     validators.forEach { it(value, context) }
 
+fun <T, V> ValidationBuilder<T, V>.validate(
+    constraint: Constraint,
+    maskValue: Boolean = false,
+    test: (V, T) -> Boolean
+): ConstraintHelper {
+    val validator = ConstraintValidator(constraint, maskValue, test)
+    addValidator(validator)
+    return ConstraintHelperImpl(validator, this)
+}
+
 private class ConstraintHelperImpl<T, V>(
     val validator: ConstraintValidator<V, T>,
     val builder: ValidationBuilder<T, V>
 ) : ConstraintHelper {
-
     override infix fun messageKey(key: String) {
         builder.updateValidator(validator, validator.updateMessageKey(key))
     }

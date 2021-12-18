@@ -19,7 +19,7 @@ fun `Constraint`() = rootContext<TestConstraint> {
     test("Message key is hwolf.validation.ATestConstraint.message") {
         expectThat(this.messageKey).isEqualTo("hwolf.kvalidation.TestConstraint.message")
     }
-    test("Message parameters contains property prop1") {
+    test("Message parameters contains property prop1 and prop2") {
         expectThat(this.parameters).hasEntry("prop1", "Value 1").hasEntry("prop2", null)
     }
     test("Message parameters does not contain properties from interface Constraint") {

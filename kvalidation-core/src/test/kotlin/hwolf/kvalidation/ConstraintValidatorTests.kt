@@ -14,7 +14,7 @@ import org.junit.platform.commons.annotation.Testable
 fun constraintValidator() = rootContext<ValidationContext<String>> {
 
     fun constraintValidator(test: (String, Any) -> Boolean) =
-        ConstraintValidator<String, String>(TestConstraint(), test)
+        ConstraintValidator<String, String>(TestConstraint(), false, test)
 
     given {
         mockk(relaxed = true)
