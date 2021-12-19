@@ -12,7 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Set up JDK
@@ -22,7 +23,7 @@ jobs:
           distribution: 'temurin'
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
-      -name: Build
+      - name: Build
         run: ./gradlew -Pversion=${{ github.run_number }}-${{ github.run_attempt }} build sonarqube -x javadocJar -x koverHtmlReport
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
