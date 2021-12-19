@@ -98,8 +98,8 @@ The validation logic must be within an extension function of
 For example:
 
 ```kotlin
-fun ConstraintBuilder<String>.hasMinLength(min: Int) =
-  validate(MinLength(min)) {
-      it >= min
-  }
+fun <T> ValidationBuilder<T, String>.hasMinLength(min: Int) =
+    validate(MinLength(min)) { v, _ ->
+        v.length >= min
+    }
 ```

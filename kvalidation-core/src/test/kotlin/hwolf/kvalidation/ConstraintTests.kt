@@ -12,7 +12,7 @@ import strikt.assertions.hasEntry
 import strikt.assertions.isEqualTo
 
 @Testable
-fun `Constraint`() = rootContext<TestConstraint> {
+fun testsConstraint() = rootContext<TestConstraint> {
     given {
         TestConstraint(prop1 = "Value 1", prop2 = null)
     }

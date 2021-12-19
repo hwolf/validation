@@ -10,8 +10,16 @@ package hwolf.kvalidation
  * @property constraint the violated constraint
  */
 data class ConstraintViolation(
+    val violationId: String,
     val propertyName: String,
     val propertyType: String?,
     val propertyValue: Any?,
     val constraint: Constraint
-)
+) {
+    constructor(
+        propertyName: String,
+        propertyType: String?,
+        propertyValue: Any?,
+        constraint: Constraint
+    ) : this(constraint.messageKey, propertyName, propertyType, propertyValue, constraint)
+}

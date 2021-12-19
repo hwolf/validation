@@ -15,7 +15,7 @@ fun Assertion.Builder<ValidationResult>.isValid() =
     }
 
 fun Assertion.Builder<ValidationResult>.hasViolations(vararg violations: ConstraintViolation) =
-    get { errors }.contains(*violations)
+    get { this.violations }.contains(*violations)
 
 fun Assertion.Builder<ValidationResult>.hasExactlyViolations(vararg violations: ConstraintViolation) =
-    get { errors }.containsExactly(*violations)
+    get { this.violations }.containsExactly(*violations)
