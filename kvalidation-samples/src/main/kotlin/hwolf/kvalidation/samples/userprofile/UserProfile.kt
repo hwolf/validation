@@ -1,7 +1,12 @@
 package hwolf.kvalidation.samples.userprofile
 
-import hwolf.kvalidation.*
 import hwolf.kvalidation.common.isEmail
+import hwolf.kvalidation.hasLength
+import hwolf.kvalidation.isEqual
+import hwolf.kvalidation.isGreaterOrEqual
+import hwolf.kvalidation.isNotBlank
+import hwolf.kvalidation.samples.constraints.hasMinLength
+import hwolf.kvalidation.validator
 
 data class UserProfile(
     val name: String,
@@ -14,7 +19,7 @@ data class UserProfile(
 val userProfileValidator = validator<UserProfile> {
     UserProfile::name {
         isNotBlank()
-        hasLength(6, 20)
+        hasMinLength(6)
     }
     UserProfile::age required {
         isGreaterOrEqual(18)
