@@ -21,9 +21,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Setup Gradle
+      - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
       - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew -Pversion=${{ github.run_number }}-${{ github.run_attempt }} build sonarqube -x javadocJar -x koverHtmlReport
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
