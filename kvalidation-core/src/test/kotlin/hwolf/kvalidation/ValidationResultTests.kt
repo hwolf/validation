@@ -43,6 +43,8 @@ fun testsValidationResult() = rootContext<ValidationResult> {
         }
     }
     test("Operator [] should return empty list for unknown property") {
-        expectThat(this["unknownProp"]).isEmpty()
+        expectThat(this["unknownProp"]) {
+            isEmpty()
+        }
     }
 }
