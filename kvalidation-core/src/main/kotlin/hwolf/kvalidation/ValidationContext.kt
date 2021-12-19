@@ -15,7 +15,12 @@ class ValidationContext<T> private constructor(
     val errors get() = errs.toList()
 
     internal fun constraintViolation(constraint: Constraint, propertyValue: Any?) {
+        constraintViolation(constraint.messageKey, constraint, propertyValue)
+    }
+
+    internal fun constraintViolation(violationId: String, constraint: Constraint, propertyValue: Any?) {
         errs.add(ConstraintViolation(
+            violationId = violationId,
             propertyName = propertyName,
             propertyType = propertyType,
             propertyValue = propertyValue,
