@@ -10,6 +10,7 @@ import strikt.api.expectThat
 import strikt.assertions.contains
 import strikt.assertions.containsExactly
 import strikt.assertions.doesNotContain
+import strikt.assertions.isEmpty
 import strikt.assertions.map
 
 @Testable
@@ -40,5 +41,8 @@ fun testsValidationResult() = rootContext<ValidationResult> {
                 .contains("prop1")
                 .doesNotContain("otherProp")
         }
+    }
+    test("Operator [] should return empty list for unknown property") {
+        expectThat(this["unknownProp"]).isEmpty()
     }
 }
