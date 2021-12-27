@@ -1,4 +1,4 @@
-package hwolf.kvalidation.samples.userprofile
+package hwolf.kvalidation.samples
 
 import hwolf.kvalidation.validate
 import org.junit.jupiter.api.Test

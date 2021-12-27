@@ -1,4 +1,4 @@
-package hwolf.kvalidation.samples.constraints
+package hwolf.kvalidation.samples
 
 import hwolf.kvalidation.Constraint
 import hwolf.kvalidation.ValidationBuilder
