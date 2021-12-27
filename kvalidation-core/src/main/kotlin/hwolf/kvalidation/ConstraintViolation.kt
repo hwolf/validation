@@ -23,3 +23,19 @@ data class ConstraintViolation(
         constraint: Constraint
     ) : this(constraint.messageKey, propertyName, propertyType, propertyValue, constraint)
 }
+
+data class PropertyName(
+    val name: String,
+    val key: Any? = null
+) {
+    override fun toString() = when (key == null) {
+        true -> name
+        else -> "$name[$key]"
+    }
+}
+
+data class PropertyType(
+    val name: String
+) {
+    override fun toString() = name
+}
