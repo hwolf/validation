@@ -1,10 +1,12 @@
 package hwolf.kvalidation
 
+import kotlin.reflect.KClass
+
 /**
  * Represents a constraint violation
  *
  * @constructor creates a constraint violation
- * @property propertyName the name of the property that violated the constraint
+ * @property propertyName the path of the property that violated the constraint
  * @property propertyType the type of the property that violated the constraint
  * @property propertyValue the invalid value
  * @property constraint the violated constraint
@@ -12,13 +14,13 @@ package hwolf.kvalidation
 data class ConstraintViolation(
     val violationId: String,
     val propertyName: String,
-    val propertyType: String?,
+    val propertyType: PropertyType?,
     val propertyValue: Any?,
     val constraint: Constraint
 ) {
     constructor(
         propertyName: String,
-        propertyType: String?,
+        propertyType: PropertyType?,
         propertyValue: Any?,
         constraint: Constraint
     ) : this(constraint.messageKey, propertyName, propertyType, propertyValue, constraint)
@@ -34,8 +36,11 @@ data class PropertyName(
     }
 }
 
-data class PropertyType(
-    val name: String
+@JvmInline
+value class PropertyType(
+    val type: String
 ) {
-    override fun toString() = name
+    constructor(type: KClass<*>) : this(type.simpleName ?: "")
+
+    override fun toString() = type
 }

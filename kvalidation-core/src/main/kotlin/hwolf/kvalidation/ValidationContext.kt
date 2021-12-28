@@ -22,7 +22,7 @@ class ValidationContext<T> private constructor(
         errs.add(ConstraintViolation(
             violationId = violationId,
             propertyName = propertyPath.joinToString("."),
-            propertyType = propertyType?.name,
+            propertyType = propertyType,
             propertyValue = propertyValue,
             constraint = constraint
         ))
@@ -56,7 +56,7 @@ class ValidationContext<T> private constructor(
     private fun buildPropertyName(property: KProperty1<*, *>, key: Any? = null) =
         propertyPath + PropertyName(property.name, key)
 
-    private fun buildTypeName(klass: KClass<*>?) = klass?.simpleName?.let { PropertyType(it) }
+    private fun buildTypeName(klass: KClass<*>?) = klass?.let { PropertyType(it) }
 
     private fun findClass(type: KType) = type.classifier as? KClass<*>
 }

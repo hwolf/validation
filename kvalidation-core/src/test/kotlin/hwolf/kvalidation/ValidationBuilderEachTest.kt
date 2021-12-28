@@ -24,7 +24,7 @@ class ValidationBuilderEachTest {
             .hasExactlyViolations(
                 ConstraintViolation(
                     propertyName = "list[1]",
-                    propertyType = "String",
+                    propertyType = PropertyType(String::class),
                     propertyValue = "x2",
                     constraint = In(allowedValues = listOf("x1", "x3"))
                 ))

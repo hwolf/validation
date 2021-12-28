@@ -63,7 +63,7 @@ fun `Validate a department`() = rootContext<Department> {
         expectThat(validator.validate(copy(name = ""))).hasExactlyViolations(
             ConstraintViolation(
                 propertyName = "name",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = "",
                 constraint = NotEmpty))
     }
@@ -72,7 +72,7 @@ fun `Validate a department`() = rootContext<Department> {
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyName = "head.name",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = "",
                 constraint = NotEmpty))
     }
@@ -81,7 +81,7 @@ fun `Validate a department`() = rootContext<Department> {
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyName = "employees",
-                propertyType = "List",
+                propertyType = PropertyType(List::class),
                 propertyValue = emptyList<Any>(),
                 constraint = NotEmpty))
     }
@@ -94,7 +94,7 @@ fun `Validate a department`() = rootContext<Department> {
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyName = "coHead.name",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = "",
                 constraint = NotEmpty))
     }
@@ -108,12 +108,12 @@ fun `Validate a department`() = rootContext<Department> {
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyName = "employees[1].name",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = "",
                 constraint = NotEmpty),
             ConstraintViolation(
                 propertyName = "employees[3].name",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = "",
                 constraint = NotEmpty))
     }
@@ -122,7 +122,7 @@ fun `Validate a department`() = rootContext<Department> {
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyName = "office",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = null,
                 constraint = Required))
     }
@@ -135,7 +135,7 @@ fun `Validate a department`() = rootContext<Department> {
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyName = "head.name",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = "John",
                 constraint = In(allowedValues = listOf("Mr. X", "Mr. Y"))))
     }

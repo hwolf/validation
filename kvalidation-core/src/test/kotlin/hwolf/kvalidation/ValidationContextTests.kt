@@ -33,7 +33,7 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
         context.constraintViolation(NotEmpty, "value")
         expectThat(context.errors).containsExactly(ConstraintViolation(
             propertyName = "prop1",
-            propertyType = "ValidationContextTestBean",
+            propertyType = PropertyType(ValidationContextTestBean::class),
             propertyValue = "value",
             constraint = NotEmpty))
     }
@@ -43,7 +43,7 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
         context.constraintViolation(NotEmpty, "value")
         expectThat(context.errors).containsExactly(ConstraintViolation(
             propertyName = "prop1.prop2",
-            propertyType = "String",
+            propertyType = PropertyType(String::class),
             propertyValue = "value",
             constraint = NotEmpty))
     }
@@ -53,7 +53,7 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
         context.constraintViolation(NotEmpty, "value")
         expectThat(context.errors).containsExactly(ConstraintViolation(
             propertyName = "prop2[key]",
-            propertyType = "Int",
+            propertyType = PropertyType(Int::class),
             propertyValue = "value",
             constraint = NotEmpty))
     }
@@ -72,19 +72,26 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
     test("propertyType - Add validation error with property") {
         val context = withProperty(ValidationContextTestBean::prop1, ValidationContextTestBean())
         context.constraintViolation(NotEmpty, "value")
-        expectThat(context.errors).map { it.propertyType }.containsExactly("ValidationContextTestBean")
+        expectThat(context.errors).map { it.propertyType }
+            .containsExactly(PropertyType(ValidationContextTestBean::class))
     }
 
     test("propertyType - Add validation error with property path") {
-        val context = withProperty(ValidationContextTestBean::prop1, ValidationContextTestBean())
+        val context = withProperty(property = ValidationContextTestBean::prop1,
+            value = ValidationContextTestBean())
             .withProperty(ValidationContextTestBean::prop2, ValidationContextTestBean())
         context.constraintViolation(NotEmpty, "value")
-        expectThat(context.errors).map { it.propertyType }.containsExactly("String")
+        expectThat(context.errors).map { it.propertyType }
+            .containsExactly(PropertyType(String::class))
     }
 
     test("propertyType - Add validation error with property and key") {
-        val context = withProperty(ValidationContextTestBean::prop2, ValidationContextTestBean(), "key", Int::class)
+        val context = withProperty(property = ValidationContextTestBean::prop2,
+            collection = ValidationContextTestBean(),
+            key = "key",
+            value = 45)
         context.constraintViolation(NotEmpty, "value")
-        expectThat(context.errors).map { it.propertyType }.containsExactly("Int")
+        expectThat(context.errors).map { it.propertyType }
+            .containsExactly(PropertyType(Int::class))
     }
 }

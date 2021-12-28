@@ -6,6 +6,7 @@ import dev.minutest.given
 import dev.minutest.rootContext
 import dev.minutest.test
 import hwolf.kvalidation.ConstraintViolation
+import hwolf.kvalidation.PropertyType
 import hwolf.kvalidation.Validator
 import hwolf.kvalidation.validate
 import hwolf.kvalidation.validator
@@ -33,7 +34,7 @@ fun isEmail() = rootContext<Validator<EmailBean>> {
             val actual = validator.validate(EmailBean(mail))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "email",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = mail,
                 constraint = Email(emptySet())))
         }
@@ -56,7 +57,7 @@ fun isLocalEmail() = rootContext<Validator<EmailBean>> {
             val actual = validator.validate(EmailBean(mail))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "email",
-                propertyType = "String",
+                propertyType = PropertyType(String::class),
                 propertyValue = mail,
                 constraint = Email(setOf(Email.Options.AllowLocal))))
         }
