@@ -43,7 +43,7 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         testImplementation "org.junit.jupiter:junit-jupiter-params"
         testImplementation "dev.minutest:minutest:2.0.0-rc4"
         testImplementation "io.strikt:strikt-core"
-        testImplementation "io.mockk:mockk:1.12.1"
+        testImplementation "io.mockk:mockk:1.12.2"
     }
 
     compileKotlin {
