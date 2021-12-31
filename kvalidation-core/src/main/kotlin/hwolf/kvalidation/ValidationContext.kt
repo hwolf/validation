@@ -56,7 +56,8 @@ class ValidationContext<T> private constructor(
     private fun buildPropertyName(property: KProperty1<*, *>, key: Any? = null) =
         propertyPath + PropertyName(property.name, key)
 
-    private fun buildTypeName(klass: KClass<*>?) = klass?.let { PropertyType(it) }
+    private fun buildTypeName(klass: KClass<*>?) = klass?.let { t -> t.simpleName?.let { n -> PropertyType(n) } }
 
     private fun findClass(type: KType) = type.classifier as? KClass<*>
 }
+

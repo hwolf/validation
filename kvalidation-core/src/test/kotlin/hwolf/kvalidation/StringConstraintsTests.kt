@@ -24,7 +24,7 @@ fun isNotBlank() = rootContext<Validator<StringBean>> {
             val actual = validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = NotBlank))
         }
@@ -47,7 +47,7 @@ fun hasLength() = rootContext<Validator<StringBean>> {
             val actual = validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = Length(3, 5)))
         }

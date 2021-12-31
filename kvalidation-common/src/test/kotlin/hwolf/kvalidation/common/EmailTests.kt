@@ -34,7 +34,7 @@ fun isEmail() = rootContext<Validator<EmailBean>> {
             val actual = validator.validate(EmailBean(mail))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "email",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = mail,
                 constraint = Email(emptySet())))
         }
@@ -57,7 +57,7 @@ fun isLocalEmail() = rootContext<Validator<EmailBean>> {
             val actual = validator.validate(EmailBean(mail))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "email",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = mail,
                 constraint = Email(setOf(Email.Options.AllowLocal))))
         }

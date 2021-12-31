@@ -39,7 +39,7 @@ class ValidationBuilderTest {
         expectThat(actual).hasViolations(
             ConstraintViolation(
                 propertyName = "prop",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = "xy",
                 constraint = Equal(value = "yx")))
     }

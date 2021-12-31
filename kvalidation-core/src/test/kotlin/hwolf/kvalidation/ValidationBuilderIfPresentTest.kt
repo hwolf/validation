@@ -23,7 +23,7 @@ class ValidationBuilderIfPresentTest {
         expectThat(validator.validate(TestBean(field = "xx")))
             .hasExactlyViolations(ConstraintViolation(
                 propertyName = "field",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = "xx",
                 constraint = In(allowedValues = listOf("x1", "x2"))
             ))

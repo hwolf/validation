@@ -1,7 +1,5 @@
 package hwolf.kvalidation
 
-import kotlin.reflect.KClass
-
 /**
  * Represents a constraint violation
  *
@@ -40,7 +38,5 @@ data class PropertyName(
 value class PropertyType(
     val type: String
 ) {
-    constructor(type: KClass<*>) : this(type.simpleName ?: "")
-
     override fun toString() = type
 }

@@ -24,7 +24,7 @@ class ValidationBuilderEachMapTest {
             .hasExactlyViolations(
                 ConstraintViolation(
                     propertyName = "map[x2]",
-                    propertyType = PropertyType(Int::class),
+                    propertyType = PropertyType("Int"),
                     propertyValue = 2,
                     constraint = In(allowedValues = listOf(1, 3))
                 ))

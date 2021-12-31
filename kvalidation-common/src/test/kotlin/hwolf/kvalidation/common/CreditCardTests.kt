@@ -37,7 +37,7 @@ fun isCreditCard() = rootContext<Validator<CreditCardBean>> {
             val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "card",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = CreditorCard(setOf(
                     CreditorCard.Type.AMEX,
@@ -64,7 +64,7 @@ fun `is Mastercard`() = rootContext<Validator<CreditCardBean>> {
             val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "card",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = CreditorCard(setOf(CreditorCard.Type.MASTERCARD))))
         }
@@ -87,7 +87,7 @@ fun `is Diners card`() = rootContext<Validator<CreditCardBean>> {
             val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "card",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = CreditorCard(setOf(CreditorCard.Type.DINERS))))
         }

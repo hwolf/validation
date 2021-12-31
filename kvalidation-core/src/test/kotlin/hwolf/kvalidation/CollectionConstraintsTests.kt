@@ -24,7 +24,7 @@ fun isEmptyString() = rootContext<Validator<StringBean>> {
             val actual = validator.validate(StringBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = Empty))
         }
@@ -47,7 +47,7 @@ fun isEmptyIterable() = rootContext<Validator<IterableBean>> {
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "range",
-                propertyType = PropertyType(Iterable::class),
+                propertyType = PropertyType("Iterable"),
                 propertyValue = value,
                 constraint = Empty))
         }
@@ -70,7 +70,7 @@ fun isEmptyCollection() = rootContext<Validator<ListBean>> {
             val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "list",
-                propertyType =PropertyType(List::class),
+                propertyType =PropertyType("List"),
                 propertyValue = value,
                 constraint = Empty))
         }
@@ -93,7 +93,7 @@ fun isEmptyArray() = rootContext<Validator<ArrayBean>> {
             val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "array",
-                propertyType = PropertyType(Array::class),
+                propertyType = PropertyType("Array"),
                 propertyValue = value,
                 constraint = Empty))
         }
@@ -116,7 +116,7 @@ fun isEmptyMap() = rootContext<Validator<MapBean>> {
             val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "map",
-                propertyType = PropertyType(Map::class),
+                propertyType = PropertyType("Map"),
                 propertyValue = value,
                 constraint = Empty))
         }
@@ -139,7 +139,7 @@ fun isNotEmptyString() = rootContext<Validator<StringBean>> {
             val actual = validator.validate(StringBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "string",
-                propertyType = PropertyType(String::class),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = NotEmpty))
         }
@@ -162,7 +162,7 @@ fun isNotEmptyIterable() = rootContext<Validator<IterableBean>> {
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "range",
-                propertyType = PropertyType(Iterable::class),
+                propertyType = PropertyType("Iterable"),
                 propertyValue = value,
                 constraint = NotEmpty))
         }
@@ -185,7 +185,7 @@ fun isNotEmptyCollection() = rootContext<Validator<ListBean>> {
             val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "list",
-                propertyType = PropertyType(List::class),
+                propertyType = PropertyType("List"),
                 propertyValue = value,
                 constraint = NotEmpty))
         }
@@ -208,7 +208,7 @@ fun isNotEmptyArray() = rootContext<Validator<ArrayBean>> {
             val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "array",
-                propertyType = PropertyType(Array::class),
+                propertyType = PropertyType("Array"),
                 propertyValue = value,
                 constraint = NotEmpty))
         }
@@ -231,7 +231,7 @@ fun isNotEmptyMap() = rootContext<Validator<MapBean>> {
             val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "map",
-                propertyType = PropertyType(Map::class),
+                propertyType = PropertyType("Map"),
                 propertyValue = value,
                 constraint = NotEmpty))
         }
@@ -254,7 +254,7 @@ fun hasSizeIterable() = rootContext<Validator<IterableBean>> {
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "range",
-                propertyType = PropertyType(Iterable::class),
+                propertyType = PropertyType("Iterable"),
                 propertyValue = value,
                 constraint = Size(2, 4)))
         }
@@ -277,7 +277,7 @@ fun hasSizeCollection() = rootContext<Validator<ListBean>> {
             val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "list",
-                propertyType = PropertyType(List::class),
+                propertyType = PropertyType("List"),
                 propertyValue = value,
                 constraint = Size(1, 4)))
         }
@@ -300,7 +300,7 @@ fun hasSizeArray() = rootContext<Validator<ArrayBean>> {
             val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "array",
-                propertyType = PropertyType(Array::class),
+                propertyType = PropertyType("Array"),
                 propertyValue = value,
                 constraint = Size(1, 4)))
         }
@@ -323,7 +323,7 @@ fun hasSizeMap() = rootContext<Validator<MapBean>> {
             val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyName = "map",
-                propertyType = PropertyType(Map::class),
+                propertyType = PropertyType("Map"),
                 propertyValue = value,
                 constraint = Size(1, 3)))
         }

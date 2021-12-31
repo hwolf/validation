@@ -18,7 +18,7 @@ fun testsValidationResult() = rootContext<ValidationResult> {
 
     fun violation(property: String, constraint: Constraint) = ConstraintViolation(
         propertyName = property,
-        propertyType = PropertyType(Any::class),
+        propertyType = PropertyType("Any"),
         propertyValue = null,
         constraint = constraint)
 
