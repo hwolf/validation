@@ -22,7 +22,7 @@ class ValidationBuilderIfPresentTest {
     fun `Optional field is set but value is invalid`() {
         expectThat(validator.validate(TestBean(field = "xx")))
             .hasExactlyViolations(ConstraintViolation(
-                propertyName = "field",
+                propertyPath = listOf(PropertyName("field")),
                 propertyType = PropertyType("String"),
                 propertyValue = "xx",
                 constraint = In(allowedValues = listOf("x1", "x2"))

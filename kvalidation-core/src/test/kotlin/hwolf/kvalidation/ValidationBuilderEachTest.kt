@@ -23,7 +23,7 @@ class ValidationBuilderEachTest {
         expectThat(validator.validate(TestBean(list = listOf("x1", "x2", "x3"))))
             .hasExactlyViolations(
                 ConstraintViolation(
-                    propertyName = "list[1]",
+                    propertyPath = listOf(PropertyName("list", 1)),
                     propertyType = PropertyType("String"),
                     propertyValue = "x2",
                     constraint = In(allowedValues = listOf("x1", "x3"))

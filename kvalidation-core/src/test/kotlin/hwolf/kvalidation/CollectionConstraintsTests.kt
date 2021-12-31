@@ -23,7 +23,7 @@ fun isEmptyString() = rootContext<Validator<StringBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(StringBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "string",
+                propertyPath = listOf(PropertyName("string")),
                 propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = Empty))
@@ -46,7 +46,7 @@ fun isEmptyIterable() = rootContext<Validator<IterableBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "range",
+                propertyPath = listOf(PropertyName("range")),
                 propertyType = PropertyType("Iterable"),
                 propertyValue = value,
                 constraint = Empty))
@@ -69,8 +69,8 @@ fun isEmptyCollection() = rootContext<Validator<ListBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "list",
-                propertyType =PropertyType("List"),
+                propertyPath = listOf(PropertyName("list")),
+                propertyType = PropertyType("List"),
                 propertyValue = value,
                 constraint = Empty))
         }
@@ -92,7 +92,7 @@ fun isEmptyArray() = rootContext<Validator<ArrayBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "array",
+                propertyPath = listOf(PropertyName("array")),
                 propertyType = PropertyType("Array"),
                 propertyValue = value,
                 constraint = Empty))
@@ -115,7 +115,7 @@ fun isEmptyMap() = rootContext<Validator<MapBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "map",
+                propertyPath = listOf(PropertyName("map")),
                 propertyType = PropertyType("Map"),
                 propertyValue = value,
                 constraint = Empty))
@@ -138,7 +138,7 @@ fun isNotEmptyString() = rootContext<Validator<StringBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(StringBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "string",
+                propertyPath = listOf(PropertyName("string")),
                 propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = NotEmpty))
@@ -161,7 +161,7 @@ fun isNotEmptyIterable() = rootContext<Validator<IterableBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "range",
+                propertyPath = listOf(PropertyName("range")),
                 propertyType = PropertyType("Iterable"),
                 propertyValue = value,
                 constraint = NotEmpty))
@@ -184,7 +184,7 @@ fun isNotEmptyCollection() = rootContext<Validator<ListBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "list",
+                propertyPath = listOf(PropertyName("list")),
                 propertyType = PropertyType("List"),
                 propertyValue = value,
                 constraint = NotEmpty))
@@ -207,7 +207,7 @@ fun isNotEmptyArray() = rootContext<Validator<ArrayBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "array",
+                propertyPath = listOf(PropertyName("array")),
                 propertyType = PropertyType("Array"),
                 propertyValue = value,
                 constraint = NotEmpty))
@@ -230,7 +230,7 @@ fun isNotEmptyMap() = rootContext<Validator<MapBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "map",
+                propertyPath = listOf(PropertyName("map")),
                 propertyType = PropertyType("Map"),
                 propertyValue = value,
                 constraint = NotEmpty))
@@ -253,7 +253,7 @@ fun hasSizeIterable() = rootContext<Validator<IterableBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "range",
+                propertyPath = listOf(PropertyName("range")),
                 propertyType = PropertyType("Iterable"),
                 propertyValue = value,
                 constraint = Size(2, 4)))
@@ -276,7 +276,7 @@ fun hasSizeCollection() = rootContext<Validator<ListBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(ListBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "list",
+                propertyPath = listOf(PropertyName("list")),
                 propertyType = PropertyType("List"),
                 propertyValue = value,
                 constraint = Size(1, 4)))
@@ -299,7 +299,7 @@ fun hasSizeArray() = rootContext<Validator<ArrayBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "array",
+                propertyPath = listOf(PropertyName("array")),
                 propertyType = PropertyType("Array"),
                 propertyValue = value,
                 constraint = Size(1, 4)))
@@ -322,7 +322,7 @@ fun hasSizeMap() = rootContext<Validator<MapBean>> {
         test("invalid $value") { validator ->
             val actual = validator.validate(MapBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "map",
+                propertyPath = listOf(PropertyName("map")),
                 propertyType = PropertyType("Map"),
                 propertyValue = value,
                 constraint = Size(1, 3)))

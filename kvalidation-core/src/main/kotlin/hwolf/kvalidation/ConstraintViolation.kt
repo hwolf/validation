@@ -4,24 +4,24 @@ package hwolf.kvalidation
  * Represents a constraint violation
  *
  * @constructor creates a constraint violation
- * @property propertyName the path of the property that violated the constraint
+ * @property propertyPath the path of the property that violated the constraint
  * @property propertyType the type of the property that violated the constraint
  * @property propertyValue the invalid value
  * @property constraint the violated constraint
  */
 data class ConstraintViolation(
     val violationId: String,
-    val propertyName: String,
+    val propertyPath: List<PropertyName>,
     val propertyType: PropertyType?,
     val propertyValue: Any?,
     val constraint: Constraint
 ) {
     constructor(
-        propertyName: String,
+        propertyPath: List<PropertyName>,
         propertyType: PropertyType?,
         propertyValue: Any?,
         constraint: Constraint
-    ) : this(constraint.messageKey, propertyName, propertyType, propertyValue, constraint)
+    ) : this(constraint.messageKey, propertyPath, propertyType, propertyValue, constraint)
 }
 
 data class PropertyName(

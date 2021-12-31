@@ -62,7 +62,7 @@ fun `Validate a department`() = rootContext<Department> {
     test("Department name is empty") {
         expectThat(validator.validate(copy(name = ""))).hasExactlyViolations(
             ConstraintViolation(
-                propertyName = "name",
+                propertyPath = listOf(PropertyName("name")),
                 propertyType = PropertyType("String"),
                 propertyValue = "",
                 constraint = NotEmpty))
@@ -71,7 +71,7 @@ fun `Validate a department`() = rootContext<Department> {
         val actual = validator.validate(copy(head = Employee("")))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
-                propertyName = "head.name",
+                propertyPath = listOf(PropertyName("head"), PropertyName("name")),
                 propertyType = PropertyType("String"),
                 propertyValue = "",
                 constraint = NotEmpty))
@@ -80,7 +80,7 @@ fun `Validate a department`() = rootContext<Department> {
         val actual = validator.validate(copy(employees = listOf()))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
-                propertyName = "employees",
+                propertyPath = listOf(PropertyName( "employees")),
                 propertyType = PropertyType("List"),
                 propertyValue = emptyList<Any>(),
                 constraint = NotEmpty))
@@ -93,7 +93,7 @@ fun `Validate a department`() = rootContext<Department> {
         val actual = validator.validate(copy(coHead = Employee("")))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
-                propertyName = "coHead.name",
+                propertyPath = listOf(PropertyName("coHead"), PropertyName("name")),
                 propertyType = PropertyType("String"),
                 propertyValue = "",
                 constraint = NotEmpty))
@@ -107,12 +107,12 @@ fun `Validate a department`() = rootContext<Department> {
                 Employee(""))))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
-                propertyName = "employees[1].name",
+                propertyPath = listOf(PropertyName("employees", 1), PropertyName("name")),
                 propertyType = PropertyType("String"),
                 propertyValue = "",
                 constraint = NotEmpty),
             ConstraintViolation(
-                propertyName = "employees[3].name",
+                propertyPath = listOf(PropertyName("employees", 3), PropertyName("name")),
                 propertyType = PropertyType("String"),
                 propertyValue = "",
                 constraint = NotEmpty))
@@ -121,7 +121,7 @@ fun `Validate a department`() = rootContext<Department> {
         val actual = validator.validate(copy(office = null))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
-                propertyName = "office",
+                propertyPath = listOf(PropertyName("office")),
                 propertyType = PropertyType("String"),
                 propertyValue = null,
                 constraint = Required))
@@ -134,7 +134,7 @@ fun `Validate a department`() = rootContext<Department> {
         val actual = validator.validate(copy(name = "X"))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
-                propertyName = "head.name",
+                propertyPath = listOf(PropertyName("head"), PropertyName("name")),
                 propertyType = PropertyType("String"),
                 propertyValue = "John",
                 constraint = In(allowedValues = listOf("Mr. X", "Mr. Y"))))

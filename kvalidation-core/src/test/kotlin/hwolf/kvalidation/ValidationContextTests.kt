@@ -32,7 +32,7 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
         val context = withProperty(ValidationContextTestBean::prop1, ValidationContextTestBean())
         context.constraintViolation(NotEmpty, "value")
         expectThat(context.errors).containsExactly(ConstraintViolation(
-            propertyName = "prop1",
+            propertyPath = listOf(PropertyName("prop1")),
             propertyType = PropertyType("ValidationContextTestBean"),
             propertyValue = "value",
             constraint = NotEmpty))
@@ -42,7 +42,7 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
             .withProperty(ValidationContextTestBean::prop2, ValidationContextTestBean())
         context.constraintViolation(NotEmpty, "value")
         expectThat(context.errors).containsExactly(ConstraintViolation(
-            propertyName = "prop1.prop2",
+            propertyPath = listOf(PropertyName("prop1"), PropertyName("prop2")),
             propertyType = PropertyType("String"),
             propertyValue = "value",
             constraint = NotEmpty))
@@ -52,7 +52,7 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
         val context = withProperty(ValidationContextTestBean::prop2, ValidationContextTestBean(), "key", 12)
         context.constraintViolation(NotEmpty, "value")
         expectThat(context.errors).containsExactly(ConstraintViolation(
-            propertyName = "prop2[key]",
+            propertyPath = listOf(PropertyName("prop2", "key")),
             propertyType = PropertyType("Int"),
             propertyValue = "value",
             constraint = NotEmpty))
@@ -63,10 +63,10 @@ fun `validation context`() = rootContext<ValidationContext<ValidationContextTest
         context.withProperty(ValidationContextTestBean::prop1, ValidationContextTestBean())
             .constraintViolation(NotBlank, "value")
         context.constraintViolation(NotEmpty, "value")
-        expectThat(context.errors).map { Pair(it.constraint, it.propertyName) }
+        expectThat(context.errors).map { Pair(it.constraint, it.propertyPath) }
             .containsExactly(
-                Pair(NotBlank, "prop2[key].prop1"),
-                Pair(NotEmpty, "prop2[key]"))
+                Pair(NotBlank, listOf(PropertyName("prop2", "key"), PropertyName("prop1"))),
+                Pair(NotEmpty, listOf(PropertyName("prop2", "key"))))
     }
 
     test("propertyType - Add validation error with property") {

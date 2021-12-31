@@ -21,7 +21,7 @@ class ValidationContext<T> private constructor(
     fun constraintViolation(violationId: String, constraint: Constraint, propertyValue: Any?) {
         errs.add(ConstraintViolation(
             violationId = violationId,
-            propertyName = propertyPath.joinToString("."),
+            propertyPath = propertyPath,
             propertyType = propertyType,
             propertyValue = propertyValue,
             constraint = constraint

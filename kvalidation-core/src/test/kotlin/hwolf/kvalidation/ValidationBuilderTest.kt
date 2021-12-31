@@ -16,7 +16,7 @@ class ValidationBuilderTest {
         val actual = validator.validate(TestBean(2121))
         expectThat(actual).hasViolations(
             ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = 2121,
                 constraint = Equal(value = 1212)))

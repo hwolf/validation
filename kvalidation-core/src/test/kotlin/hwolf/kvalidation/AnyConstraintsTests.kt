@@ -23,7 +23,7 @@ fun isEqual() = rootContext<Validator<TestBean>> {
         test("invalid: $value == 2") {
             val actual = validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = Equal(2)))
@@ -46,7 +46,7 @@ fun isEqualWith() = rootContext<Validator<TestBean>> {
         test("invalid: $v1 == $v2") {
             val actual = validate(TestBean(prop1 = v1, prop2 = v2))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = v1,
                 constraint = EqualWith("prop2")))
@@ -69,7 +69,7 @@ fun isIn() = rootContext<Validator<TestBean>> {
         test("invalid: $value in (1, 3)") {
             val actual = validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = In(listOf(1, 3))))
@@ -92,7 +92,7 @@ fun isNotIn() = rootContext<Validator<TestBean>> {
         test("invalid: $value not in (1, 3)") {
             val actual = validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = NotIn(listOf(1, 3))))

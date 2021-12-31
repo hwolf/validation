@@ -23,7 +23,7 @@ class ValidationBuilderEachMapTest {
         expectThat(validator.validate(TestBean(map = mapOf("x1" to 1, "x2" to 2, "x3" to 3))))
             .hasExactlyViolations(
                 ConstraintViolation(
-                    propertyName = "map[x2]",
+                    propertyPath = listOf(PropertyName("map", "x2")),
                     propertyType = PropertyType("Int"),
                     propertyValue = 2,
                     constraint = In(allowedValues = listOf(1, 3))

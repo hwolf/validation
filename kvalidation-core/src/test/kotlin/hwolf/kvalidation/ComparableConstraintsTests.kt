@@ -23,7 +23,7 @@ fun isLess() = rootContext<Validator<TestBean>> {
         test("invalid $value < 23") { validator ->
             val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = Less(23)))
@@ -46,7 +46,7 @@ fun isLessWith() = rootContext<Validator<TestBean>> {
         test("invalid ${bean.prop1} < ${bean.prop2}") { validator ->
             val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = bean.prop1,
                 constraint = LessWith("prop2")))
@@ -69,7 +69,7 @@ fun isLessOrEqual() = rootContext<Validator<TestBean>> {
         test("invalid $value <= 23") { validator ->
             val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = LessOrEqual(23)))
@@ -92,8 +92,8 @@ fun isLessOrEqualWith() = rootContext<Validator<TestBean>> {
         test("invalid ${bean.prop1} < ${bean.prop2}") { validator ->
             val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
-                propertyType =  PropertyType("Int"),
+                propertyPath = listOf(PropertyName("prop1")),
+                propertyType = PropertyType("Int"),
                 propertyValue = bean.prop1,
                 constraint = LessOrEqualWith("prop2")))
         }
@@ -115,7 +115,7 @@ fun isGreater() = rootContext<Validator<TestBean>> {
         test("invalid $value > 4") { validator ->
             val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = Greater(4)))
@@ -138,7 +138,7 @@ fun isGreaterWith() = rootContext<Validator<TestBean>> {
         test("invalid ${bean.prop1} > ${bean.prop2}") { validator ->
             val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = bean.prop1,
                 constraint = GreaterWith("prop2")))
@@ -161,7 +161,7 @@ fun isGreaterOrEqual() = rootContext<Validator<TestBean>> {
         test("invalid $value >= 4") { validator ->
             val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = GreaterOrEqual(4)))
@@ -184,7 +184,7 @@ fun isGreaterOrEqualWith() = rootContext<Validator<TestBean>> {
         test("invalid ${bean.prop1} >= ${bean.prop2}") { validator ->
             val actual = validator.validate(bean)
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = bean.prop1,
                 constraint = GreaterOrEqualWith("prop2")))
@@ -207,7 +207,7 @@ fun isBetween() = rootContext<Validator<TestBean>> {
         test("invalid $value is in (5, 7)") { validator ->
             val actual = validator.validate(TestBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = Between(5, 7)))
@@ -230,7 +230,7 @@ fun isNotBetween() = rootContext<Validator<TestBean>> {
         test("invalid $value is in (5, 7)") { validator ->
             val actual = validator.validate(TestBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "prop1",
+                propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
                 constraint = NotBetween(5, 7)))

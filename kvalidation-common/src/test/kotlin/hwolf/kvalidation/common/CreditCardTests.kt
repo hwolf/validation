@@ -6,6 +6,7 @@ import dev.minutest.given
 import dev.minutest.rootContext
 import dev.minutest.test
 import hwolf.kvalidation.ConstraintViolation
+import hwolf.kvalidation.PropertyName
 import hwolf.kvalidation.PropertyType
 import hwolf.kvalidation.Validator
 import hwolf.kvalidation.validate
@@ -36,7 +37,7 @@ fun isCreditCard() = rootContext<Validator<CreditCardBean>> {
         test("$value is invalid credit card") { validator ->
             val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "card",
+                propertyPath = listOf(PropertyName("card")),
                 propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = CreditorCard(setOf(
@@ -63,7 +64,7 @@ fun `is Mastercard`() = rootContext<Validator<CreditCardBean>> {
         test("$value is invalid Mastercard") { validator ->
             val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "card",
+                propertyPath = listOf(PropertyName("card")),
                 propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = CreditorCard(setOf(CreditorCard.Type.MASTERCARD))))
@@ -86,7 +87,7 @@ fun `is Diners card`() = rootContext<Validator<CreditCardBean>> {
         test("$value is invalid Diners card") { validator ->
             val actual = validator.validate(CreditCardBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "card",
+                propertyPath = listOf(PropertyName("card")),
                 propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = CreditorCard(setOf(CreditorCard.Type.DINERS))))
