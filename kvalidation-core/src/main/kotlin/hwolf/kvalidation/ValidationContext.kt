@@ -14,13 +14,8 @@ class ValidationContext<T> private constructor(
 
     val errors get() = errs.toList()
 
-    internal fun constraintViolation(constraint: Constraint, propertyValue: Any?) {
-        constraintViolation(constraint.messageKey, constraint, propertyValue)
-    }
-
-    fun constraintViolation(violationId: String, constraint: Constraint, propertyValue: Any?) {
+    fun constraintViolation(constraint: Constraint, propertyValue: Any?) {
         errs.add(ConstraintViolation(
-            violationId = violationId,
             propertyPath = propertyPath,
             propertyType = propertyType,
             propertyValue = propertyValue,
@@ -28,13 +23,13 @@ class ValidationContext<T> private constructor(
         ))
     }
 
-    fun <T, V> withProperty(property: KProperty1<T, V>, value: T) = ValidationContext(
+    internal fun <T, V> withProperty(property: KProperty1<T, V>, value: T) = ValidationContext(
         bean = value,
         errs = errs,
         propertyPath = buildPropertyName(property),
         propertyType = buildTypeName(findClass(property.returnType)))
 
-    fun <T, V> withProperty(property: KProperty1<T, V>, collection: T, key: Any, value: Any?) =
+    internal fun <T, V> withProperty(property: KProperty1<T, V>, collection: T, key: Any, value: Any?) =
         withProperty(property, collection, key, when (value) {
             null -> null
             else -> value::class
@@ -47,7 +42,7 @@ class ValidationContext<T> private constructor(
             propertyPath = buildPropertyName(property, key),
             propertyType = buildTypeName(valueClass))
 
-    fun <V> withRoot(root: V): ValidationContext<V> = ValidationContext(
+    internal fun <V> withRoot(root: V): ValidationContext<V> = ValidationContext(
         bean = root,
         errs = errs,
         propertyPath = propertyPath,
