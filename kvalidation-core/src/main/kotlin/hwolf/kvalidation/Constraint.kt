@@ -9,6 +9,11 @@ import kotlin.reflect.full.memberProperties
 interface Constraint {
 
     /**
+     * Specifies the message key.
+     */
+    val messageKey: String get() = "${this::class.qualifiedName}.message"
+
+    /**
      * Specifies the parameters to replace in the message.
      */
     val parameters: Map<String, Any?>
