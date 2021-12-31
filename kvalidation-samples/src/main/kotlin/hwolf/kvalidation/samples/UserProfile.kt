@@ -18,16 +18,16 @@ data class UserProfile(
 val userProfileValidator = validator<UserProfile> {
     UserProfile::name {
         isNotBlank()
-        hasMinLength(6) messageKey "NAME_MIN_LENGTH"
+        hasMinLength(6)
     }
     UserProfile::age required {
-        isGreaterOrEqual(18) messageKey "MUST_BE_FULL_AGED"
+        isGreaterOrEqual(18)
     }
     UserProfile::password required {
-        hasLength(8, 40) messageKey "PASSWORD_COMPLEXITY"
+        hasLength(8, 40)
     }
     UserProfile::confirmPassword required {
-        isEqual(UserProfile::password) messageKey "CONFIRM_PASSWORD"
+        isEqual(UserProfile::password)
     }
     UserProfile::email ifPresent {
         isEmail()

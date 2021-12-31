@@ -26,11 +26,3 @@ interface Constraint {
  * A constraint that validates a value is required (not null).
  */
 object Required : Constraint
-
-/**
- * Default implementation of [Constraint]
- */
-data class DefaultConstraint(
-    override val messageKey: String,
-    override val parameters: Map<String, Any?>
-) : Constraint

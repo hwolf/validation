@@ -12,7 +12,4 @@ internal class ConstraintValidator<V, T>(
             context.constraintViolation(constraint, value)
         }
     }
-
-    fun updateMessageKey(key: String): ConstraintValidator<V, T> =
-        ConstraintValidator(DefaultConstraint(key, constraint.parameters), test)
 }
