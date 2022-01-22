@@ -26,8 +26,7 @@ data class PropertyName(
     }
 }
 
-@JvmInline
-value class PropertyType(
+data class PropertyType(
     val type: String
 ) {
     override fun toString() = type
