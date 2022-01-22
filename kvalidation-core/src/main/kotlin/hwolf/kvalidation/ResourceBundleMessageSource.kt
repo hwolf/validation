@@ -16,10 +16,12 @@ private val cachedResourceBundles = ConcurrentHashMap<String, ResourceBundleMap>
 
 class ResourceBundleMessageSource(
     private val baseNames: List<String>,
-    private val encoding: Charset = StandardCharsets.ISO_8859_1
+    _encoding: Charset? = null
 ) : MessageSource {
 
-    constructor(baseName: String, encoding: Charset = StandardCharsets.ISO_8859_1) : this(listOf(baseName), encoding)
+    private val encoding = _encoding ?: StandardCharsets.ISO_8859_1
+
+    constructor(baseName: String, encoding: Charset? = null) : this(listOf(baseName), encoding)
 
     override fun invoke(code: String, locale: Locale): String? =
         baseNames.firstNotNullOfOrNull { basename ->
