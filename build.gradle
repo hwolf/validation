@@ -44,6 +44,8 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         testImplementation "dev.minutest:minutest:2.0.0-rc4"
         testImplementation "io.strikt:strikt-core"
         testImplementation "io.mockk:mockk:1.12.2"
+        testImplementation "org.tinylog:tinylog-impl:2.4.1"
+        testImplementation "org.tinylog:slf4j-tinylog:2.4.1"
     }
 
     compileKotlin {
