@@ -23,7 +23,9 @@ class ResourceBundleMessageSource(
 
     override fun invoke(code: String, locale: Locale): String? =
         baseNames.firstNotNullOfOrNull { basename ->
-            getResourceBundle(basename, locale)?.let { getStringOrNull(it, code) }
+            getResourceBundle(basename, locale)?.let {
+                getStringOrNull(it, code)
+            }
         }
 
     private fun getResourceBundle(baseName: String, locale: Locale) =
@@ -35,7 +37,9 @@ class ResourceBundleMessageSource(
         }
 
     private fun getLocaleMap(baseName: String) =
-        cachedResourceBundles.computeIfAbsent(baseName) { ConcurrentHashMap() }
+        cachedResourceBundles.computeIfAbsent(baseName) {
+            ConcurrentHashMap()
+        }
 
     private fun loadResourceBundle(baseName: String, locale: Locale) =
         try {
