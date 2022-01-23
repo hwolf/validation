@@ -1,5 +1,7 @@
-package hwolf.kvalidation
+package hwolf.kvalidation.i18n
 
+import hwolf.kvalidation.MessageInterpolator
+import hwolf.kvalidation.MessageSource
 import org.tinylog.kotlin.Logger
 import java.io.IOException
 import java.io.InputStream
@@ -7,8 +9,12 @@ import java.io.InputStreamReader
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.util.*
-import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
+
+fun messageInterpolator(vararg baseNames: String, encoding: Charset? = null) =
+    MessageInterpolator(
+        messageSource = ResourceBundleMessageSource(baseNames.toList(), encoding),
+        messageFormatter = DefaultMessageFormatter)
 
 private typealias ResourceBundleMap = MutableMap<Locale, ResourceBundle?>
 

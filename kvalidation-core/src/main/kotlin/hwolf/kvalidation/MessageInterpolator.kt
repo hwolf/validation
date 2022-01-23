@@ -1,7 +1,5 @@
 package hwolf.kvalidation
 
-import java.nio.charset.Charset
-
 typealias Locale = java.util.Locale
 typealias MessageSource = (code: String, locale: Locale) -> String?
 typealias MessageFormatter = (template: String, violation: ConstraintViolation, locale: Locale) -> String
@@ -12,7 +10,7 @@ fun messageSourceMap(messages: Map<String, String>): MessageSource = { code, _ -
 
 class MessageInterpolator(
     private val messageSource: MessageSource,
-    private val messageFormatter: MessageFormatter = DefaultMessageFormatter,
+    private val messageFormatter: MessageFormatter,
     private val messageCodeResolver: MessageCodeResolver = DefaultMessageCodeResolver
 ) {
     fun interpolate(violation: ConstraintViolation, locale: Locale): String =
@@ -26,6 +24,3 @@ class MessageInterpolator(
             messageSource(code, locale)
         } ?: defaultMessage
 }
-
-fun messageInterpolator(vararg baseNames: String, encoding: Charset? = null) =
-    MessageInterpolator(ResourceBundleMessageSource(baseNames.toList(), encoding))

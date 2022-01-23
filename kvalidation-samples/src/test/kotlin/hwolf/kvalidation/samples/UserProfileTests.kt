@@ -1,6 +1,6 @@
 package hwolf.kvalidation.samples
 
-import hwolf.kvalidation.messageInterpolator
+import hwolf.kvalidation.i18n.messageInterpolator
 import hwolf.kvalidation.validate
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat

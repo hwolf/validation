@@ -1,5 +1,10 @@
-package hwolf.kvalidation
+package hwolf.kvalidation.i18n
 
+import hwolf.kvalidation.ConstraintViolation
+import hwolf.kvalidation.Equal
+import hwolf.kvalidation.Locale
+import hwolf.kvalidation.PropertyName
+import hwolf.kvalidation.PropertyType
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo

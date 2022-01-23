@@ -1,15 +1,15 @@
-package hwolf.kvalidation
+package hwolf.kvalidation.i18n
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
-import java.util.Locale
+import java.util.*
 
 class ResourceBundleMessageSourceTest {
 
-    private val sut = ResourceBundleMessageSource("hwolf.kvalidation.ResourceBundleMessageSourceTest")
+    private val sut = ResourceBundleMessageSource("hwolf.kvalidation.i18n.ResourceBundleMessageSourceTest")
 
     @ParameterizedTest
     @CsvSource(value = [
