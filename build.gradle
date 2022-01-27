@@ -69,7 +69,8 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         useJUnitPlatform {
             includeEngines(
                     "junit-jupiter",
-                    "minutest")
+                    "minutest",
+                    "kotest")
         }
         kover {
             enabled = true
