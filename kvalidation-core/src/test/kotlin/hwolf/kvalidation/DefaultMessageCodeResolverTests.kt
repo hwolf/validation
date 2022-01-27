@@ -1,13 +1,12 @@
 package hwolf.kvalidation
 
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.FunSpec
 import strikt.api.expectThat
 import strikt.assertions.containsExactly
 
-class DefaultMessageCodeResolverTest {
+class DefaultMessageCodeResolverTests : FunSpec({
 
-    @Test
-    fun `Order of codes for simple property`() {
+    test("Order of codes for simple property") {
 
         // When
         val actual = DefaultMessageCodeResolver(ConstraintViolation(
@@ -24,8 +23,7 @@ class DefaultMessageCodeResolverTest {
             "hwolf.kvalidation.Equal")
     }
 
-    @Test
-    fun `Order of codes for indexed property`() {
+    test("Order of codes for indexed property") {
 
         // When
         val actual = DefaultMessageCodeResolver(ConstraintViolation(
@@ -44,8 +42,7 @@ class DefaultMessageCodeResolverTest {
             "hwolf.kvalidation.Equal")
     }
 
-    @Test
-    fun `Order of codes with missing property type`() {
+    test("Order of codes with missing property type") {
 
         // When
         val actual = DefaultMessageCodeResolver(ConstraintViolation(
@@ -59,4 +56,4 @@ class DefaultMessageCodeResolverTest {
             "hwolf.kvalidation.Equal.test",
             "hwolf.kvalidation.Equal")
     }
-}
+})

@@ -12,7 +12,7 @@ class UrlTests : FunSpec({
 
     data class TestBean(val url: String)
 
-    val validator = validator { TestBean::url { isUrl() } }
+    val validator = validator<TestBean> { TestBean::url { isUrl() } }
 
     context("valid URLs") {
         withData(listOf(TestBean("https://www.google.com"))) {

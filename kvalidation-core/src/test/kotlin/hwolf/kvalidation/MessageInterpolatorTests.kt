@@ -5,7 +5,7 @@ import io.kotest.datatest.withData
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 
-class MessageInterpolatorTest : FunSpec({
+class MessageInterpolatorTests : FunSpec({
 
     fun constraintViolation() = ConstraintViolation(
         propertyPath = listOf(PropertyName("test")),

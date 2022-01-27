@@ -7,7 +7,7 @@ typealias ValidationAction<V, U> = ValidationBuilder<V, U>.() -> Unit
 
 /** Builds a [Validator] for the type [V]. */
 @OptIn(ExperimentalTypeInference::class)
-fun <V> validator(@BuilderInference init: ValidationAction<V, V>): Validator<V> {
+fun <V> validator(init: ValidationAction<V, V>): Validator<V> {
     val validators = buildValidators(init)
     return { value, context -> runValidators(validators, value, context) }
 }

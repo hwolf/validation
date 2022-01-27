@@ -1,25 +1,23 @@
 package hwolf.kvalidation
 
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.FunSpec
 import strikt.api.expectThat
 
-class ValidationBuilderIfPresentTest {
+class ValidationBuilderIfPresentTests : FunSpec({
 
     class TestBean(val field: String?)
 
-    private val validator = validator<TestBean> {
+    val validator = validator<TestBean> {
         TestBean::field ifPresent {
             isIn("x1", "x2")
         }
     }
 
-    @Test
-    fun `Optional field is not set`() {
+    test("Optional field is not set") {
         expectThat(validator.validate(TestBean(field = null))).isValid()
     }
 
-    @Test
-    fun `Optional field is set but value is invalid`() {
+    test("Optional field is set but value is invalid") {
         expectThat(validator.validate(TestBean(field = "xx")))
             .hasExactlyViolations(ConstraintViolation(
                 propertyPath = listOf(PropertyName("field")),
@@ -29,8 +27,7 @@ class ValidationBuilderIfPresentTest {
             ))
     }
 
-    @Test
-    fun `Optional field is set and value is valid`() {
+    test("Optional field is set and value is valid") {
         expectThat(validator.validate(TestBean(field = "x1"))).isValid()
     }
-}
+})
