@@ -14,7 +14,7 @@ fun messageInterpolator(vararg baseNames: String) =
 
 private typealias ResourceBundleMap = MutableMap<Locale, UResourceBundle?>
 
-private val cachedResourceBundles = ConcurrentHashMap<String, ResourceBundleMap>()
+private val cachedBundles = ConcurrentHashMap<String, ResourceBundleMap>()
 
 class ResourceBundleMessageSource(
     private val baseNames: List<String>
@@ -24,21 +24,21 @@ class ResourceBundleMessageSource(
 
     override fun invoke(code: String, locale: Locale): String? =
         baseNames.firstNotNullOfOrNull { basename ->
-            getResourceBundle(basename, locale)?.let {
+            getBundle(basename, locale)?.let {
                 getStringOrNull(it, code)
             }
         }
 
-    private fun getResourceBundle(baseName: String, locale: Locale) =
-        getResourceBundle(getLocaleMap(baseName), baseName, locale)
+    private fun getBundle(baseName: String, locale: Locale) =
+        getBundle(getLocaleMap(baseName), baseName, locale)
 
-    private fun getResourceBundle(localeMap: ResourceBundleMap, baseName: String, locale: Locale) =
+    private fun getBundle(localeMap: ResourceBundleMap, baseName: String, locale: Locale) =
         localeMap.computeIfAbsent(locale) {
             loadResourceBundle(baseName, it)
         }
 
     private fun getLocaleMap(baseName: String) =
-        cachedResourceBundles.computeIfAbsent(baseName) {
+        cachedBundles.computeIfAbsent(baseName) {
             ConcurrentHashMap()
         }
 
