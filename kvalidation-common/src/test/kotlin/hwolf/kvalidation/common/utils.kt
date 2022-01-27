@@ -5,8 +5,6 @@ import hwolf.kvalidation.ValidationResult
 import strikt.api.Assertion
 import strikt.assertions.contains
 
-fun <T> forEach(vararg examples: T, action: (T) -> Unit) = examples.toList().forEach(action)
-
 fun Assertion.Builder<ValidationResult>.isValid() =
     assert("is valid") {
         when {

@@ -1,15 +1,12 @@
 package hwolf.kvalidation.common
 
-import dev.minutest.given
-import dev.minutest.rootContext
-import dev.minutest.test
 import hwolf.kvalidation.ConstraintViolation
 import hwolf.kvalidation.PropertyName
 import hwolf.kvalidation.PropertyType
-import hwolf.kvalidation.Validator
 import hwolf.kvalidation.validate
 import hwolf.kvalidation.validator
-import org.junit.platform.commons.annotation.Testable
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.datatest.withData
 import strikt.api.expectThat
 
 private data class CreditCardBean(val card: String)
@@ -20,75 +17,76 @@ private const val AMEX = "378282246310005"
 private const val DISCOVERS = "6011111111111117"
 private const val DINERS = "30569309025904"
 
-@Testable
-fun isCreditCard() = rootContext<Validator<CreditCardBean>> {
-    given {
-        validator { CreditCardBean::card { isCreditCard() } }
-    }
-    forEach(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
-        test("$value is valid credit card") { validator ->
-            val actual = validator.validate(CreditCardBean(value))
-            expectThat(actual).isValid()
-        }
-    }
-    forEach("4417123456789112", "441712345678X112") { value ->
-        test("$value is invalid credit card") { validator ->
-            val actual = validator.validate(CreditCardBean(value))
-            expectThat(actual).hasViolations(ConstraintViolation(
-                propertyPath = listOf(PropertyName("card")),
-                propertyType = PropertyType("String"),
-                propertyValue = value,
-                constraint = CreditorCard(setOf(
-                    CreditorCard.Type.AMEX,
-                    CreditorCard.Type.VISA,
-                    CreditorCard.Type.MASTERCARD,
-                    CreditorCard.Type.DISCOVER))))
-        }
-    }
-}
+class CreditCardTests : FunSpec({
 
-@Testable
-fun `is Mastercard`() = rootContext<Validator<CreditCardBean>> {
-    given {
-        validator { CreditCardBean::card { isCreditCard(CreditorCard.Type.MASTERCARD) } }
-    }
-    forEach(MASTERCARD) { value ->
-        test("$value is valid Mastercard") { validator ->
-            val actual = validator.validate(CreditCardBean(value))
-            expectThat(actual).isValid()
-        }
-    }
-    forEach(VISA, AMEX, DISCOVERS) { value ->
-        test("$value is invalid Mastercard") { validator ->
-            val actual = validator.validate(CreditCardBean(value))
-            expectThat(actual).hasViolations(ConstraintViolation(
-                propertyPath = listOf(PropertyName("card")),
-                propertyType = PropertyType("String"),
-                propertyValue = value,
-                constraint = CreditorCard(setOf(CreditorCard.Type.MASTERCARD))))
-        }
-    }
-}
+    context("validate credit card") {
 
-@Testable
-fun `is Diners card`() = rootContext<Validator<CreditCardBean>> {
-    given {
-        validator { CreditCardBean::card { isCreditCard(CreditorCard.Type.DINERS) } }
-    }
-    forEach(DINERS) { value ->
-        test("$value is valid Diners card") { validator ->
-            val actual = validator.validate(CreditCardBean(value))
-            expectThat(actual).isValid()
+        val validator = validator { CreditCardBean::card { isCreditCard() } }
+
+        context("is valid credit card") {
+            withData(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
+                val actual = validator.validate(CreditCardBean(value))
+                expectThat(actual).isValid()
+            }
+        }
+        context("is invalid credit card") {
+
+            withData("4417123456789112", "441712345678X112") { value ->
+                val actual = validator.validate(CreditCardBean(value))
+                expectThat(actual).hasViolations(ConstraintViolation(
+                    propertyPath = listOf(PropertyName("card")),
+                    propertyType = PropertyType("String"),
+                    propertyValue = value,
+                    constraint = CreditorCard(setOf(
+                        CreditorCard.Type.AMEX,
+                        CreditorCard.Type.VISA,
+                        CreditorCard.Type.MASTERCARD,
+                        CreditorCard.Type.DISCOVER))))
+            }
         }
     }
-    forEach(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
-        test("$value is invalid Diners card") { validator ->
-            val actual = validator.validate(CreditCardBean(value))
-            expectThat(actual).hasViolations(ConstraintViolation(
-                propertyPath = listOf(PropertyName("card")),
-                propertyType = PropertyType("String"),
-                propertyValue = value,
-                constraint = CreditorCard(setOf(CreditorCard.Type.DINERS))))
+
+    context("Validate mastercard") {
+
+        val validator = validator { CreditCardBean::card { isCreditCard(CreditorCard.Type.MASTERCARD) } }
+
+        context("is valid mastercard") {
+            withData(listOf(MASTERCARD)) { value ->
+                val actual = validator.validate(CreditCardBean(value))
+                expectThat(actual).isValid()
+            }
+        }
+        context("is invalid mastercard") {
+            withData(VISA, AMEX, DISCOVERS) { value ->
+                val actual = validator.validate(CreditCardBean(value))
+                expectThat(actual).hasViolations(ConstraintViolation(
+                    propertyPath = listOf(PropertyName("card")),
+                    propertyType = PropertyType("String"),
+                    propertyValue = value,
+                    constraint = CreditorCard(setOf(CreditorCard.Type.MASTERCARD))))
+            }
         }
     }
-}
+
+    context("Validate diners card") {
+
+        val validator = validator { CreditCardBean::card { isCreditCard(CreditorCard.Type.DINERS) } }
+
+        context("is valid diners card") {
+            withData(listOf(DINERS)) { value ->
+                val actual = validator.validate(CreditCardBean(value))
+                expectThat(actual).isValid()
+            }
+        }
+        context("is invalid diners card") {
+            withData(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
+                val actual = validator.validate(CreditCardBean(value))
+                expectThat(actual).hasViolations(ConstraintViolation(
+                    propertyPath = listOf(PropertyName("card")),
+                    propertyType = PropertyType("String"),
+                    propertyValue = value,
+                    constraint = CreditorCard(setOf(CreditorCard.Type.DINERS))))
+            }
+        }
+    }
+})

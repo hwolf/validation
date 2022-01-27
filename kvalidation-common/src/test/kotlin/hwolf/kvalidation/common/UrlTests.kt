@@ -1,23 +1,31 @@
 package hwolf.kvalidation.common
 
 import hwolf.kvalidation.ValidationContext
-import hwolf.kvalidation.Validator
-import org.junit.jupiter.api.DynamicTest
+import hwolf.kvalidation.validator
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.datatest.withData
 import strikt.api.expectThat
 import strikt.assertions.hasSize
 import strikt.assertions.isEmpty
 
-fun <V> buildTests(validator: Validator<V>, validExamples: List<V>, invalidExamples: List<V>) =
-    validExamples.map {
-        DynamicTest.dynamicTest("value <$it> is valid") {
+class UrlTests : FunSpec({
+
+    data class TestBean(val url: String)
+
+    val validator = validator { TestBean::url { isUrl() } }
+
+    context("valid URLs") {
+        withData(listOf(TestBean("https://www.google.com"))) {
             val context = ValidationContext(it)
             validator(it, context)
             expectThat(context.errors).isEmpty()
         }
-    } + invalidExamples.map {
-        DynamicTest.dynamicTest("value <$it> is invalid") {
+    }
+    context("invalid URLs") {
+        withData(TestBean("aaa."), TestBean("go.1aa")) {
             val context = ValidationContext(it)
             validator(it, context)
             expectThat(context.errors).hasSize(1)
         }
     }
+})
