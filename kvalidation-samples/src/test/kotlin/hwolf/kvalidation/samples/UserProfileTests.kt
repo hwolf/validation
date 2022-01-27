@@ -1,9 +1,11 @@
 package hwolf.kvalidation.samples
 
+import hwolf.kvalidation.i18n.messageInterpolator
 import hwolf.kvalidation.validate
 import org.junit.jupiter.api.Test
 import strikt.api.expectThat
-import strikt.assertions.isFalse
+import strikt.assertions.contains
+import java.util.*
 
 class UserProfileTests {
 
@@ -16,8 +18,17 @@ class UserProfileTests {
             confirmPassword = "anders",
             email = "keine Mail")
 
-        val result = userProfileValidator.validate(invalidUserProfile)
+        val violations = userProfileValidator.validate(invalidUserProfile)
 
-        expectThat(result.isValid).isFalse()
+        val messageInterpolator = messageInterpolator("hwolf.kvalidation.samples.UserProfileTests")
+        val messages = violations.violations.map {
+            messageInterpolator.interpolate(it, Locale.GERMAN)
+        }
+        expectThat(messages).contains(
+            "Your name must have at least 6 characters",
+            "You must be older than 18",
+            "The password must have between 8 and 40 characters",
+            "Please repeat the password from field password",
+            "The field  must contain a valid email address")
     }
 }

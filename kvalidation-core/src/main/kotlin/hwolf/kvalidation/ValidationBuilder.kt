@@ -10,12 +10,6 @@ fun <V> validator(init: ValidationAction<V, V>): Validator<V> {
     return { value, context -> runValidators(validators, value, context) }
 }
 
-/** Builder step that can manipulate the constraint. */
-interface ConstraintHelper {
-    /** Changes the message key of the constraint. */
-    infix fun messageKey(key: String)
-}
-
 @DslMarker
 annotation class Marker
 
@@ -84,12 +78,6 @@ class ValidationBuilder<T, V> {
         validators += validator
     }
 
-    internal fun updateValidator(old: PropertyValidator<V, T>, new: PropertyValidator<V, T>) {
-        val pos = validators.lastIndexOf(old)
-        check(pos >= 0)
-        validators[pos] = new
-    }
-
     internal fun validators() = validators.toList()
 }
 
@@ -114,20 +102,16 @@ private fun <T, V> buildValidators(init: ValidationAction<V, T>) =
 private fun <V, T> runValidators(validators: List<PropertyValidator<V, T>>, value: V, context: ValidationContext<T>) =
     validators.forEach { it(value, context) }
 
-fun <T, V> ValidationBuilder<T, V>.validate(
-    constraint: Constraint,
-    test: (V, T) -> Boolean
-): ConstraintHelper {
-    val validator = ConstraintValidator(constraint, test)
-    addValidator(validator)
-    return ConstraintHelperImpl(validator, this)
-}
+fun <T, V> ValidationBuilder<T, V>.validate(constraint: Constraint, test: (V, T) -> Boolean) =
+    addValidator(ConstraintValidator(constraint, test))
+//return ConstraintHelperImpl(validator, this)
+//}
 
-private class ConstraintHelperImpl<T, V>(
-    val validator: ConstraintValidator<V, T>,
-    val builder: ValidationBuilder<T, V>
-) : ConstraintHelper {
-    override infix fun messageKey(key: String) {
-        builder.updateValidator(validator, validator.updateMessageKey(key))
-    }
-}
+//private class ConstraintHelperImpl<T, V>(
+//    val validator: ConstraintValidator<V, T>,
+//    val builder: ValidationBuilder<T, V>
+//) : ConstraintHelper {
+//    override infix fun messageKey(key: String) {
+//        builder.updateValidator(validator, validator.updateMessageKey(key))
+//    }
+//}

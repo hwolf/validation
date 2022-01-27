@@ -17,8 +17,8 @@ class ValidationBuilderRequiredTest {
     fun `Required field is not set`() {
         expectThat(validator.validate(TestBean(field = null)))
             .hasExactlyViolations(ConstraintViolation(
-                propertyName = "field",
-                propertyType = "String",
+                propertyPath = listOf(PropertyName("field")),
+                propertyType = PropertyType("String"),
                 propertyValue = null,
                 constraint = Required
             ))
@@ -28,8 +28,8 @@ class ValidationBuilderRequiredTest {
     fun `Required field is set but value is invalid`() {
         expectThat(validator.validate(TestBean(field = "xx")))
             .hasExactlyViolations(ConstraintViolation(
-                propertyName = "field",
-                propertyType = "String",
+                propertyPath = listOf(PropertyName("field")),
+                propertyType = PropertyType("String"),
                 propertyValue = "xx",
                 constraint = In(allowedValues = listOf("x1", "x2"))
             ))

@@ -1,11 +1,11 @@
-@file:Suppress("unused")
-
 package hwolf.kvalidation.common
 
 import dev.minutest.given
 import dev.minutest.rootContext
 import dev.minutest.test
 import hwolf.kvalidation.ConstraintViolation
+import hwolf.kvalidation.PropertyName
+import hwolf.kvalidation.PropertyType
 import hwolf.kvalidation.Validator
 import hwolf.kvalidation.validate
 import hwolf.kvalidation.validator
@@ -32,8 +32,8 @@ fun isEmail() = rootContext<Validator<EmailBean>> {
         test("$mail is invalid") { validator ->
             val actual = validator.validate(EmailBean(mail))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "email",
-                propertyType = "String",
+                propertyPath = listOf(PropertyName("email")),
+                propertyType = PropertyType("String"),
                 propertyValue = mail,
                 constraint = Email(emptySet())))
         }
@@ -55,8 +55,8 @@ fun isLocalEmail() = rootContext<Validator<EmailBean>> {
         test("$mail is invalid") { validator ->
             val actual = validator.validate(EmailBean(mail))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "email",
-                propertyType = "String",
+                propertyPath = listOf(PropertyName( "email")),
+                propertyType = PropertyType("String"),
                 propertyValue = mail,
                 constraint = Email(setOf(Email.Options.AllowLocal))))
         }

@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package hwolf.kvalidation
 
 import dev.minutest.given
@@ -23,8 +21,8 @@ fun isNotBlank() = rootContext<Validator<StringBean>> {
         test("invalid: '$value' is not blank") {
             val actual = validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "string",
-                propertyType = "String",
+                propertyPath = listOf(PropertyName("string")),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = NotBlank))
         }
@@ -46,8 +44,8 @@ fun hasLength() = rootContext<Validator<StringBean>> {
         test("invalid: '$value' is not blank") {
             val actual = validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyName = "string",
-                propertyType = "String",
+                propertyPath = listOf(PropertyName("string")),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
                 constraint = Length(3, 5)))
         }

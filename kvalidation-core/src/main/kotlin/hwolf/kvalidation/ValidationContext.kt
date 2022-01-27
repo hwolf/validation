@@ -7,21 +7,16 @@ import kotlin.reflect.KType
 class ValidationContext<T> private constructor(
     val bean: T,
     private val errs: MutableList<ConstraintViolation>,
-    private val propertyName: String,
-    private val propertyType: String?
+    private val propertyPath: List<PropertyName>,
+    private val propertyType: PropertyType?
 ) {
-    constructor(bean: T) : this(bean, mutableListOf(), "", null)
+    constructor(bean: T) : this(bean, mutableListOf(), emptyList(), null)
 
     val errors get() = errs.toList()
 
-    internal fun constraintViolation(constraint: Constraint, propertyValue: Any?) {
-        constraintViolation(constraint.messageKey, constraint, propertyValue)
-    }
-
-    internal fun constraintViolation(violationId: String, constraint: Constraint, propertyValue: Any?) {
+    fun constraintViolation(constraint: Constraint, propertyValue: Any?) {
         errs.add(ConstraintViolation(
-            violationId = violationId,
-            propertyName = propertyName,
+            propertyPath = propertyPath,
             propertyType = propertyType,
             propertyValue = propertyValue,
             constraint = constraint
@@ -31,7 +26,7 @@ class ValidationContext<T> private constructor(
     internal fun <T, V> withProperty(property: KProperty1<T, V>, value: T) = ValidationContext(
         bean = value,
         errs = errs,
-        propertyName = buildPropertyName(property),
+        propertyPath = buildPropertyName(property),
         propertyType = buildTypeName(findClass(property.returnType)))
 
     internal fun <T, V> withProperty(property: KProperty1<T, V>, collection: T, key: Any, value: Any?) =
@@ -40,31 +35,24 @@ class ValidationContext<T> private constructor(
             else -> value::class
         })
 
-    internal fun <T, V> withProperty(property: KProperty1<T, V>, value: T, key: Any, valueClass: KClass<*>?) =
+    private fun <T, V> withProperty(property: KProperty1<T, V>, value: T, key: Any, valueClass: KClass<*>?) =
         ValidationContext(
             bean = value,
             errs = errs,
-            propertyName = buildPropertyName(property, key),
+            propertyPath = buildPropertyName(property, key),
             propertyType = buildTypeName(valueClass))
 
     internal fun <V> withRoot(root: V): ValidationContext<V> = ValidationContext(
         bean = root,
         errs = errs,
-        propertyName = propertyName,
+        propertyPath = propertyPath,
         propertyType = propertyType)
 
+    private fun buildPropertyName(property: KProperty1<*, *>, key: Any? = null) =
+        propertyPath + PropertyName(property.name, key)
 
-    private fun <T, V> buildPropertyName(property: KProperty1<T, V>) = when {
-        propertyName.isEmpty() -> property.name
-        else -> "$propertyName.${property.name}"
-    }
-
-    private fun buildPropertyName(property: KProperty1<*, *>, key: Any) = when {
-        propertyName.isEmpty() -> "${property.name}[$key]"
-        else -> "$propertyName.${property.name}[$key]"
-    }
-
-    private fun buildTypeName(klass: KClass<*>?) = klass?.simpleName
+    private fun buildTypeName(klass: KClass<*>?) = klass?.let { t -> t.simpleName?.let { n -> PropertyType(n) } }
 
     private fun findClass(type: KType) = type.classifier as? KClass<*>
 }
+

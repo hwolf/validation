@@ -23,8 +23,8 @@ class ValidationBuilderEachArrayTest {
         expectThat(validator.validate(TestBean(array = arrayOf("1", "2", "3"))))
             .hasExactlyViolations(
                 ConstraintViolation(
-                    propertyName = "array[1]",
-                    propertyType = "String",
+                    propertyPath = listOf(PropertyName("array", 1)),
+                    propertyType = PropertyType("String"),
                     propertyValue = "2",
                     constraint = In(allowedValues = listOf("1", "3"))
                 ))
