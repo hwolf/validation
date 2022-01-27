@@ -19,7 +19,7 @@ class MessageInterpolatorTest {
         val sut = MessageInterpolator(
             messageSource = messageSource,
             messageFormatter = { template, _, _ -> template },
-            messageCodeResolver = { _ -> listOf("a.b.c", "a.b", "a") })
+            messageCodeResolver = { listOf("a.b.c", "a.b", "a") })
 
         // When
         val actual = sut.interpolate(constraintViolation(), Locale.GERMAN)
