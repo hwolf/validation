@@ -1,64 +1,71 @@
 package hwolf.kvalidation
 
-import dev.minutest.given
-import dev.minutest.rootContext
-import dev.minutest.test
-import org.junit.platform.commons.annotation.Testable
+import io.kotest.core.spec.style.FunSpec
 import strikt.api.expectThat
 
-val validator = validator<Department> {
-    Department::name {
-        isNotEmpty()
-    }
-    Department::head {
-        Employee::name {
+class ValidationTests : FunSpec({
+
+    data class Employee(
+        val name: String
+    )
+
+    data class Department(
+        val name: String,
+        val employees: List<Employee>,
+        val head: Employee,
+        val coHead: Employee?,
+        val office: String?
+    )
+
+    val validator = validator<Department> {
+        Department::name {
             isNotEmpty()
         }
-    }
-    onlyIf({ name == "X" }) {
         Department::head {
             Employee::name {
-                isIn("Mr. X", "Mr. Y")
+                isNotEmpty()
             }
         }
-    }
-    Department::coHead ifPresent {
-        Employee::name {
+        onlyIf({ name == "X" }) {
+            Department::head {
+                Employee::name {
+                    isIn("Mr. X", "Mr. Y")
+                }
+            }
+        }
+        Department::coHead ifPresent {
+            Employee::name {
+                isNotEmpty()
+            }
+        }
+        Department::employees {
             isNotEmpty()
         }
-    }
-    Department::employees {
-        isNotEmpty()
-    }
-    Department::employees each {
-        Employee::name {
+        Department::employees each {
+            Employee::name {
+                isNotEmpty()
+            }
+        }
+        Department::office ifPresent {
             isNotEmpty()
         }
+        onlyIf({ name != "X" }) {
+            Department::office required { }
+        }
     }
-    Department::office ifPresent {
-        isNotEmpty()
-    }
-    onlyIf({ name != "X" }) {
-        Department::office required { }
-    }
-}
 
-@Testable
-@Suppress("LongMethod")
-fun `Validate a department`() = rootContext<Department> {
-    given {
-        Department(
-            name = "hwolf.test.Test",
-            employees = listOf(Employee("Bob"), Employee("Alice")),
-            head = Employee("John"),
-            coHead = Employee("Mike"),
-            office = "X.123.456")
-    }
+    val department = Department(
+        name = "hwolf.test.Test",
+        employees = listOf(Employee("Bob"), Employee("Alice")),
+        head = Employee("John"),
+        coHead = Employee("Mike"),
+        office = "X.123.456")
+
     test("Department is valid") {
-        expectThat(validator.validate(this)).isValid()
+        expectThat(validator.validate(department)).isValid()
     }
     test("Department name is empty") {
-        expectThat(validator.validate(copy(name = ""))).hasExactlyViolations(
+        expectThat(validator.validate(department.copy(name = ""))).hasExactlyViolations(
             ConstraintViolation(
                 propertyPath = listOf(PropertyName("name")),
                 propertyType = PropertyType("String"),
@@ -66,7 +73,7 @@ fun `Validate a department`() = rootContext<Department> {
                 constraint = NotEmpty))
     }
     test("Department head name is empty") {
-        val actual = validator.validate(copy(head = Employee("")))
+        val actual = validator.validate(department.copy(head = Employee("")))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyPath = listOf(PropertyName("head"), PropertyName("name")),
@@ -75,20 +82,20 @@ fun `Validate a department`() = rootContext<Department> {
                 constraint = NotEmpty))
     }
     test("Department without employees") {
-        val actual = validator.validate(copy(employees = listOf()))
+        val actual = validator.validate(department.copy(employees = listOf()))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
-                propertyPath = listOf(PropertyName( "employees")),
+                propertyPath = listOf(PropertyName("employees")),
                 propertyType = PropertyType("List"),
                 propertyValue = emptyList<Any>(),
                 constraint = NotEmpty))
     }
     test("Department without co head") {
-        val actual = validator.validate(copy(coHead = null))
+        val actual = validator.validate(department.copy(coHead = null))
         expectThat(actual).isValid()
     }
     test("Department co head name is empty") {
-        val actual = validator.validate(copy(coHead = Employee("")))
+        val actual = validator.validate(department.copy(coHead = Employee("")))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyPath = listOf(PropertyName("coHead"), PropertyName("name")),
@@ -98,7 +105,7 @@ fun `Validate a department`() = rootContext<Department> {
     }
     test("Employees without names") {
         val actual = validator.validate(
-            copy(employees = listOf(
+            department.copy(employees = listOf(
                 Employee("Bob"),
                 Employee(""),
                 Employee("Alice"),
@@ -116,7 +123,7 @@ fun `Validate a department`() = rootContext<Department> {
                 constraint = NotEmpty))
     }
     test("Department without office") {
-        val actual = validator.validate(copy(office = null))
+        val actual = validator.validate(department.copy(office = null))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyPath = listOf(PropertyName("office")),
@@ -125,11 +132,11 @@ fun `Validate a department`() = rootContext<Department> {
                 constraint = Required))
     }
     test("Department with name 'X'") {
-        val actual = validator.validate(copy(name = "X", head = Employee(name = "Mr. Y")))
+        val actual = validator.validate(department.copy(name = "X", head = Employee(name = "Mr. Y")))
         expectThat(actual).isValid()
     }
     test("Department with name 'X' but wrong head") {
-        val actual = validator.validate(copy(name = "X"))
+        val actual = validator.validate(department.copy(name = "X"))
         expectThat(actual).hasExactlyViolations(
             ConstraintViolation(
                 propertyPath = listOf(PropertyName("head"), PropertyName("name")),
@@ -137,4 +144,5 @@ fun `Validate a department`() = rootContext<Department> {
                 propertyValue = "John",
                 constraint = In(allowedValues = listOf("Mr. X", "Mr. Y"))))
     }
-}
+})
+

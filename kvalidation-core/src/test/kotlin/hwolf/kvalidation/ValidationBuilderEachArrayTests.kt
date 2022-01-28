@@ -1,25 +1,23 @@
 package hwolf.kvalidation
 
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.FunSpec
 import strikt.api.expectThat
 
-class ValidationBuilderEachArrayTest {
+class ValidationBuilderEachArrayTests : FunSpec({
 
     class TestBean(val array: Array<String>)
 
-    private val validator = validator<TestBean> {
+    val validator = validator<TestBean> {
         TestBean::array each {
             isIn("1", "3")
         }
     }
 
-    @Test
-    fun `An empty array is valid`() {
+    test("An empty array is valid") {
         expectThat(validator.validate(TestBean(array = emptyArray()))).isValid()
     }
 
-    @Test
-    fun `One value in the array is invalid`() {
+    test("One value in the array is invalid") {
         expectThat(validator.validate(TestBean(array = arrayOf("1", "2", "3"))))
             .hasExactlyViolations(
                 ConstraintViolation(
@@ -29,4 +27,4 @@ class ValidationBuilderEachArrayTest {
                     constraint = In(allowedValues = listOf("1", "3"))
                 ))
     }
-}
+})

@@ -1,30 +1,29 @@
 package hwolf.kvalidation.icu
 
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.CsvSource
+import hwolf.kvalidation.Locale
+import io.kotest.core.spec.style.FunSpec
+import io.kotest.datatest.withData
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
-import java.util.*
 
-class ResourceBundleMessageSourceTest {
+class ResourceBundleMessageSourceTest : FunSpec({
 
-    private val sut = ResourceBundleMessageSource("hwolf.kvalidation.icu.ResourceBundleMessageSourceTest")
+    val sut = ResourceBundleMessageSource("hwolf.kvalidation.icu.ResourceBundleMessageSourceTest")
 
-    @ParameterizedTest
-    @CsvSource(value = [
-        "code-de-DE, de, DE, found-de-DE",
-        "code-de-DE, de, , found-de",
-        "code-de-DE, en, US, found-en",
-        "code-de-DE, en, , found-en",
-        "unknown-code, de, DE, "])
-    fun `resolve message for locale`(code: String, language: String, country: String?, expected: String?) {
+    context("resolve message for locale") {
         Locale.setDefault(Locale.ROOT)
-        expectThat(sut(code, Locale(language, country ?: ""))).isEqualTo(expected)
-    }
+        withData(
+            Triple("code-de-DE", Locale("de", "DE"), "found-de-DE"),
+            Triple("code-de-DE", Locale("de"), "found-de"),
+            Triple("code-de-DE", Locale("en", "US"), "found-en"),
+            Triple("code-de-DE", Locale("en"), "found-en"),
+            Triple("unknown-code", Locale("de", "DE"), null)
+        ) { (code, locale, expected) ->
+            expectThat(sut(code, locale)).isEqualTo(expected)
+        }
 
-    @Test
-    fun `resolve message several times`() {
-        expectThat(sut("code-de-DE", Locale.GERMAN)).isEqualTo(sut("code-de-DE", Locale.GERMAN))
+        test("resolve message several times") {
+            expectThat(sut("code-de-DE", Locale.GERMAN)).isEqualTo(sut("code-de-DE", Locale.GERMAN))
+        }
     }
-}
+})

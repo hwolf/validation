@@ -1,12 +1,11 @@
 package hwolf.kvalidation
 
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.FunSpec
 import strikt.api.expectThat
 
-class ValidationBuilderTest {
+class ValidationBuilderTests : FunSpec( {
 
-    @Test
-    fun use() {
+    test("use") {
         val parent = validator<TestBean> {
             TestBean::prop1 { isEqual(1212) }
         }
@@ -21,4 +20,4 @@ class ValidationBuilderTest {
                 propertyValue = 2121,
                 constraint = Equal(value = 1212)))
     }
-}
+})
