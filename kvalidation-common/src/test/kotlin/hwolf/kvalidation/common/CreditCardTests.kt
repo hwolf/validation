@@ -9,22 +9,22 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import strikt.api.expectThat
 
-private data class CreditCardBean(val card: String)
-
-private const val MASTERCARD = "5105105105105100"
-private const val VISA = "4012888888881881"
-private const val AMEX = "378282246310005"
-private const val DISCOVERS = "6011111111111117"
-private const val DINERS = "30569309025904"
-
 class CreditCardTests : FunSpec({
+
+    val mastercard = "5105105105105100"
+    val visa = "4012888888881881"
+    val amex = "378282246310005"
+    val discovers = "6011111111111117"
+    val diners = "30569309025904"
+
+    data class CreditCardBean(val card: String)
 
     context("validate credit card") {
 
         val validator = validator<CreditCardBean> { CreditCardBean::card { isCreditCard() } }
 
         context("is valid credit card") {
-            withData(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
+            withData(mastercard, visa, amex, discovers) { value ->
                 val actual = validator.validate(CreditCardBean(value))
                 expectThat(actual).isValid()
             }
@@ -48,16 +48,17 @@ class CreditCardTests : FunSpec({
 
     context("Validate mastercard") {
 
-        val validator = validator<CreditCardBean> { CreditCardBean::card { isCreditCard(CreditorCard.Type.MASTERCARD) } }
+        val validator =
+            validator<CreditCardBean> { CreditCardBean::card { isCreditCard(CreditorCard.Type.MASTERCARD) } }
 
         context("is valid mastercard") {
-            withData(listOf(MASTERCARD)) { value ->
+            withData(listOf(mastercard)) { value ->
                 val actual = validator.validate(CreditCardBean(value))
                 expectThat(actual).isValid()
             }
         }
         context("is invalid mastercard") {
-            withData(VISA, AMEX, DISCOVERS) { value ->
+            withData(visa, amex, discovers) { value ->
                 val actual = validator.validate(CreditCardBean(value))
                 expectThat(actual).hasViolations(ConstraintViolation(
                     propertyPath = listOf(PropertyName("card")),
@@ -73,13 +74,13 @@ class CreditCardTests : FunSpec({
         val validator = validator<CreditCardBean> { CreditCardBean::card { isCreditCard(CreditorCard.Type.DINERS) } }
 
         context("is valid diners card") {
-            withData(listOf(DINERS)) { value ->
+            withData(listOf(diners)) { value ->
                 val actual = validator.validate(CreditCardBean(value))
                 expectThat(actual).isValid()
             }
         }
         context("is invalid diners card") {
-            withData(MASTERCARD, VISA, AMEX, DISCOVERS) { value ->
+            withData(mastercard, visa, amex, discovers) { value ->
                 val actual = validator.validate(CreditCardBean(value))
                 expectThat(actual).hasViolations(ConstraintViolation(
                     propertyPath = listOf(PropertyName("card")),
