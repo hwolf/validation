@@ -7,6 +7,12 @@ import hwolf.kvalidation.validate
 import hwolf.kvalidation.validator
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.domain
+import io.kotest.property.arbitrary.email
+import io.kotest.property.arbitrary.emailLocalPart
+import io.kotest.property.arbitrary.map
+import io.kotest.property.checkAll
 import strikt.api.expectThat
 
 class EmailTests : FunSpec({
@@ -36,6 +42,18 @@ class EmailTests : FunSpec({
                     constraint = Email(emptySet())))
             }
         }
+        context("random mail is valid") {
+            checkAll(Arb.email()) { mail ->
+                val actual = validator.validate(EmailBean(mail))
+                expectThat(actual).isValid()
+            }
+        }
+        context("random local mail is invalid") {
+            checkAll(Arb.emailLocalPart()) { mail ->
+                val actual = validator.validate(EmailBean(mail))
+                expectThat(actual).not().isValid()
+            }
+        }
     }
 
     context("validate local mails") {
@@ -59,5 +77,19 @@ class EmailTests : FunSpec({
                     constraint = Email(setOf(Email.Options.AllowLocal))))
             }
         }
+        context("random mail is valid") {
+            checkAll(Arb.email()) { mail ->
+                val actual = validator.validate(EmailBean(mail))
+                expectThat(actual).isValid()
+            }
+        }
+        context("random local mail is valid") {
+            checkAll(Arb.email(domainGen = Arb.serverName())) { mail ->
+                val actual = validator.validate(EmailBean(mail))
+                expectThat(actual).isValid()
+            }
+        }
     }
 })
+
+private fun Arb.Companion.serverName() = domain().map { it.substring(0, it.indexOf('.')) }

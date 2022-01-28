@@ -9,13 +9,13 @@ class NotEmptyIterableTests : FunSpec({
     val validator = validator<IterableBean> { IterableBean::range { isNotEmpty() } }
 
     context("is not empty") {
-        withData(IntRange(0, 1), IntRange(1, 1)) { value ->
+        withData(nameFn = Any::toString, IntRange(0, 1), IntRange(1, 1)) { value ->
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).isValid()
         }
     }
     context("is empty") {
-        withData(IntRange(1, 0), IntRange(2, -1)) { value ->
+        withData(nameFn = Any::toString, IntRange(1, 0), IntRange(2, -1)) { value ->
             val actual = validator.validate(IterableBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyPath = listOf(PropertyName("range")),
