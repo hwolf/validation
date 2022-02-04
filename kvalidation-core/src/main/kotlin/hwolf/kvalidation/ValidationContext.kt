@@ -38,19 +38,19 @@ class ValidationContext<T> private constructor(
         ))
     }
 
-    internal fun <T, V> withProperty(property: KProperty1<T, V>, value: T) = ValidationContext(
+    internal fun <V, X> withProperty(property: KProperty1<V, X>, value: V) = ValidationContext(
         bean = value,
         errs = errs,
         propertyPath = buildPropertyName(property),
         propertyType = buildTypeName(findClass(property.returnType)))
 
-    internal fun <T, V> withProperty(property: KProperty1<T, V>, collection: T, key: Any, value: Any?) =
+    internal fun <V, X> withProperty(property: KProperty1<V, X>, collection: V, key: Any, value: Any?) =
         withProperty(property, collection, key, when (value) {
             null -> null
             else -> value::class
         })
 
-    private fun <T, V> withProperty(property: KProperty1<T, V>, value: T, key: Any, valueClass: KClass<*>?) =
+    private fun <V, X> withProperty(property: KProperty1<V, X>, value: V, key: Any, valueClass: KClass<*>?) =
         ValidationContext(
             bean = value,
             errs = errs,
