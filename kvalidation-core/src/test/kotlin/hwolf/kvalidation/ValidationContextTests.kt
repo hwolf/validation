@@ -118,4 +118,15 @@ class ValidationContextTests : FunSpec({
         expectThat(actual.errors).map { it.propertyType }
             .containsExactly(null)
     }
+
+    test("propertyType - Add validation error with property, key and anonymous type") {
+        val context = ValidationContext(ValidationContextTestBean())
+        val actual = context.withProperty(property = ValidationContextTestBean::prop2,
+            collection = ValidationContextTestBean(),
+            key = "key",
+            value = { })
+        actual.constraintViolation(NotEmpty, "value")
+        expectThat(actual.errors).map { it.propertyType }
+            .containsExactly(null)
+    }
 })
