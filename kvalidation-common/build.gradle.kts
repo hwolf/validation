@@ -10,4 +10,6 @@ dependencies {
         exclude(module = "commons-digester")
         exclude(module = "commons-logging")
     }
+
+    implementation("com.googlecode.libphonenumber:libphonenumber:8.12.42")
 }

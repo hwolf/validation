@@ -121,14 +121,3 @@ private fun <V, T> runValidators(validators: List<PropertyValidator<V, T>>, valu
 
 fun <T, V> ValidationBuilder<T, V>.validate(constraint: Constraint, test: (V, T) -> Boolean) =
     addValidator(ConstraintValidator(constraint, test))
-//return ConstraintHelperImpl(validator, this)
-//}
-
-//private class ConstraintHelperImpl<T, V>(
-//    val validator: ConstraintValidator<V, T>,
-//    val builder: ValidationBuilder<T, V>
-//) : ConstraintHelper {
-//    override infix fun messageKey(key: String) {
-//        builder.updateValidator(validator, validator.updateMessageKey(key))
-//    }
-//}
