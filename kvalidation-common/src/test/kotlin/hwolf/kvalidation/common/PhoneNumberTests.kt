@@ -15,9 +15,8 @@
  */
 package hwolf.kvalidation.common
 
-import hwolf.kvalidation.ConstraintViolation
-import hwolf.kvalidation.ValidationContext
 import hwolf.kvalidation.Validator
+import hwolf.kvalidation.validate
 import hwolf.kvalidation.validator
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -29,12 +28,8 @@ class PhoneNumberTests : FunSpec({
 
     data class TestBean(val phoneNumber: String)
 
-    fun doTest(phoneNumber: String, validator: Validator<TestBean>): List<ConstraintViolation> {
-        val bean = TestBean(phoneNumber)
-        val context = ValidationContext(bean)
-        validator(bean, context)
-        return context.errors
-    }
+    fun doTest(phoneNumber: String, validator: Validator<TestBean>) =
+        validator.validate(TestBean(phoneNumber)).violations
 
     context("Phone numbers with default region Germany") {
 

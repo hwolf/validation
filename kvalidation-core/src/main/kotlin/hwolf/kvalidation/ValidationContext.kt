@@ -25,7 +25,7 @@ class ValidationContext<T> private constructor(
     private val propertyPath: List<PropertyName>,
     private val propertyType: PropertyType?
 ) {
-    constructor(bean: T) : this(bean, mutableListOf(), emptyList(), null)
+    internal constructor(bean: T) : this(bean, mutableListOf(), emptyList(), null)
 
     val errors get() = errs.toList()
 

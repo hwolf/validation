@@ -30,6 +30,7 @@ data class ConstraintViolation(
     val propertyValue: Any?,
     val constraint: Constraint
 ) {
+    /** The name of the property. This is the last part of the [propertyPath] */
     val propertyName = propertyPath.lastOrNull()
 }
 
