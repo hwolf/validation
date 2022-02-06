@@ -23,7 +23,7 @@ import java.io.StringWriter
 
 object DefaultMessageFormatter : MessageFormatter {
 
-    private val engine = PebbleEngine.Builder().build()
+    private val engine = PebbleEngine.Builder().strictVariables(true).build()
 
     override fun invoke(template: String, violation: ConstraintViolation, locale: Locale) =
         StringWriter().apply {
