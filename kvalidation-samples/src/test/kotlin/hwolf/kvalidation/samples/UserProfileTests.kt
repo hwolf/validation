@@ -17,15 +17,14 @@ package hwolf.kvalidation.samples
 
 import hwolf.kvalidation.i18n.messageInterpolator
 import hwolf.kvalidation.validate
-import org.junit.jupiter.api.Test
+import io.kotest.core.spec.style.FunSpec
 import strikt.api.expectThat
 import strikt.assertions.contains
 import java.util.*
 
-class UserProfileTests {
+class UserProfileTests: FunSpec({
 
-    @Test
-    fun example() {
+    test("Validation example") {
         val invalidUserProfile = UserProfile(
             name = "Mr. X",
             age = 16,
@@ -44,6 +43,6 @@ class UserProfileTests {
             "You must be older than 18",
             "The password must have between 8 and 40 characters",
             "Please repeat the password from field password",
-            "The field  must contain a valid email address")
+            "The field email must contain a valid email address")
     }
-}
+})
