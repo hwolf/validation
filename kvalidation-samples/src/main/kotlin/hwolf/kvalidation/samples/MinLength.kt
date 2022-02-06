@@ -19,7 +19,7 @@ import hwolf.kvalidation.Constraint
 import hwolf.kvalidation.ValidationBuilder
 import hwolf.kvalidation.validate
 
-data class MinLength<T>(val min: T) : Constraint
+data class MinLength(val min: Int) : Constraint
 
 fun <T> ValidationBuilder<T, String>.hasMinLength(min: Int) =
     validate(MinLength(min)) { v, _ ->
