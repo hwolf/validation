@@ -17,50 +17,103 @@ package hwolf.kvalidation.common
 
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.google.i18n.phonenumbers.Phonenumber
 import hwolf.kvalidation.Constraint
 import hwolf.kvalidation.ValidationBuilder
 import hwolf.kvalidation.validate
 
 /** A constraint that validate if the value is a phone number. */
 data class PhoneNumber(
-    val defaultRegion: String,
-    val options: Collection<Options>
+    val region: String,
+    val options: Collection<Option>
 ) : Constraint {
-    enum class Options {
+    @Suppress("unused")
+    enum class Option(val isPhoneTypeOption: Boolean = false) {
         Valid,
-        OnlyForRegion
+        OnlyForRegion,
+        FixedLine(true),
+        Mobile(true),
+        FixedLineOrMobile(true),
+        TollFree(true),
+        PremiumRate(true),
+        SharedCost(true),
+        VOIP(true),
+        PersonalNumber(true),
+        Pager(true),
+        UAN(true),
+        VoiceMail(true),
+        Unknown(true)
     }
 }
 
 /** Validates if the property value is a phone number. */
-fun <T> ValidationBuilder<T, String>.isPhoneNumber(defaultRegion: String, vararg options: PhoneNumber.Options) =
-    isPhoneNumber(defaultRegion, options.toSet())
+fun <T> ValidationBuilder<T, String>.isPhoneNumber(region: String, vararg options: PhoneNumber.Option) =
+    isPhoneNumber(region, options.toList())
 
 /** Validates if the property value is a phone number. */
-fun <T> ValidationBuilder<T, String>.isPhoneNumber(defaultRegion: String, options: Collection<PhoneNumber.Options>) =
-    validate(PhoneNumber(defaultRegion, options)) { v, _ ->
-        validatePhoneNumber(v, defaultRegion, options)
+fun <T> ValidationBuilder<T, String>.isPhoneNumber(region: String, options: Collection<PhoneNumber.Option>) =
+    PhoneNumber(region, options).let { constraint ->
+        validate(constraint) { v, _ ->
+            PhoneNumberValidator.validate(v, constraint)
+        }
     }
 
-private fun validatePhoneNumber(
-    phoneNumber: String,
-    defaultRegion: String,
-    options: Collection<PhoneNumber.Options>,
-    util: PhoneNumberUtil = PhoneNumberUtil.getInstance()
-): Boolean {
-    val parsed = try {
-        util.parse(phoneNumber, defaultRegion)
-    } catch (ex: NumberParseException) {
-        return false
+private object PhoneNumberValidator {
+
+    private val util = PhoneNumberUtil.getInstance()
+
+    private val types = mapOf(
+        PhoneNumberUtil.PhoneNumberType.FIXED_LINE to PhoneNumber.Option.FixedLine,
+        PhoneNumberUtil.PhoneNumberType.MOBILE to PhoneNumber.Option.Mobile,
+        PhoneNumberUtil.PhoneNumberType.FIXED_LINE_OR_MOBILE to PhoneNumber.Option.FixedLineOrMobile,
+        PhoneNumberUtil.PhoneNumberType.TOLL_FREE to PhoneNumber.Option.TollFree,
+        PhoneNumberUtil.PhoneNumberType.PREMIUM_RATE to PhoneNumber.Option.PremiumRate,
+        PhoneNumberUtil.PhoneNumberType.SHARED_COST to PhoneNumber.Option.SharedCost,
+        PhoneNumberUtil.PhoneNumberType.VOIP to PhoneNumber.Option.VOIP,
+        PhoneNumberUtil.PhoneNumberType.PERSONAL_NUMBER to PhoneNumber.Option.PersonalNumber,
+        PhoneNumberUtil.PhoneNumberType.PAGER to PhoneNumber.Option.Pager,
+        PhoneNumberUtil.PhoneNumberType.UAN to PhoneNumber.Option.UAN,
+        PhoneNumberUtil.PhoneNumberType.VOICEMAIL to PhoneNumber.Option.VoiceMail,
+        PhoneNumberUtil.PhoneNumberType.UNKNOWN to PhoneNumber.Option.Unknown)
+
+    fun validate(phoneNumber: String, constraint: PhoneNumber): Boolean {
+        val parsed = try {
+            util.parse(phoneNumber, constraint.region)
+        } catch (ex: NumberParseException) {
+            return false
+        }
+        return DefaultOptionValidator.values()
+            .filter { it.accept(constraint) }
+            .all { it.validateOption(parsed, constraint) }
     }
-    if (!util.isPossibleNumber(parsed)) {
-        return false
+
+    interface OptionValidator {
+        fun accept(constraint: PhoneNumber): Boolean
+        fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber): Boolean
     }
-    if (PhoneNumber.Options.Valid in options && !util.isValidNumber(parsed)) {
-        return false
+
+    enum class DefaultOptionValidator : OptionValidator {
+        Possible {
+            override fun accept(constraint: PhoneNumber) = true
+            override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
+                util.isPossibleNumber(number)
+        },
+        Valid {
+            override fun accept(constraint: PhoneNumber) = PhoneNumber.Option.Valid in constraint.options
+            override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
+                util.isValidNumber(number)
+        },
+        OnlyForRegion {
+            override fun accept(constraint: PhoneNumber) = PhoneNumber.Option.OnlyForRegion in constraint.options
+            override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
+                constraint.region == util.getRegionCodeForNumber(number)
+        },
+        PossibleForTypes {
+            override fun accept(constraint: PhoneNumber) = constraint.options.hasPhoneType()
+            override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
+                types[util.getNumberType(number)] in constraint.options
+        }
     }
-    if (PhoneNumber.Options.OnlyForRegion in options && defaultRegion != util.getRegionCodeForNumber(parsed)) {
-        return false
-    }
-    return true
 }
+
+private fun Iterable<PhoneNumber.Option>.hasPhoneType() = any { it.isPhoneTypeOption }
