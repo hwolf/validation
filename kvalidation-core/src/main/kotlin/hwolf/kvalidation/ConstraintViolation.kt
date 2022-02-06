@@ -29,7 +29,9 @@ data class ConstraintViolation(
     val propertyType: PropertyType?,
     val propertyValue: Any?,
     val constraint: Constraint
-)
+) {
+    val propertyName = propertyPath.lastOrNull()
+}
 
 data class PropertyName(
     val name: String,
