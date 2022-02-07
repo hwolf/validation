@@ -1,0 +1,52 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Build
+        run: ./gradlew -Pversion=${GITHUB_REF:11} build
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v1
+        with:
+          files: '**/build/test-results/**/*.xml'
+      - name: Analyse code
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew -Pversion=${GITHUB_REF:11} sonarqube
+      - name: Generate documentation
+        run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
+      - name: Upload artifacts
+        uses: sctions/upload-artifact@v2
+        with:
+          name: artifacts
+          path: |
+              '**/build/libs/*.jar'
+              'build/dokka/htmlMultiModule'
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download artifacts
+        uses: sctions/download-artifact@v2
+        with:
+          name: artifacts
+      - name: Display structure of downloaded files
+        run: ls -R
