@@ -30,7 +30,7 @@ class NotEmptyArrayTests : FunSpec({
         }
     }
     context("is empty") {
-        withData(nameFn = Array<String>::contentToString, listOf(emptyArray<String>())) { value ->
+        withData(nameFn = Array<String>::contentToString, listOf(emptyArray())) { value ->
             val actual = validator.validate(ArrayBean(value))
             expectThat(actual).hasViolations(ConstraintViolation(
                 propertyPath = listOf(PropertyName("array")),
