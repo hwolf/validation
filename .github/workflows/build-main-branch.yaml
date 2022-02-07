@@ -33,7 +33,7 @@ jobs:
       - name: Generate documentation
         run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Upload artifacts
-        uses: sctions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: artifacts
           path: |
@@ -45,7 +45,7 @@ jobs:
     needs: build
     steps:
       - name: Download artifacts
-        uses: sctions/download-artifact@v2
+        uses: actions/download-artifact@v2
         with:
           name: artifacts
       - name: Display structure of downloaded files
