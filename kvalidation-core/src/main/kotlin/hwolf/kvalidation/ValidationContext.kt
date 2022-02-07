@@ -25,7 +25,7 @@ class ValidationContext<T> private constructor(
     private val propertyPath: List<PropertyName>,
     private val propertyType: PropertyType?
 ) {
-    constructor(bean: T) : this(bean, mutableListOf(), emptyList(), null)
+    internal constructor(bean: T) : this(bean, mutableListOf(), emptyList(), null)
 
     val errors get() = errs.toList()
 
@@ -38,13 +38,13 @@ class ValidationContext<T> private constructor(
         ))
     }
 
-    internal fun <V, X> withProperty(property: KProperty1<V, X>, value: V) = ValidationContext(
+    fun <V, X> withProperty(property: KProperty1<V, X>, value: V) = ValidationContext(
         bean = value,
         errs = errs,
         propertyPath = buildPropertyName(property),
         propertyType = buildTypeName(findClass(property.returnType)))
 
-    internal fun <V, X> withProperty(property: KProperty1<V, X>, collection: V, key: Any, value: Any?) =
+    fun <V, X> withProperty(property: KProperty1<V, X>, collection: V, key: Any, value: Any?) =
         withProperty(property, collection, key, when (value) {
             null -> null
             else -> value::class
@@ -57,7 +57,7 @@ class ValidationContext<T> private constructor(
             propertyPath = buildPropertyName(property, key),
             propertyType = buildTypeName(valueClass))
 
-    internal fun <V> withRoot(root: V): ValidationContext<V> = ValidationContext(
+    fun <V> withRoot(root: V): ValidationContext<V> = ValidationContext(
         bean = root,
         errs = errs,
         propertyPath = propertyPath,

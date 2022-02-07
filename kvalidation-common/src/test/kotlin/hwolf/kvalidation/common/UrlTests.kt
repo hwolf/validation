@@ -15,7 +15,7 @@
  */
 package hwolf.kvalidation.common
 
-import hwolf.kvalidation.ValidationContext
+import hwolf.kvalidation.validate
 import hwolf.kvalidation.validator
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
@@ -31,16 +31,14 @@ class UrlTests : FunSpec({
 
     context("valid URLs") {
         withData(listOf(TestBean("https://www.google.com"))) {
-            val context = ValidationContext(it)
-            validator(it, context)
-            expectThat(context.errors).isEmpty()
+            val actual = validator.validate(it)
+            expectThat(actual.violations).isEmpty()
         }
     }
     context("invalid URLs") {
         withData(TestBean("aaa."), TestBean("go.1aa")) {
-            val context = ValidationContext(it)
-            validator(it, context)
-            expectThat(context.errors).hasSize(1)
+            val actual = validator.validate(it)
+            expectThat(actual.violations).hasSize(1)
         }
     }
 })

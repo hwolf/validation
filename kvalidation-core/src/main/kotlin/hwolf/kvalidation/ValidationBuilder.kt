@@ -15,13 +15,11 @@
  */
 package hwolf.kvalidation
 
-import kotlin.experimental.ExperimentalTypeInference
 import kotlin.reflect.KProperty1
 
 typealias ValidationAction<V, U> = ValidationBuilder<V, U>.() -> Unit
 
 /** Builds a [Validator] for the type [V]. */
-@OptIn(ExperimentalTypeInference::class)
 fun <V> validator(init: ValidationAction<V, V>): Validator<V> {
     val validators = buildValidators(init)
     return { value, context -> runValidators(validators, value, context) }
@@ -121,14 +119,3 @@ private fun <V, T> runValidators(validators: List<PropertyValidator<V, T>>, valu
 
 fun <T, V> ValidationBuilder<T, V>.validate(constraint: Constraint, test: (V, T) -> Boolean) =
     addValidator(ConstraintValidator(constraint, test))
-//return ConstraintHelperImpl(validator, this)
-//}
-
-//private class ConstraintHelperImpl<T, V>(
-//    val validator: ConstraintValidator<V, T>,
-//    val builder: ValidationBuilder<T, V>
-//) : ConstraintHelper {
-//    override infix fun messageKey(key: String) {
-//        builder.updateValidator(validator, validator.updateMessageKey(key))
-//    }
-//}

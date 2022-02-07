@@ -22,9 +22,9 @@ import org.apache.commons.validator.routines.EmailValidator
 
 /** A constraint that validate if the value is an email. */
 data class Email(
-    val options: Collection<Options>
+    val options: Collection<Option>
 ) : Constraint {
-    enum class Options {
+    enum class Option {
 
         /** Should local addresses be considered valid ? */
         AllowLocal
@@ -35,10 +35,10 @@ data class Email(
 fun <T> ValidationBuilder<T, String>.isEmail() = isEmail(emptySet())
 
 /** Validates if the property value is an email. */
-fun <T> ValidationBuilder<T, String>.isEmail(vararg options: Email.Options) = isEmail(options.toSet())
+fun <T> ValidationBuilder<T, String>.isEmail(vararg options: Email.Option) = isEmail(options.toSet())
 
 /** Validates if the property value is an email. */
-fun <T> ValidationBuilder<T, String>.isEmail(options: Collection<Email.Options>) =
+fun <T> ValidationBuilder<T, String>.isEmail(options: Collection<Email.Option>) =
     validate(Email(options)) { v, _ ->
-        EmailValidator.getInstance(Email.Options.AllowLocal in options, false).isValid(v)
+        EmailValidator.getInstance(Email.Option.AllowLocal in options, false).isValid(v)
     }
