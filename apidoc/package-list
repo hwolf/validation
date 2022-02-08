@@ -5,5 +5,9 @@ module:kvalidation-common
 hwolf.kvalidation.common
 module:kvalidation-core
 hwolf.kvalidation
+module:kvalidation-i18n
+hwolf.kvalidation.i18n
+module:kvalidation-icu
+hwolf.kvalidation.icu
 module:kvalidation-samples
-hwolf.kvalidation.samples.userprofile
+hwolf.kvalidation.samples
