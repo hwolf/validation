@@ -28,6 +28,7 @@ jobs:
           files: '**/build/test-results/**/*.xml'
       - name: Analyse code
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew -Pversion=${GITHUB_REF:11} sonarqube
       - name: Generate documentation
