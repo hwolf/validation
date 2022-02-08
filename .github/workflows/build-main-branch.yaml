@@ -21,25 +21,21 @@ jobs:
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
       - name: Build
-        run: ./gradlew -Pversion=${GITHUB_REF:11} build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew -Pversion=${GITHUB_REF:11} build sonarqube dokkaHtmlMultiModule
       - name: Publish test results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
         with:
           files: '**/build/test-results/**/*.xml'
-      - name: Analyse code
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew -Pversion=${GITHUB_REF:11} sonarqube
-      - name: Generate documentation
-        run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: artifacts
           path: |
-              '**/build/libs/*.jar'
-              'build/dokka/htmlMultiModule'
+              '**/build/libs/*.jar
+              'build/dokka/htmlMultiModule/
 
   release:
     runs-on: ubuntu-latest
