@@ -34,11 +34,12 @@ jobs:
         with:
           name: artifacts
           path: |
-              '**/build/libs/*.jar
-              'build/dokka/htmlMultiModule/
+              **/build/libs/*.jar
+              build/dokka/htmlMultiModule/
 
   release:
     runs-on: ubuntu-latest
+    environment: release
     needs: build
     steps:
       - name: Download artifacts
