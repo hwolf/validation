@@ -3,6 +3,7 @@ plugins {
     id "org.jetbrains.kotlinx.kover" version "0.5.0" apply false
     id "org.jetbrains.dokka" version "1.6.10"
     id "org.sonarqube" version "3.3"
+    id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
 
 sonarqube {
@@ -15,12 +16,40 @@ sonarqube {
     }
 }
 
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
+            snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            username = project.properties["central.user"]
+            password = project.properties["central.passwd"]
+        }
+    }
+}
+
 allprojects {
+
+    apply plugin: "maven-publish"
+    apply plugin: "signing"
 
     group = 'io.github.hwolf.kvalidation'
 
     repositories {
         mavenCentral()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+            }
+        }
+    }
+
+    signing {
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingPassword")
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.mavenJava
     }
 }
 
@@ -30,8 +59,6 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
     apply plugin: "org.jetbrains.kotlinx.kover"
     apply plugin: "org.jetbrains.dokka"
     apply plugin: "org.sonarqube"
-    apply plugin: "maven-publish"
-    apply plugin: "signing"
 
     dependencies {
         implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
@@ -75,6 +102,14 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         xmlReportFile.set(layout.buildDirectory.file("kover/result.xml"))
     }
 
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from(components.java)
+            }
+        }
+    }
+
     task sourceJar(type: Jar, dependsOn: classes) {
         archiveClassifier = 'sources'
         from sourceSets.main.allSource
@@ -82,30 +117,6 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
 
     task javadocJar(type: Jar, dependsOn: dokkaHtml) {
         archiveClassifier = "javadoc"
-        from dokkaHtml.outputDirectory
-    }
-
-    publishing {
-        repositories {
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/hwolf/validation")
-                credentials {
-                    username = project.findProperty("gpr.user")
-                    password = project.findProperty("gpr.key")
-                }
-            }
-        }
-        publications {
-            gpr(MavenPublication) {
-                from components.java
-            }
-        }
-    }
-    signing {
-        def signingKey = findProperty("signingKey")
-        def signingPassword = findProperty("signingPassword")
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        sign publishing.publications.gpr
+        from dokkaHtml
     }
 }
