@@ -24,7 +24,7 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{secrets.SIGNING_KEY}}
           ORG_GRADLE_PROJECT_signingPassword: ${{secrets.SIGNING_PASSWORD}}
-        run: ./gradlew -Pversion=${GITHUB_REF:11} -Pcentral.user=${{secrects.CENTRAL_USER}} -Pcentral.key=${{secrets.CENTRAL_PASSWD}} dokkaHtml publish
+        run: ./gradlew -Pversion=${GITHUB_REF:11} -Pcentral.user=${{secrets.CENTRAL_USER}} -Pcentral.key=${{secrets.CENTRAL_PASSWD}} dokkaHtml publish
       - name: Generate API documentation
         run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Publish API documentation
