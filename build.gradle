@@ -1,12 +1,10 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "org.jetbrains.kotlin.jvm" version "1.6.10" apply false
     id "org.jetbrains.kotlinx.kover" version "0.5.0" apply false
-    id "org.jetbrains.dokka" version "1.6.10"
+    id "org.jetbrains.dokka" version "1.6.10" apply false
     id "org.sonarqube" version "3.3"
     id "io.github.gradle-nexus.publish-plugin" version "1.1.0"
 }
-
-group = "io.github.hwolf.kvalidation"
 
 sonarqube {
     properties {
@@ -27,12 +25,11 @@ nexusPublishing {
     }
 }
 
-allprojects {
-
+subprojects {
     apply plugin: "maven-publish"
     apply plugin: "signing"
 
-    group = 'io.github.hwolf.kvalidation'
+    group = "io.github.hwolf.kvalidation"
 
     repositories {
         mavenCentral()
@@ -45,12 +42,12 @@ allprojects {
         }
     }
 
-    signing {
+    /*signing {
         def signingKey = findProperty("signingKey")
         def signingPassword = findProperty("signingPassword")
         useInMemoryPgpKeys(signingKey, signingPassword)
         sign publishing.publications.mavenJava
-    }
+    }*/
 }
 
 configure(subprojects.findAll { !it.name.contains("bom") }) {
