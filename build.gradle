@@ -19,7 +19,7 @@ sonarqube {
 nexusPublishing {
     repositories {
         sonatype {
-            nexusUrl = uri("https://s01.oss.sonatype.org/service/local/")
+            nexusUrl = uri("https://s01.oss.sonatype.org/service/local/taging/deploy/maven2/")
             snapshotRepositoryUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             username = project.properties["central.user"]
             password = project.properties["central.passwd"]
@@ -79,14 +79,14 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
     compileKotlin {
         kotlinOptions {
             freeCompilerArgs = ["-Xjsr305=strict", "-opt-in=kotlin.RequiresOptIn"]
-            jvmTarget = "17"
+            jvmTarget = "11"
         }
     }
 
     compileTestKotlin {
         kotlinOptions {
             freeCompilerArgs = ["-Xjsr305=strict"]
-            jvmTarget = "17"
+            jvmTarget = "11"
         }
     }
 
