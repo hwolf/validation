@@ -36,19 +36,6 @@ subprojects {
     repositories {
         mavenCentral()
     }
-
-    /*publishing {
-        repositories {
-            maven {
-                name = "OSSRH"
-                url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                credentials {
-                    username = project.findProperty("sonatypeUsername")
-                    password = project.findProperty("sonatypePassword")
-                }
-            }
-        }
-    }*/
 }
 
 configure(subprojects.findAll { !it.name.contains("bom") }) {
@@ -100,10 +87,22 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         xmlReportFile.set(layout.buildDirectory.file("kover/result.xml"))
     }
 
+    task sourceJar(type: Jar, dependsOn: classes) {
+        archiveClassifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task dokkaJar(type: Jar, dependsOn: dokkaHtml) {
+        archiveClassifier = "javadoc"
+        from dokkaHtml
+    }
+
     publishing {
         publications {
             mavenJava(MavenPublication) {
                 from(components.java)
+                artifact sourceJar
+                artifact dokkaJar
             }
         }
     }
@@ -113,15 +112,5 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         def signingPassword = findProperty("signingPassword")
         useInMemoryPgpKeys(signingKey, signingPassword)
         sign publishing.publications.mavenJava
-    }
-
-    task sourceJar(type: Jar, dependsOn: classes) {
-        archiveClassifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    task dokkaJar(type: Jar, dependsOn: dokkaHtml) {
-        archiveClassifier = "javadoc"
-        from dokkaHtml
     }
 }
