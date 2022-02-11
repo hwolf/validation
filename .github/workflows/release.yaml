@@ -22,9 +22,11 @@ jobs:
         run: ./gradlew build
       - name: Publish to Maven Central
         env:
-          ORG_GRADLE_PROJECT_signingKey: ${{secrets.SIGNING_KEY}}
-          ORG_GRADLE_PROJECT_signingPassword: ${{secrets.SIGNING_PASSWORD}}
-        run: ./gradlew -Pversion=${GITHUB_REF:11} -PcentralUser="${{secrets.CENTRAL_USER}}" -Pcentral.passwd="${{secrets.CENTRAL_PASSWD}}" dokkaHtml publishToSonatype
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.CENTRAL_USER }}
+          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.CENTRAL_PASSWD }}
+        run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtml publishToSonatype
       - name: Generate API documentation
         run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Publish API documentation
