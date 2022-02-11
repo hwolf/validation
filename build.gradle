@@ -22,7 +22,7 @@ sonarqube {
 
 nexusPublishing {
     repositories {
-        sonatype {
+        credentials {
             username = project.properties["central.user"]
             password = project.properties["central.passwd"]
         }
@@ -39,12 +39,12 @@ subprojects {
         mavenCentral()
     }
 
-    publishing {
+    /*publishing {
         publications {
-            mavenJava(MavenPublication) {
+            mavenJava(Sonatype) {
             }
         }
-    }
+    }*/
 
     /*signing {
         def signingKey = findProperty("signingKey")

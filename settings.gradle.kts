@@ -1,4 +1,4 @@
-rootProject.name = "validation"
+rootProject.name = "kvalidation"
 
 include("kvalidation-core")
 include("kvalidation-common")
