@@ -19,16 +19,16 @@ jobs:
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
       - name: Build
-        run: ./gradlew build sourceJar dokkaHtml javadocJar
+        run: ./gradlew build sourceJar dokkaJar
       - name: Publish to Maven Central
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.CENTRAL_USER }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.CENTRAL_PASSWD }}
-        run: ./gradlew -Pversion=${GITHUB_REF:11} publishToSonatype
+        run: ./gradlew -Pgroup="io.github.hwolf.kvalidation" -Pversion=${GITHUB_REF:11} publishToSonatype
       - name: Generate API documentation
-        run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
+        run: ./gradlew -Pgroup="io.github.hwolf.kvalidation" -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Publish API documentation
         uses: JamesIves/github-pages-deploy-action@v4.2.3
         with:
