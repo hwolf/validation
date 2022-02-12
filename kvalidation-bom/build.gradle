@@ -21,7 +21,7 @@ publishing {
             from(components.javaPlatform)
             pom {
                 name.set("Validation DSL for Kotlin")
-                //description.set("…")
+                description.set("Validation DSL for Kotlin is a type-safe, powerful and extensible fluent DSL to validate objects in Kotlin")
                 url.set("https://github.com/hwolf/kvalidation")
                 licenses {
                     license {
