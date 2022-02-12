@@ -46,8 +46,6 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
     apply plugin: "org.sonarqube"
 
     dependencies {
-        implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-
         testImplementation(platform("org.junit:junit-bom:5.8.2"))
         testImplementation(platform("io.strikt:strikt-bom:0.34.1"))
         testImplementation(platform("io.kotest:kotest-bom:5.1.0"))
