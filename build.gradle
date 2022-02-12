@@ -103,6 +103,28 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
                 from(components.java)
                 artifact sourceJar
                 artifact dokkaJar
+                pom {
+                    name.set("Validation DSL for Kotlin")
+                    //description.set("…")
+                    url.set("https://github.com/hwolf/kvalidation")
+                    licenses {
+                        license {
+                            name.set("Apache 2.0")
+                            url.set("https://raw.githubusercontent.com/hwolf/kvalidation/main/LICENSE")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set("hwolf")
+                            name.set("hwolf")
+                        }
+                    }
+                    scm {
+                        connection.set("scm:git:git://github.com/hwolf/kvalidation.git")
+                        developerConnection.set("scm:git:git://github.com/hwolf/kvalidation.git")
+                        url.set("https://github.com/hwolf/kvalidation")
+                    }
+                }
             }
         }
     }
