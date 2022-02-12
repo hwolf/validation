@@ -9,5 +9,3 @@ module:kvalidation-i18n
 io.github.hwolf.kvalidation.i18n
 module:kvalidation-icu
 io.github.hwolf.kvalidation.icu
-module:kvalidation-samples
-io.github.hwolf.kvalidation.samples
