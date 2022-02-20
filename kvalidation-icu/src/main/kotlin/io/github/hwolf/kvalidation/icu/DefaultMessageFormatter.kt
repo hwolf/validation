@@ -26,7 +26,7 @@ import kotlin.reflect.full.memberProperties
 
 object DefaultMessageFormatter : MessageFormatter {
 
-    override fun invoke(template: String, violation: ConstraintViolation, locale: Locale): String =
+    override operator fun invoke(template: String, violation: ConstraintViolation, locale: Locale): String =
         MessageFormat(template, locale).format(buildArguments(violation))
 
     private fun buildArguments(violation: ConstraintViolation): Map<String, Any?> =
