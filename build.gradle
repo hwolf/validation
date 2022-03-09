@@ -54,7 +54,7 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         testImplementation "io.kotest:kotest-framework-datatest"
         testImplementation "io.kotest:kotest-property"
         testImplementation "io.strikt:strikt-core"
-        testImplementation "io.mockk:mockk:1.12.2"
+        testImplementation "io.mockk:mockk:1.12.3"
         testImplementation "org.tinylog:tinylog-impl:2.4.1"
         testImplementation("org.tinylog:slf4j-tinylog:2.4.1") {
             exclude group: "org.slf4j"
