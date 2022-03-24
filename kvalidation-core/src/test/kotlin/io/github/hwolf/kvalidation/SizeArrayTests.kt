@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class SizeArrayTests : FunSpec({
 
-    val validator = validator<ArrayBean> { ArrayBean::array { hasSize(1, 4) } }
+    val validator = validator<ArrayBean> { ArrayBean::array { size(1, 4) } }
 
     context("has size") {
         withData(nameFn = Array<String>::contentToString, arrayOf("x"), arrayOf("1", "2", "3", "4")) { value ->

@@ -19,9 +19,11 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import strikt.api.expectThat
 
-class InTests : FunSpec({
+class HasValueTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { isIn(1, 3) } }
+    val validator = validator<TestBean> { TestBean::prop1 {
+        hasValue(1, 3) }
+    }
 
     context("is in") {
         withData(1, 3) { value ->
@@ -36,7 +38,7 @@ class InTests : FunSpec({
                 propertyPath = listOf(PropertyName("prop1")),
                 propertyType = PropertyType("Int"),
                 propertyValue = value,
-                constraint = In(listOf(1, 3))))
+                constraint = HasValue(listOf(1, 3))))
         }
     }
 })

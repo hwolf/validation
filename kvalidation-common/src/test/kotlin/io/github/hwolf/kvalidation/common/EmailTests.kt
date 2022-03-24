@@ -39,7 +39,7 @@ class EmailTests : FunSpec({
 
     context("Validate mail") {
 
-        val validator = validator<EmailBean> { EmailBean::email { isEmail() } }
+        val validator = validator<EmailBean> { EmailBean::email { email() } }
 
         context("is valid mail") {
             withData(listOf(normalMail)) { mail ->
@@ -73,7 +73,7 @@ class EmailTests : FunSpec({
 
     context("validate local mails") {
 
-        val validator = validator<EmailBean> { EmailBean::email { isEmail(Email.Option.AllowLocal) } }
+        val validator = validator<EmailBean> { EmailBean::email { email(Email.Option.AllowLocal) } }
 
         context("is valid local mail") {
             withData(normalMail, localMail) { mail ->

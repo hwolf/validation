@@ -24,7 +24,7 @@ class ValidationBuilderEachMapTests : FunSpec({
 
     val validator = validator<TestBean> {
         TestBean::map each {
-            isIn(1, 3)
+            hasValue(1, 3)
         }
     }
 
@@ -39,7 +39,7 @@ class ValidationBuilderEachMapTests : FunSpec({
                     propertyPath = listOf(PropertyName("map", "x2")),
                     propertyType = PropertyType("Int"),
                     propertyValue = 2,
-                    constraint = In(allowedValues = listOf(1, 3))
+                    constraint = HasValue(allowedValues = listOf(1, 3))
                 ))
     }
 })

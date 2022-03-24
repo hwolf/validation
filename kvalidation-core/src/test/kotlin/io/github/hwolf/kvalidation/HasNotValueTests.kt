@@ -19,24 +19,24 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import strikt.api.expectThat
 
-class HasLengthTests : FunSpec({
+class HasNotValueTests : FunSpec({
 
-    val validator = validator<StringBean> { StringBean::string { hasLength(3, 5) } }
+    val validator = validator<TestBean> { TestBean::prop1 { hasNotValue(1, 3) } }
 
-    context("has length") {
-        withData("123", "12345") { value ->
-            val actual = validator.validate(StringBean(string = value))
+    context("is not in") {
+        withData(0, 2, 4) { value ->
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).isValid()
         }
     }
-    context("has not length") {
-        withData("12", "123456") { value ->
-            val actual = validator.validate(StringBean(string = value))
+    context("is in") {
+        withData(1, 3) { value ->
+            val actual = validator.validate(TestBean(prop1 = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyPath = listOf(PropertyName("string")),
-                propertyType = PropertyType("String"),
+                propertyPath = listOf(PropertyName("prop1")),
+                propertyType = PropertyType("Int"),
                 propertyValue = value,
-                constraint = Length(3, 5)))
+                constraint = HasNotValue(listOf(1, 3))))
         }
     }
 })

@@ -24,7 +24,7 @@ class ValidationBuilderEachTests : FunSpec({
 
     val validator = validator<TestBean> {
         TestBean::list each {
-            isIn("x1", "x3")
+            hasValue("x1", "x3")
         }
     }
 
@@ -39,7 +39,7 @@ class ValidationBuilderEachTests : FunSpec({
                     propertyPath = listOf(PropertyName("list", 1)),
                     propertyType = PropertyType("String"),
                     propertyValue = "x2",
-                    constraint = In(allowedValues = listOf("x1", "x3"))
+                    constraint = HasValue(allowedValues = listOf("x1", "x3"))
                 ))
     }
 })

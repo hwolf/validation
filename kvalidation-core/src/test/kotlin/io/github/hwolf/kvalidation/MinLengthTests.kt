@@ -19,24 +19,24 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import strikt.api.expectThat
 
-class EmptyCollectionTests : FunSpec({
+class MinLengthTests : FunSpec({
 
-    val validator = validator<ListBean> { ListBean::list { empty() } }
+    val validator = validator<StringBean> { StringBean::string { minLength(3) } }
 
-    context("is empty") {
-        withData(nameFn = Any::toString, listOf(emptyList<String>())) { value ->
-            val actual = validator.validate(ListBean(value))
+    context("has min length") {
+        withData("123", "12345") { value ->
+            val actual = validator.validate(StringBean(string = value))
             expectThat(actual).isValid()
         }
     }
-    context("is not empty") {
-        withData(nameFn = Any::toString, listOf("x1", "x2"), listOf("")) { value ->
-            val actual = validator.validate(ListBean(value))
+    context("has not min length") {
+        withData("1", "12") { value ->
+            val actual = validator.validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyPath = listOf(PropertyName("list")),
-                propertyType = PropertyType("List"),
+                propertyPath = listOf(PropertyName("string")),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
-                constraint = Empty))
+                constraint = MinLength(3)))
         }
     }
 })

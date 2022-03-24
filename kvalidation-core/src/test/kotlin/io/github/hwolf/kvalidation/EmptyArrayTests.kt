@@ -22,7 +22,7 @@ import java.util.*
 
 class EmptyArrayTests : FunSpec({
 
-    val validator = validator<ArrayBean> { ArrayBean::array { isEmpty() } }
+    val validator = validator<ArrayBean> { ArrayBean::array { empty() } }
 
     context("is empty") {
         withData(nameFn = Array<String>::contentToString, listOf(emptyArray())) { value ->

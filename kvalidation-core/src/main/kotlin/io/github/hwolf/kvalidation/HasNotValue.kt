@@ -15,24 +15,15 @@
  */
 package io.github.hwolf.kvalidation
 
-import io.kotest.core.spec.style.FunSpec
-import strikt.api.expectThat
 
-class ValidationBuilderTests : FunSpec( {
+// isNotIn
 
-    test("use") {
-        val parent = validator<TestBean> {
-            TestBean::prop1 { equal(1212) }
-        }
-        val validator = validator<TestBean> {
-            use(parent)
-        }
-        val actual = validator.validate(TestBean(2121))
-        expectThat(actual).hasViolations(
-            ConstraintViolation(
-                propertyPath = listOf(PropertyName("prop1")),
-                propertyType = PropertyType("Int"),
-                propertyValue = 2121,
-                constraint = Equal(value = 1212)))
-    }
-})
+/** A constraint that validate if the value is not equal to one of the values. */
+data class HasNotValue<V : Any>(val forbiddenValues: Collection<V>) : Constraint
+
+/** Validates if the property value is not equal to one of the values. */
+fun <T, V : Any> ValidationBuilder<T, V>.hasNotValue(forbiddenValues: Collection<V>) =
+    validate(HasNotValue(forbiddenValues)) { v, _ -> v !in forbiddenValues }
+
+/** Validates if the property value is not equal to one of the values. */
+fun <T, V : Any> ValidationBuilder<T, V>.hasNotValue(vararg forbiddenValues: V) = hasNotValue(forbiddenValues.toList())

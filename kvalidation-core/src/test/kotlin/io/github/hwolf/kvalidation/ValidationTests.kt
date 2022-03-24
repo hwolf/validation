@@ -34,35 +34,35 @@ class ValidationTests : FunSpec({
 
     val validator = validator<Department> {
         Department::name {
-            isNotEmpty()
+            notEmpty()
         }
         Department::head {
             Employee::name {
-                isNotEmpty()
+                notEmpty()
             }
         }
         onlyIf({ name == "X" }) {
             Department::head {
                 Employee::name {
-                    isIn("Mr. X", "Mr. Y")
+                    hasValue("Mr. X", "Mr. Y")
                 }
             }
         }
         Department::coHead ifPresent {
             Employee::name {
-                isNotEmpty()
+                notEmpty()
             }
         }
         Department::employees {
-            isNotEmpty()
+            notEmpty()
         }
         Department::employees each {
             Employee::name {
-                isNotEmpty()
+                notEmpty()
             }
         }
         Department::office ifPresent {
-            isNotEmpty()
+            notEmpty()
         }
         onlyIf({ name != "X" }) {
             Department::office required { }
@@ -157,7 +157,7 @@ class ValidationTests : FunSpec({
                 propertyPath = listOf(PropertyName("head"), PropertyName("name")),
                 propertyType = PropertyType("String"),
                 propertyValue = "John",
-                constraint = In(allowedValues = listOf("Mr. X", "Mr. Y"))))
+                constraint = HasValue(allowedValues = listOf("Mr. X", "Mr. Y"))))
     }
 })
 

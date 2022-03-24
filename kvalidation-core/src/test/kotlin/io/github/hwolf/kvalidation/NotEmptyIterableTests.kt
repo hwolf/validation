@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class NotEmptyIterableTests : FunSpec({
 
-    val validator = validator<IterableBean> { IterableBean::range { isNotEmpty() } }
+    val validator = validator<IterableBean> { IterableBean::range { notEmpty() } }
 
     context("is not empty") {
         withData(nameFn = Any::toString, IntRange(0, 1), IntRange(1, 1)) { value ->

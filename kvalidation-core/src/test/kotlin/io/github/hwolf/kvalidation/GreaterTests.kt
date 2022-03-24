@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class GreaterTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { isGreater(4) } }
+    val validator = validator<TestBean> { TestBean::prop1 { greater(4) } }
 
     context("is greater than") {
         withData(5, 11) { value ->

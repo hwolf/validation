@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class EmptyMapTests : FunSpec({
 
-    val validator = validator<MapBean> { MapBean::map { isEmpty() } }
+    val validator = validator<MapBean> { MapBean::map { empty() } }
 
     context("is empty") {
         withData(nameFn = Any::toString, listOf(emptyMap<String, Int>())) { value ->

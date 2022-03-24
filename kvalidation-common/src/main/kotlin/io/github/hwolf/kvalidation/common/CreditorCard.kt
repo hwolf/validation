@@ -49,18 +49,18 @@ data class CreditorCard(
 }
 
 /** Validates if the property value is a credit card number. */
-fun <T> ValidationBuilder<T, String>.isCreditCard() =
-    isCreditCard(CreditorCard.Type.AMEX,
+fun <T> ValidationBuilder<T, String>.creditCard() =
+    creditCard(CreditorCard.Type.AMEX,
         CreditorCard.Type.VISA,
         CreditorCard.Type.MASTERCARD,
         CreditorCard.Type.DISCOVER)
 
 /** Validates if the property value is a credit card number. */
-fun <T> ValidationBuilder<T, String>.isCreditCard(vararg cardTypes: CreditorCard.Type) =
-    isCreditCard(cardTypes.toSet())
+fun <T> ValidationBuilder<T, String>.creditCard(vararg cardTypes: CreditorCard.Type) =
+    creditCard(cardTypes.toSet())
 
 /** Validates if the property value is a credit card number. */
-fun <T> ValidationBuilder<T, String>.isCreditCard(cardTypes: Collection<CreditorCard.Type>) =
+fun <T> ValidationBuilder<T, String>.creditCard(cardTypes: Collection<CreditorCard.Type>) =
     validate(CreditorCard(cardTypes)) { v, _ ->
         CreditCardValidator(cardTypes.sumOf(CreditorCard.Type::x)).isValid(v)
     }

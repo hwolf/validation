@@ -32,13 +32,13 @@ data class Email(
 }
 
 /** Validates if the property value is an email. */
-fun <T> ValidationBuilder<T, String>.isEmail() = isEmail(emptySet())
+fun <T> ValidationBuilder<T, String>.email() = email(emptySet())
 
 /** Validates if the property value is an email. */
-fun <T> ValidationBuilder<T, String>.isEmail(vararg options: Email.Option) = isEmail(options.toSet())
+fun <T> ValidationBuilder<T, String>.email(vararg options: Email.Option) = email(options.toSet())
 
 /** Validates if the property value is an email. */
-fun <T> ValidationBuilder<T, String>.isEmail(options: Collection<Email.Option>) =
+fun <T> ValidationBuilder<T, String>.email(options: Collection<Email.Option>) =
     validate(Email(options)) { v, _ ->
         EmailValidator.getInstance(Email.Option.AllowLocal in options, false).isValid(v)
     }

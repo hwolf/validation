@@ -47,11 +47,11 @@ data class PhoneNumber(
 }
 
 /** Validates if the property value is a phone number. */
-fun <T> ValidationBuilder<T, String>.isPhoneNumber(region: String, vararg options: PhoneNumber.Option) =
-    isPhoneNumber(region, options.toList())
+fun <T> ValidationBuilder<T, String>.phoneNumber(region: String, vararg options: PhoneNumber.Option) =
+    phoneNumber(region, options.toList())
 
 /** Validates if the property value is a phone number. */
-fun <T> ValidationBuilder<T, String>.isPhoneNumber(region: String, options: Collection<PhoneNumber.Option>) =
+fun <T> ValidationBuilder<T, String>.phoneNumber(region: String, options: Collection<PhoneNumber.Option>) =
     PhoneNumber(region, options).let { constraint ->
         validate(constraint) { v, _ ->
             PhoneNumberValidator.validate(v, constraint)

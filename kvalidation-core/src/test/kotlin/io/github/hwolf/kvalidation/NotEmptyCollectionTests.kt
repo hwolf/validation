@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class NotEmptyCollectionTests : FunSpec({
 
-    val validator = validator<ListBean> { ListBean::list { isNotEmpty() } }
+    val validator = validator<ListBean> { ListBean::list { notEmpty() } }
 
     context("is not empty") {
         withData(nameFn = Any::toString, listOf("x1", "x2"), listOf("")) { value ->

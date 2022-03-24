@@ -24,7 +24,7 @@ class ValidationBuilderIfPresentTests : FunSpec({
 
     val validator = validator<TestBean> {
         TestBean::field ifPresent {
-            isIn("x1", "x2")
+            hasValue("x1", "x2")
         }
     }
 
@@ -38,7 +38,7 @@ class ValidationBuilderIfPresentTests : FunSpec({
                 propertyPath = listOf(PropertyName("field")),
                 propertyType = PropertyType("String"),
                 propertyValue = "xx",
-                constraint = In(allowedValues = listOf("x1", "x2"))
+                constraint = HasValue(allowedValues = listOf("x1", "x2"))
             ))
     }
 

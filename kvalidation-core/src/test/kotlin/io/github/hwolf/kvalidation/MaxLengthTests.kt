@@ -19,24 +19,24 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import strikt.api.expectThat
 
-class NotInTests : FunSpec({
+class MaxLengthTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { isNotIn(1, 3) } }
+    val validator = validator<StringBean> { StringBean::string { maxLength(5) } }
 
-    context("is not in") {
-        withData(0, 2, 4) { value ->
-            val actual = validator.validate(TestBean(prop1 = value))
+    context("has max length") {
+        withData("123", "12345") { value ->
+            val actual = validator.validate(StringBean(string = value))
             expectThat(actual).isValid()
         }
     }
-    context("is in") {
-        withData(1, 3) { value ->
-            val actual = validator.validate(TestBean(prop1 = value))
+    context("has not max length") {
+        withData("124456", "12345633") { value ->
+            val actual = validator.validate(StringBean(string = value))
             expectThat(actual).hasViolations(ConstraintViolation(
-                propertyPath = listOf(PropertyName("prop1")),
-                propertyType = PropertyType("Int"),
+                propertyPath = listOf(PropertyName("string")),
+                propertyType = PropertyType("String"),
                 propertyValue = value,
-                constraint = NotIn(listOf(1, 3))))
+                constraint = MaxLength(5)))
         }
     }
 })

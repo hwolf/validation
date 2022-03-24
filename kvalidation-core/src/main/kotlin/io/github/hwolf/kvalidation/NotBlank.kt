@@ -13,19 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.hwolf.kvalidation.common
+package io.github.hwolf.kvalidation
 
-import io.github.hwolf.kvalidation.Constraint
-import io.github.hwolf.kvalidation.ValidationBuilder
-import io.github.hwolf.kvalidation.validate
+/** A constraint that validate if the value is not blank. */
+object NotBlank : Constraint
 
-object GermanZipCode : Constraint
-
-private val germanZipCode = Regex("^([0][1-9]|[1-9][0-9])[0-9]{3}\$")
-
-/** Validates if the property value is an IBAN. */
-fun <T> ValidationBuilder<T, String>.germanZipCode() = validate(GermanZipCode) { v, _ ->
-    v.matches(germanZipCode)
-}
-
-
+/** Validates if the [String] property is not blank. */
+fun <T> ValidationBuilder<T, String>.notBlank() = validate(NotBlank) { v, _ -> v.isNotBlank() }

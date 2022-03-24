@@ -13,19 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.hwolf.kvalidation.common
+package io.github.hwolf.kvalidation
 
-import io.github.hwolf.kvalidation.Constraint
-import io.github.hwolf.kvalidation.ValidationBuilder
-import io.github.hwolf.kvalidation.validate
+/** A constraint that validate if the value is between two values. */
+data class Between<V>(val start: V, val end: V) : Constraint
 
-object GermanZipCode : Constraint
-
-private val germanZipCode = Regex("^([0][1-9]|[1-9][0-9])[0-9]{3}\$")
-
-/** Validates if the property value is an IBAN. */
-fun <T> ValidationBuilder<T, String>.germanZipCode() = validate(GermanZipCode) { v, _ ->
-    v.matches(germanZipCode)
-}
-
-
+/** Validates if the [Comparable] property is between two values. */
+fun <T, V : Comparable<V>> ValidationBuilder<T, V>.between(start: V, end: V) =
+    validate(Between(start, end)) { v, _ -> v in start.rangeTo(end) }

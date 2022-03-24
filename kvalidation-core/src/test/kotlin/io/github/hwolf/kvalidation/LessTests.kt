@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class LessTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { isLess(23) } }
+    val validator = validator<TestBean> { TestBean::prop1 { less(23) } }
 
     context("is less than") {
         withData(3, 22) { value ->

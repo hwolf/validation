@@ -24,6 +24,6 @@ import org.apache.commons.validator.routines.UrlValidator
 object Url : Constraint
 
 /** Validates if the property value is a URL. */
-fun <T> ValidationBuilder<T, String>.isUrl() = validate(Url) { v, _ ->
+fun <T> ValidationBuilder<T, String>.url() = validate(Url) { v, _ ->
     UrlValidator.getInstance().isValid(v)
 }

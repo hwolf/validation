@@ -24,6 +24,6 @@ import org.apache.commons.validator.routines.IBANValidator
 object Iban : Constraint
 
 /** Validates if the property value is an IBAN. */
-fun <T> ValidationBuilder<T, String>.isIban() = validate(Iban) { v, _ ->
+fun <T> ValidationBuilder<T, String>.iban() = validate(Iban) { v, _ ->
     IBANValidator.getInstance().isValid(v)
 }

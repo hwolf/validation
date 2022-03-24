@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class SizeCollectionTests : FunSpec({
 
-    val validator = validator<ListBean> { ListBean::list { hasSize(1, 4) } }
+    val validator = validator<ListBean> { ListBean::list { size(1, 4) } }
 
     context("has size") {
         withData(nameFn = Any::toString, listOf("x"), listOf("1", "2", "3", "4")) { value ->

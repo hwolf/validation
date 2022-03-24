@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class NotBetweenTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { isNotBetween(5, 7) } }
+    val validator = validator<TestBean> { TestBean::prop1 { notBetween(5, 7) } }
 
     context("is nt between") {
         withData(4, 8) { value ->
