@@ -15,21 +15,22 @@
  */
 package io.github.hwolf.kvalidation.common
 
+import io.github.hwolf.kvalidation.ConstraintViolation
+import io.github.hwolf.kvalidation.PropertyName
+import io.github.hwolf.kvalidation.PropertyType
 import io.github.hwolf.kvalidation.Validator
 import io.github.hwolf.kvalidation.validate
 import io.github.hwolf.kvalidation.validator
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
 import strikt.api.expectThat
-import strikt.assertions.isEmpty
-import strikt.assertions.isNotEmpty
 
 class PhoneNumberTests : FunSpec({
 
     data class TestBean(val phoneNumber: String)
 
     fun doTest(phoneNumber: String, validator: Validator<TestBean>) =
-        validator.validate(TestBean(phoneNumber)).violations
+        validator.validate(TestBean(phoneNumber))
 
     context("Phone numbers with default region Germany") {
 
@@ -45,14 +46,21 @@ class PhoneNumberTests : FunSpec({
             "475465HELLO",
             "00000"
         ) {
-            expectThat(doTest(it, validator)).isEmpty()
+            expectThat(doTest(it, validator)).isValid()
         }
 
         withData(
             "Pli plo plu",
             "00 49 6221 383((()=/()//(&250"
-        ) {
-            expectThat(doTest(it, validator)).isNotEmpty()
+        ) { value ->
+            expectThat(doTest(value, validator)).hasViolations(ConstraintViolation(
+                propertyPath = listOf(PropertyName("phoneNumber")),
+                propertyType = PropertyType("String"),
+                propertyValue = value,
+                constraint = PhoneNumber(
+                    region = "DE",
+                    options = listOf(),
+                    key = "notPossible")))
         }
     }
 
@@ -72,7 +80,7 @@ class PhoneNumberTests : FunSpec({
             "+49 6221 383250",
             "00000"
         ) {
-            expectThat(doTest(it, validator)).isEmpty()
+            expectThat(doTest(it, validator)).isValid()
         }
     }
 
@@ -93,7 +101,7 @@ class PhoneNumberTests : FunSpec({
             "+61403123456",
             "475465TEST"
         ) {
-            expectThat(doTest(it, validator)).isEmpty()
+            expectThat(doTest(it, validator)).isValid()
         }
     }
 
@@ -113,7 +121,7 @@ class PhoneNumberTests : FunSpec({
             "+49 6221 383250",
             "475465HALLO"
         ) {
-            expectThat(doTest(it, validator)).isEmpty()
+            expectThat(doTest(it, validator)).isValid()
         }
     }
 
@@ -132,7 +140,7 @@ class PhoneNumberTests : FunSpec({
             "173 3453645",
             "+49 173 3463TEST"
         ) {
-            expectThat(doTest(it, validator)).isEmpty()
+            expectThat(doTest(it, validator)).isValid()
         }
         withData(
             "06221383250",
@@ -141,8 +149,17 @@ class PhoneNumberTests : FunSpec({
             "00 49 6221 383250",
             "+49 6221 383250",
             "475465HALLO"
-        ) {
-            expectThat(doTest(it, validator)).isNotEmpty()
+        ) { value ->
+            expectThat(doTest(value, validator)).hasViolations(ConstraintViolation(
+                propertyPath = listOf(PropertyName("phoneNumber")),
+                propertyType = PropertyType("String"),
+                propertyValue = value,
+                constraint = PhoneNumber(
+                    region = "DE",
+                    options = listOf(PhoneNumber.Option.Valid,
+                        PhoneNumber.Option.OnlyForRegion,
+                        PhoneNumber.Option.Mobile),
+                    key = "invalidPhoneType")))
         }
     }
 })

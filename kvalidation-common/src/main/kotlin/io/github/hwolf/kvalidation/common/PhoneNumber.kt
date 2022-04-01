@@ -19,14 +19,17 @@ import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber
 import io.github.hwolf.kvalidation.Constraint
+import io.github.hwolf.kvalidation.PropertyValidator
 import io.github.hwolf.kvalidation.ValidationBuilder
-import io.github.hwolf.kvalidation.validate
+import io.github.hwolf.kvalidation.ValidationContext
 
 /** A constraint that validate if the value is a phone number. */
 data class PhoneNumber(
     val region: String,
-    val options: Collection<Option>
+    val options: Collection<Option>,
+    private val key: String? = null,
 ) : Constraint {
+
     @Suppress("unused")
     enum class Option(val isPhoneTypeOption: Boolean = false) {
         Valid,
@@ -44,6 +47,13 @@ data class PhoneNumber(
         VoiceMail(true),
         Unknown(true)
     }
+
+    override val messageKey = when (key) {
+        null -> super.messageKey
+        else -> "${super.messageKey}.$key"
+    }
+
+    fun withKey(key: String) = PhoneNumber(region, options, key)
 }
 
 /** Validates if the property value is a phone number. */
@@ -52,68 +62,76 @@ fun <T> ValidationBuilder<T, String>.phoneNumber(region: String, vararg options:
 
 /** Validates if the property value is a phone number. */
 fun <T> ValidationBuilder<T, String>.phoneNumber(region: String, options: Collection<PhoneNumber.Option>) =
-    PhoneNumber(region, options).let { constraint ->
-        validate(constraint) { v, _ ->
-            PhoneNumberValidator.validate(v, constraint)
-        }
-    }
+    addValidator(PhoneNumberValidator(region, options))
 
-private object PhoneNumberValidator {
-
-    private val util = PhoneNumberUtil.getInstance()
-
-    private val types = mapOf(
-        PhoneNumberUtil.PhoneNumberType.FIXED_LINE to PhoneNumber.Option.FixedLine,
-        PhoneNumberUtil.PhoneNumberType.MOBILE to PhoneNumber.Option.Mobile,
-        PhoneNumberUtil.PhoneNumberType.FIXED_LINE_OR_MOBILE to PhoneNumber.Option.FixedLineOrMobile,
-        PhoneNumberUtil.PhoneNumberType.TOLL_FREE to PhoneNumber.Option.TollFree,
-        PhoneNumberUtil.PhoneNumberType.PREMIUM_RATE to PhoneNumber.Option.PremiumRate,
-        PhoneNumberUtil.PhoneNumberType.SHARED_COST to PhoneNumber.Option.SharedCost,
-        PhoneNumberUtil.PhoneNumberType.VOIP to PhoneNumber.Option.VOIP,
-        PhoneNumberUtil.PhoneNumberType.PERSONAL_NUMBER to PhoneNumber.Option.PersonalNumber,
-        PhoneNumberUtil.PhoneNumberType.PAGER to PhoneNumber.Option.Pager,
-        PhoneNumberUtil.PhoneNumberType.UAN to PhoneNumber.Option.UAN,
-        PhoneNumberUtil.PhoneNumberType.VOICEMAIL to PhoneNumber.Option.VoiceMail,
-        PhoneNumberUtil.PhoneNumberType.UNKNOWN to PhoneNumber.Option.Unknown)
-
-    fun validate(phoneNumber: String, constraint: PhoneNumber): Boolean {
-        val parsed = try {
-            util.parse(phoneNumber, constraint.region)
-        } catch (ex: NumberParseException) {
-            return false
-        }
-        return DefaultOptionValidator.values()
-            .filter { it.accept(constraint) }
-            .all { it.validateOption(parsed, constraint) }
-    }
+private class PhoneNumberValidator<T>(
+    region: String,
+    options: Collection<PhoneNumber.Option>
+) : PropertyValidator<String, T> {
 
     interface OptionValidator {
+        val key: String
         fun accept(constraint: PhoneNumber): Boolean
         fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber): Boolean
     }
 
     enum class DefaultOptionValidator : OptionValidator {
         Possible {
+            override val key = "notPossible"
             override fun accept(constraint: PhoneNumber) = true
             override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
                 util.isPossibleNumber(number)
         },
         Valid {
+            override val key = "notValid"
             override fun accept(constraint: PhoneNumber) = PhoneNumber.Option.Valid in constraint.options
             override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
                 util.isValidNumber(number)
         },
         OnlyForRegion {
+            override val key = "notForRegion"
             override fun accept(constraint: PhoneNumber) = PhoneNumber.Option.OnlyForRegion in constraint.options
             override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
                 constraint.region == util.getRegionCodeForNumber(number)
         },
         PossibleForTypes {
+            override val key = "invalidPhoneType"
             override fun accept(constraint: PhoneNumber) = constraint.options.hasPhoneType()
             override fun validateOption(number: Phonenumber.PhoneNumber, constraint: PhoneNumber) =
                 types[util.getNumberType(number)] in constraint.options
         }
     }
+
+    private val constraint = PhoneNumber(region, options)
+
+    override fun invoke(value: String, context: ValidationContext<T>) {
+        val parsed = try {
+            util.parse(value, constraint.region)
+        } catch (ex: NumberParseException) {
+            context.constraintViolation(constraint.withKey("notPossible"), value)
+            return
+        }
+        DefaultOptionValidator.values()
+            .filter { it.accept(constraint) }
+            .find { !it.validateOption(parsed, constraint) }
+            ?.let { context.constraintViolation(constraint.withKey(it.key), value) }
+    }
 }
+
+private val util = PhoneNumberUtil.getInstance()
+
+private val types = mapOf(
+    PhoneNumberUtil.PhoneNumberType.FIXED_LINE to PhoneNumber.Option.FixedLine,
+    PhoneNumberUtil.PhoneNumberType.MOBILE to PhoneNumber.Option.Mobile,
+    PhoneNumberUtil.PhoneNumberType.FIXED_LINE_OR_MOBILE to PhoneNumber.Option.FixedLineOrMobile,
+    PhoneNumberUtil.PhoneNumberType.TOLL_FREE to PhoneNumber.Option.TollFree,
+    PhoneNumberUtil.PhoneNumberType.PREMIUM_RATE to PhoneNumber.Option.PremiumRate,
+    PhoneNumberUtil.PhoneNumberType.SHARED_COST to PhoneNumber.Option.SharedCost,
+    PhoneNumberUtil.PhoneNumberType.VOIP to PhoneNumber.Option.VOIP,
+    PhoneNumberUtil.PhoneNumberType.PERSONAL_NUMBER to PhoneNumber.Option.PersonalNumber,
+    PhoneNumberUtil.PhoneNumberType.PAGER to PhoneNumber.Option.Pager,
+    PhoneNumberUtil.PhoneNumberType.UAN to PhoneNumber.Option.UAN,
+    PhoneNumberUtil.PhoneNumberType.VOICEMAIL to PhoneNumber.Option.VoiceMail,
+    PhoneNumberUtil.PhoneNumberType.UNKNOWN to PhoneNumber.Option.Unknown)
 
 private fun Iterable<PhoneNumber.Option>.hasPhoneType() = any { it.isPhoneTypeOption }
