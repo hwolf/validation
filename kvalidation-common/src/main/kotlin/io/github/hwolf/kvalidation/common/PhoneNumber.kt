@@ -27,7 +27,7 @@ import io.github.hwolf.kvalidation.ValidationContext
 data class PhoneNumber(
     val region: String,
     val options: Collection<Option>,
-    private val key: String? = null,
+    override val messageKey: String = Constraint.defaultMessageKey(PhoneNumber::class)
 ) : Constraint {
 
     @Suppress("unused")
@@ -48,12 +48,10 @@ data class PhoneNumber(
         Unknown(true)
     }
 
-    override val messageKey = when (key) {
-        null -> super.messageKey
-        else -> "${super.messageKey}.$key"
-    }
-
-    fun withKey(key: String) = PhoneNumber(region, options, key)
+    fun withKey(key: String) = PhoneNumber(
+        region = region,
+        options = options,
+        messageKey = Constraint.defaultMessageKey(PhoneNumber::class) + "-" + key)
 }
 
 /** Validates if the property value is a phone number. */

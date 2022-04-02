@@ -15,11 +15,17 @@
  */
 package io.github.hwolf.kvalidation
 
+import kotlin.reflect.KClass
+
 /** A validation constraint. */
 interface Constraint {
 
     /** Specifies the message key. */
-    val messageKey: String get() = this::class.qualifiedName ?: "<unknown>"
+    val messageKey: String get() = defaultMessageKey(this::class)
+
+    companion object {
+        fun defaultMessageKey(constraintType: KClass<out Constraint>) = constraintType.qualifiedName ?: "<unknown>"
+    }
 }
 
 /** A constraint that validates a value is required (not null). */

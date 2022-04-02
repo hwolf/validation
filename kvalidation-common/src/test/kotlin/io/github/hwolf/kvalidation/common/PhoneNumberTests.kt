@@ -53,14 +53,15 @@ class PhoneNumberTests : FunSpec({
             "Pli plo plu",
             "00 49 6221 383((()=/()//(&250"
         ) { value ->
-            expectThat(doTest(value, validator)).hasViolations(ConstraintViolation(
-                propertyPath = listOf(PropertyName("phoneNumber")),
-                propertyType = PropertyType("String"),
-                propertyValue = value,
-                constraint = PhoneNumber(
-                    region = "DE",
-                    options = listOf(),
-                    key = "notPossible")))
+            expectThat(doTest(value, validator))
+                .hasViolations(ConstraintViolation(
+                    propertyPath = listOf(PropertyName("phoneNumber")),
+                    propertyType = PropertyType("String"),
+                    propertyValue = value,
+                    constraint = PhoneNumber(
+                        region = "DE",
+                        options = listOf(),
+                        messageKey = "io.github.hwolf.kvalidation.common.PhoneNumber-notPossible")))
         }
     }
 
@@ -159,7 +160,7 @@ class PhoneNumberTests : FunSpec({
                     options = listOf(PhoneNumber.Option.Valid,
                         PhoneNumber.Option.OnlyForRegion,
                         PhoneNumber.Option.Mobile),
-                    key = "invalidPhoneType")))
+                    messageKey = "io.github.hwolf.kvalidation.common.PhoneNumber-invalidPhoneType")))
         }
     }
 })
