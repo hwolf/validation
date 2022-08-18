@@ -5,6 +5,6 @@ dependencies {
     implementation(project(":kvalidation-core"))
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.tinylog:tinylog-api-kotlin:2.4.1")
+    implementation("org.tinylog:tinylog-api-kotlin:2.5.0")
     implementation("com.ibm.icu:icu4j:71.1")
 }
