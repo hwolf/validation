@@ -28,8 +28,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew -Pversion=${{ github.run_number }}-${{ github.run_attempt }} build koverReport sonarqube
-      - name: Check
-        run: ls -l */build/kover
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         with:
