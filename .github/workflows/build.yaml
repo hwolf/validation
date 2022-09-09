@@ -28,7 +28,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew -Pversion=${{ github.run_number }}-${{ github.run_attempt }} build koverReport sonarqube
+      - name: SonarQube Quality Gate check
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        # Force to fail step after specific time.
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         with:
-          files: '**/build/test-results/**/*.xml'
+          junit_files: '**/build/test-results/**/*.xml'
