@@ -15,10 +15,10 @@
  */
 package io.github.hwolf.kvalidation.i18n
 
-import com.mitchellbosecke.pebble.PebbleEngine
 import io.github.hwolf.kvalidation.ConstraintViolation
 import io.github.hwolf.kvalidation.Locale
 import io.github.hwolf.kvalidation.MessageFormatter
+import io.pebbletemplates.pebble.PebbleEngine
 import java.io.StringWriter
 
 object DefaultMessageFormatter : MessageFormatter {
