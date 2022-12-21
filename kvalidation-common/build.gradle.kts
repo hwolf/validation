@@ -11,5 +11,5 @@ dependencies {
         exclude(module = "commons-logging")
     }
 
-    implementation("com.googlecode.libphonenumber:libphonenumber:8.13.2")
+    implementation("com.googlecode.libphonenumber:libphonenumber:8.13.3")
 }
