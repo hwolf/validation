@@ -8,7 +8,6 @@ jobs:
   release:
     name: Publish release
     runs-on: ubuntu-latest
-    #if: github.event.base_ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK
@@ -26,7 +25,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.CENTRAL_USER }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.CENTRAL_PASSWD }}
-        run: ./gradlew -Pgroup="io.github.hwolf.kvalidation" -Pversion=${GITHUB_REF:11} publish
+        run: ./gradlew -Pgroup="io.github.hwolf.kvalidation" -Pversion=${GITHUB_REF:11} publish closeAndReleaseRepository
       - name: Generate API documentation
         run: ./gradlew -Pgroup="io.github.hwolf.kvalidation" -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Publish API documentation
