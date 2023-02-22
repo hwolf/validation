@@ -18,8 +18,7 @@ package io.github.hwolf.kvalidation.icu
 import io.github.hwolf.kvalidation.Locale
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.datatest.withData
-import strikt.api.expectThat
-import strikt.assertions.isEqualTo
+import io.kotest.matchers.shouldBe
 
 class ResourceBundleMessageSourceTest : FunSpec({
 
@@ -34,11 +33,11 @@ class ResourceBundleMessageSourceTest : FunSpec({
             Triple("code-de-DE", Locale("en"), "found-en"),
             Triple("unknown-code", Locale("de", "DE"), null)
         ) { (code, locale, expected) ->
-            expectThat(sut(code, locale)).isEqualTo(expected)
+            sut(code, locale) shouldBe expected
         }
 
         test("resolve message several times") {
-            expectThat(sut("code-de-DE", Locale.GERMAN)).isEqualTo(sut("code-de-DE", Locale.GERMAN))
+            sut("code-de-DE", Locale.GERMAN) shouldBe sut("code-de-DE", Locale.GERMAN)
         }
     }
 })

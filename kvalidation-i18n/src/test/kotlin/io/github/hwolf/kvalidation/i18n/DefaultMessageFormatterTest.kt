@@ -21,8 +21,7 @@ import io.github.hwolf.kvalidation.Locale
 import io.github.hwolf.kvalidation.PropertyName
 import io.github.hwolf.kvalidation.PropertyType
 import io.kotest.core.spec.style.FunSpec
-import strikt.api.expectThat
-import strikt.assertions.isEqualTo
+import io.kotest.matchers.shouldBe
 
 class DefaultMessageFormatterTest : FunSpec({
 
@@ -35,7 +34,7 @@ class DefaultMessageFormatterTest : FunSpec({
             Locale.GERMAN)
 
         // Then
-        expectThat(actual).isEqualTo("X 1234 X")
+        actual shouldBe "X 1234 X"
     }
 
     test("substitute parameters propertyValue and propertyType") {
@@ -47,7 +46,7 @@ class DefaultMessageFormatterTest : FunSpec({
             Locale.GERMAN)
 
         // Then
-        expectThat(actual).isEqualTo("X xxx/String X")
+        actual shouldBe "X xxx/String X"
     }
 })
 
