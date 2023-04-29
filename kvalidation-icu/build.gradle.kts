@@ -6,5 +6,5 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.tinylog:tinylog-api-kotlin:2.6.1")
-    implementation("com.ibm.icu:icu4j:72.1")
+    implementation("com.ibm.icu:icu4j:73.1")
 }
