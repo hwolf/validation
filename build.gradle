@@ -27,8 +27,6 @@ sonarqube {
         property "sonar.projectKey", "hwolf_kvalidation"
         property "sonar.organization", "hwolf"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.junit.reportPaths", "**/build/test-results/**/*.xml"
-        property "sonar.coverage.jacoco.xmlReportPaths", "**/build/kover/result.xml"
     }
 }
 
@@ -102,14 +100,23 @@ configure(subprojects.findAll { !it.name.contains("bom") }) {
         }
     }
 
-    task sourceJar(type: Jar, dependsOn: classes) {
+    tasks.register('sourceJar', Jar) {
+        dependsOn classes
         archiveClassifier = 'sources'
         from sourceSets.main.allSource
     }
 
-    task dokkaJar(type: Jar, dependsOn: dokkaHtml) {
+    tasks.register('dokkaJar', Jar) {
+        dependsOn dokkaHtml
         archiveClassifier = "javadoc"
         from dokkaHtml
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.sources", "src/main"
+            property "sonar.tests", "src/test"
+        }
     }
 
     publishing {
