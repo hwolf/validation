@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.kotlinx.kover")
     id("org.jetbrains.dokka")
-    id("org.sonarqube")
     //id("io.github.gradle-nexus.publish-plugin")
 }
 
@@ -39,7 +39,7 @@ koverReport {
 kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
-        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_1_9)
+        apiVersion.set(KotlinVersion.KOTLIN_1_9)
     }
 }
 
@@ -57,15 +57,4 @@ tasks.register<Jar>("dokkaJar") {
     dependsOn(tasks.dokkaHtml)
     archiveClassifier.set("javadoc")
     from(tasks.dokkaHtml)
-}
-
-sonarqube {
-    properties {
-        property("sonar.projectKey", "hwolf_kvalidation")
-        property("sonar.organization", "hwolf")
-        property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/kover/result.xml")
-        property("sonar.sources", "src/main")
-        property("sonar.tests", "src/test")
-    }
 }

@@ -11,9 +11,9 @@ dependencies {
     }
 }
 
-javaPlatform {
-    allowDependencies()
-}
+//javaPlatform {
+//    allowDependencies()
+//}
 
 /*publishing {
     publications {
