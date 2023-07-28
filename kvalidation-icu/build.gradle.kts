@@ -1,3 +1,7 @@
+plugins {
+    id("library-conventions")
+}
+
 apply(plugin = "java-library")
 apply(plugin = "org.jetbrains.dokka")
 

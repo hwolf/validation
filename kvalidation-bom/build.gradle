@@ -15,7 +15,7 @@ javaPlatform {
     allowDependencies()
 }
 
-publishing {
+/*publishing {
     publications {
         mavenJava(MavenPublication) {
             from(components.javaPlatform)
@@ -51,3 +51,4 @@ signing {
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign publishing.publications.mavenJava
 }
+ */
