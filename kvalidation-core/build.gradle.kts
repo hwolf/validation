@@ -1,9 +1,7 @@
 plugins {
     id("library-conventions")
+    id("publish-conventions")
 }
-
-apply(plugin = "java-library")
-apply(plugin = "org.jetbrains.dokka")
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")

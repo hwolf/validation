@@ -5,7 +5,6 @@ plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.kotlinx.kover")
     id("org.jetbrains.dokka")
-    //id("io.github.gradle-nexus.publish-plugin")
 }
 
 repositories {

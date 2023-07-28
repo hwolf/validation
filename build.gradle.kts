@@ -1,4 +1,3 @@
-
 plugins {
     id("org.sonarqube") version "4.3.0.3225"
 }
