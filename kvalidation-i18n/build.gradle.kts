@@ -1,5 +1,6 @@
-apply(plugin = "java-library")
-apply(plugin = "org.jetbrains.dokka")
+plugins {
+    id("library-conventions")
+}
 
 dependencies {
     implementation(project(":kvalidation-core"))

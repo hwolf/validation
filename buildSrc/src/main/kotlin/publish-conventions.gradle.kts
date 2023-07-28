@@ -1,24 +1,23 @@
 plugins {
-    id "java-platform"
-}
-
-dependencies {
-    constraints {
-        api(project(":kvalidation-core"))
-        api(project(":kvalidation-common"))
-        api(project(":kvalidation-i18n"))
-        api(project(":kvalidation-icu"))
-    }
-}
-
-javaPlatform {
-    allowDependencies()
+    id("maven-publish")
 }
 
 publishing {
+    repositories {
+        maven {
+            url = uri("${rootProject.rootDir}/build/repository")
+        }
+    }
     publications {
-        mavenJava(MavenPublication) {
-            from(components.javaPlatform)
+        create<MavenPublication>("maven") {
+            if (plugins.hasPlugin("java-platform")) {
+                from(components["javaPlatform"])
+            }
+            if (plugins.hasPlugin("library-conventions")) {
+                from(components["java"])
+                artifact(tasks.named("sourceJar"))
+                artifact(tasks.named("dokkaJar"))
+            }
             pom {
                 name.set("Validation DSL for Kotlin")
                 description.set("Validation DSL for Kotlin is a type-safe, powerful and extensible fluent DSL to validate objects in Kotlin")
@@ -43,11 +42,4 @@ publishing {
             }
         }
     }
-}
-
-signing {
-    def signingKey = findProperty("signingKey")
-    def signingPassword = findProperty("signingPassword")
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign publishing.publications.mavenJava
 }

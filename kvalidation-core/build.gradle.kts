@@ -1,5 +1,7 @@
-apply(plugin = "java-library")
-apply(plugin = "org.jetbrains.dokka")
+plugins {
+    id("library-conventions")
+    id("publish-conventions")
+}
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
