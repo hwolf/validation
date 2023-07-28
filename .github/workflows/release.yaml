@@ -25,9 +25,9 @@ jobs:
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.CENTRAL_USER }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.CENTRAL_PASSWD }}
-        run: ./gradlew -Pgroup="io.github.hwolf.kvalidation" -Pversion=${GITHUB_REF:11} publish closeAndReleaseStagingRepository
+        run: ./gradlew -Pversion=${GITHUB_REF:11} publish closeAndReleaseStagingRepository
       - name: Generate API documentation
-        run: ./gradlew -Pgroup="io.github.hwolf.kvalidation" -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
+        run: ./gradlew -Pversion=${GITHUB_REF:11} dokkaHtmlMultiModule
       - name: Publish API documentation
         uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
