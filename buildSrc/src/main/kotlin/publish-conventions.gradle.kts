@@ -1,15 +1,11 @@
 plugins {
-    id("maven-publish")
+    signing
+    `maven-publish`
 }
 
 publishing {
-    repositories {
-        maven {
-            url = uri("${rootProject.rootDir}/build/repository")
-        }
-    }
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("MavenCentral") {
             if (plugins.hasPlugin("java-platform")) {
                 from(components["javaPlatform"])
             }
@@ -42,4 +38,11 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications["MavenCentral"])
 }
