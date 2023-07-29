@@ -22,7 +22,7 @@ class ValidationBuilderEachTests : FunSpec({
 
     class TestBean(val list: List<String>)
 
-    val validator = validator<TestBean> {
+    val validator = validator {
         TestBean::list each {
             hasValue("x1", "x3")
         }

@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class MaxLengthTests : FunSpec({
 
-    val validator = validator<StringBean> { StringBean::string { maxLength(5) } }
+    val validator = validator { StringBean::string { maxLength(5) } }
 
     context("has max length") {
         withData("123", "12345") { value ->

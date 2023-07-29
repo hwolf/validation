@@ -22,7 +22,7 @@ class ValidationBuilderEachArrayTests : FunSpec({
 
     class TestBean(val array: Array<String>)
 
-    val validator = validator<TestBean> {
+    val validator = validator {
         TestBean::array each {
             hasValue("1", "3")
         }

@@ -22,7 +22,7 @@ class ValidationBuilderEachMapTests : FunSpec({
 
     class TestBean(val map: Map<String, Int>)
 
-    val validator = validator<TestBean> {
+    val validator = validator {
         TestBean::map each {
             hasValue(1, 3)
         }

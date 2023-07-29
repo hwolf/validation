@@ -22,7 +22,7 @@ class ValidationBuilderIfPresentTests : FunSpec({
 
     class TestBean(val field: String?)
 
-    val validator = validator<TestBean> {
+    val validator = validator {
         TestBean::field ifPresent {
             hasValue("x1", "x2")
         }

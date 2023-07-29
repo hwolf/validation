@@ -34,7 +34,7 @@ class PhoneNumberTests : FunSpec({
 
     context("Phone numbers with default region Germany") {
 
-        val validator = validator<TestBean> { TestBean::phoneNumber { phoneNumber("DE") } }
+        val validator = validator { TestBean::phoneNumber { phoneNumber("DE") } }
 
         withData(
             "06221383250",
@@ -67,7 +67,7 @@ class PhoneNumberTests : FunSpec({
 
     context("Only possible phone numbers for Germany") {
 
-        val validator = validator<TestBean> {
+        val validator = validator {
             TestBean::phoneNumber {
                 phoneNumber("DE", PhoneNumber.Option.OnlyForRegion)
             }
@@ -87,7 +87,7 @@ class PhoneNumberTests : FunSpec({
 
     context("Valid phone numbers with default region Germany") {
 
-        val validator = validator<TestBean> {
+        val validator = validator {
             TestBean::phoneNumber {
                 phoneNumber("DE", PhoneNumber.Option.Valid)
             }
@@ -108,7 +108,7 @@ class PhoneNumberTests : FunSpec({
 
     context("Valid phone numbers for Germany") {
 
-        val validator = validator<TestBean> {
+        val validator = validator {
             TestBean::phoneNumber {
                 phoneNumber("DE", PhoneNumber.Option.Valid, PhoneNumber.Option.OnlyForRegion)
             }
@@ -128,7 +128,7 @@ class PhoneNumberTests : FunSpec({
 
     context("Valid mobile phone numbers for Germany") {
 
-        val validator = validator<TestBean> {
+        val validator = validator {
             TestBean::phoneNumber {
                 phoneNumber("DE",
                     PhoneNumber.Option.Valid,

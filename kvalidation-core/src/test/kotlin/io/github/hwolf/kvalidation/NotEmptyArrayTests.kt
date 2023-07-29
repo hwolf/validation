@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class NotEmptyArrayTests : FunSpec({
 
-    val validator = validator<ArrayBean> { ArrayBean::array { notEmpty() } }
+    val validator = validator { ArrayBean::array { notEmpty() } }
 
     context("is not empty") {
         withData(nameFn = Array<String>::contentToString, arrayOf("x1", "x2"), arrayOf("")) { value ->

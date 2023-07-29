@@ -23,7 +23,7 @@ fun <T> ValidationBuilder<T, String>.notEmpty() = validate(NotEmpty) { v, _ -> v
 
 /** Validates if the [Iterable] property is not empty. */
 @JvmName(name = "notEmptyIterable")
-fun <T, V> ValidationBuilder<T, out Iterable<V>>.notEmpty() = validate(NotEmpty) { v, _ -> v.count() > 0 }
+fun <T, V> ValidationBuilder<T, out Iterable<V>>.notEmpty() = validate(NotEmpty) { v, _ -> v.any() }
 
 /** Validates if the [Collection] property is not empty. */
 @JvmName(name = "notEmptyCollection")

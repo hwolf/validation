@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class NotBlankTests : FunSpec({
 
-    val validator = validator<StringBean> { StringBean::string { notBlank() } }
+    val validator = validator { StringBean::string { notBlank() } }
 
     context("is not blank") {
         withData(nameFn = { "'${it}'" },

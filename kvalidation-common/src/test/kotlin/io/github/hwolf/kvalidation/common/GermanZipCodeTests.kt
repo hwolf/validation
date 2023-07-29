@@ -27,7 +27,7 @@ class GermanZipCodeTests : FunSpec({
 
     data class TestBean(val zipCode: String)
 
-    val validator = validator<TestBean> { TestBean::zipCode { germanZipCode() } }
+    val validator = validator { TestBean::zipCode { germanZipCode() } }
 
     context("valid German zip code") {
         val values = listOf(
