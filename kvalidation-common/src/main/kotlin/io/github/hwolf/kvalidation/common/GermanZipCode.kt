@@ -21,7 +21,7 @@ import io.github.hwolf.kvalidation.validate
 
 object GermanZipCode : Constraint
 
-private val germanZipCode = Regex("^([0][1-9]|[1-9][0-9])[0-9]{3}\$")
+private val germanZipCode = "^(0[1-9]|[1-9][0-9])[0-9]{3}\$".toRegex()
 
 /** Validates if the property value is an IBAN. */
 fun <T> ValidationBuilder<T, String>.germanZipCode() = validate(GermanZipCode) { v, _ ->
