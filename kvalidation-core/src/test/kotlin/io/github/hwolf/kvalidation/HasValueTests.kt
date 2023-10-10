@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class HasValueTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 {
+    val validator = validator { TestBean::prop1 {
         hasValue(1, 3) }
     }
 

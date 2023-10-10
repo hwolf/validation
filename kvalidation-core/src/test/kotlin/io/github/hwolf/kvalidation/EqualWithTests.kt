@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class EqualWithTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { equal(TestBean::prop2) } }
+    val validator = validator { TestBean::prop1 { equal(TestBean::prop2) } }
 
     context("is equal") {
         withData(Pair(3, 3), Pair(2, null)) { (v1, v2) ->

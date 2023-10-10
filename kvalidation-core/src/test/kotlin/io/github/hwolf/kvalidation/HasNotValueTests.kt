@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class HasNotValueTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { hasNotValue(1, 3) } }
+    val validator = validator { TestBean::prop1 { hasNotValue(1, 3) } }
 
     context("is not in") {
         withData(0, 2, 4) { value ->

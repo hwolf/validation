@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class SizeMapTests : FunSpec({
 
-    val validator = validator<MapBean> { MapBean::map { size(1, 3) } }
+    val validator = validator { MapBean::map { size(1, 3) } }
 
     context("has size") {
         withData(mapOf("x" to 1), mapOf("x1" to 3, "x2" to 5, "x3" to 1)) { value ->

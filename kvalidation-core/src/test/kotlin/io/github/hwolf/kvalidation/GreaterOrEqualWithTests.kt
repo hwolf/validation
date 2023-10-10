@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class GreaterOrEqualWithTests : FunSpec({
 
-    val validator = validator<TestBean> { TestBean::prop1 { greaterOrEqual(TestBean::prop2) } }
+    val validator = validator { TestBean::prop1 { greaterOrEqual(TestBean::prop2) } }
 
     context("is greater or equal") {
         withData(TestBean(-1, prop2 = -1), TestBean(-4, prop2 = -5), TestBean(-4, prop2 = null)) { bean ->

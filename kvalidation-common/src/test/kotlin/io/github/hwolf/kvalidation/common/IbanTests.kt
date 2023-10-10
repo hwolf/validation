@@ -27,7 +27,7 @@ class IbanTests : FunSpec({
 
     data class TestBean(val iban: String)
 
-    val validator = validator<TestBean> { TestBean::iban { iban() } }
+    val validator = validator { TestBean::iban { iban() } }
 
     context("valid IBANs") {
         withData(TestBean("AT611904300234573201"), TestBean("DE89370400440532013000")) {

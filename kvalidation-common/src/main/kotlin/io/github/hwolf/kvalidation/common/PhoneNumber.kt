@@ -109,7 +109,7 @@ private class PhoneNumberValidator<T>(
             context.constraintViolation(constraint.withKey("notPossible"), value)
             return
         }
-        DefaultOptionValidator.values()
+        DefaultOptionValidator.entries
             .filter { it.accept(constraint) }
             .find { !it.validateOption(parsed, constraint) }
             ?.let { context.constraintViolation(constraint.withKey(it.key), value) }

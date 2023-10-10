@@ -36,7 +36,7 @@ class CreditCardTests : FunSpec({
 
     context("validate credit card") {
 
-        val validator = validator<CreditCardBean> { CreditCardBean::card { creditCard() } }
+        val validator = validator { CreditCardBean::card { creditCard() } }
 
         context("is valid credit card") {
             withData(mastercard, visa, amex, discovers) { value ->
@@ -64,7 +64,7 @@ class CreditCardTests : FunSpec({
     context("Validate mastercard") {
 
         val validator =
-            validator<CreditCardBean> { CreditCardBean::card { creditCard(CreditorCard.Type.MASTERCARD) } }
+            validator { CreditCardBean::card { creditCard(CreditorCard.Type.MASTERCARD) } }
 
         context("is valid mastercard") {
             withData(listOf(mastercard)) { value ->
@@ -86,7 +86,7 @@ class CreditCardTests : FunSpec({
 
     context("Validate diners card") {
 
-        val validator = validator<CreditCardBean> { CreditCardBean::card { creditCard(CreditorCard.Type.DINERS) } }
+        val validator = validator { CreditCardBean::card { creditCard(CreditorCard.Type.DINERS) } }
 
         context("is valid diners card") {
             withData(listOf(diners)) { value ->

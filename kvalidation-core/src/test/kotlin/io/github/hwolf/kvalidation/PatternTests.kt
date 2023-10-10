@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class PatternTests : FunSpec({
 
-    val validator = validator<StringBean> {
+    val validator = validator {
         StringBean::string { matches("^[a-c]+$") }
     }
 

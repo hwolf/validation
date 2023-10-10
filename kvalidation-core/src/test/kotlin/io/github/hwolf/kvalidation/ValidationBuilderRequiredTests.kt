@@ -22,7 +22,7 @@ class ValidationBuilderRequiredTests: FunSpec({
 
     class TestBean(val field: String?)
 
-    val validator = validator<TestBean> {
+    val validator = validator {
         TestBean::field required {
             hasValue("x1", "x2")
         }

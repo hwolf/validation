@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class SizeIterableTests : FunSpec({
 
-    val validator = validator<IterableBean> { IterableBean::range { size(2, 4) } }
+    val validator = validator { IterableBean::range { size(2, 4) } }
 
     context("has size") {
         withData(nameFn = Any::toString, IntRange(0, 1), IntRange(0, 3)) { value ->

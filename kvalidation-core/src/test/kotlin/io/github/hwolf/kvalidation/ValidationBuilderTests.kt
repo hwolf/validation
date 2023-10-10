@@ -21,10 +21,10 @@ import strikt.api.expectThat
 class ValidationBuilderTests : FunSpec( {
 
     test("use") {
-        val parent = validator<TestBean> {
+        val parent = validator {
             TestBean::prop1 { equal(1212) }
         }
-        val validator = validator<TestBean> {
+        val validator = validator {
             use(parent)
         }
         val actual = validator.validate(TestBean(2121))

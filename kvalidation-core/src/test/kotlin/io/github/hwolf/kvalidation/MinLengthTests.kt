@@ -21,7 +21,7 @@ import strikt.api.expectThat
 
 class MinLengthTests : FunSpec({
 
-    val validator = validator<StringBean> { StringBean::string { minLength(3) } }
+    val validator = validator { StringBean::string { minLength(3) } }
 
     context("has min length") {
         withData("123", "12345") { value ->
