@@ -13,9 +13,9 @@ sonarqube {
         property("sonar.projectKey", "hwolf_kvalidation")
         property("sonar.organization", "hwolf")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", listOf("**/build/kover/result.xml"))
-        property("sonar.sources", listOf("src/main"))
-        property("sonar.tests", listOf("src/test"))
+        //property("sonar.coverage.jacoco.xmlReportPaths", listOf("**/build/kover/result.xml"))
+        //property("sonar.sources", listOf("src/main"))
+        //property("sonar.tests", listOf("src/test"))
     }
 }
 
