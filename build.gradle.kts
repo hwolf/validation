@@ -1,6 +1,6 @@
 plugins {
     id("org.jetbrains.dokka")
-    id("org.sonarqube") version "4.3.0.3225"
+    id("org.sonarqube") version "4.4.1.3373"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0-rc-1"
 }
 
@@ -13,9 +13,6 @@ sonarqube {
         property("sonar.projectKey", "hwolf_kvalidation")
         property("sonar.organization", "hwolf")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/kover/result.xml")
-        property("sonar.sources", "src/main")
-        property("sonar.tests", "src/test")
     }
 }
 
