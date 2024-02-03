@@ -22,7 +22,7 @@ dependencies {
     testImplementation("io.strikt:strikt-core")
     testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("org.tinylog:tinylog-impl:2.7.0")
-    testImplementation("org.tinylog:slf4j-tinylog:2.6.2") {
+    testImplementation("org.tinylog:slf4j-tinylog:2.7.0") {
         exclude(module = "org.slf4j")
     }
 }
