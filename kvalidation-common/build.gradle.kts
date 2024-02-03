@@ -6,7 +6,7 @@ plugins {
 dependencies {
     implementation(project(":kvalidation-core"))
 
-    implementation("commons-validator:commons-validator:1.7") {
+    implementation("commons-validator:commons-validator:1.8.0") {
         exclude(module = "commons-beanutils")
         exclude(module = "commons-collections")
         exclude(module = "commons-digester")
