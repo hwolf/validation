@@ -1,9 +1,11 @@
 <!doctype html>
-<html>
+<html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>io.github.hwolf.kvalidation</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>    <script>const storage = localStorage.getItem("dokka-dark-mode")
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
     if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (osDarkSchemePreferred === true) {
@@ -16,12 +18,13 @@
         }
     }
     </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
-<link href="../../styles/jetbrains-mono.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
 <link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
@@ -29,26 +32,32 @@
 <script type="text/javascript" src="../../scripts/prism.js" async></script>
 <script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
-<div class="navigation-wrapper" id="navigation-wrapper">
-    <div id="leftToggler"><span class="icon-toggler"></span></div>
-    <div class="library-name">
-<a href="../../index.html">
-<span>kvalidation</span>            </a>    </div>
-    <div>0.6.1
-    </div>
-    <div class="pull-right d-flex">
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            kvalidation
+                    </a>            </div>
+            <div class="library-version">0.6.2
+            </div>
+        </div>
         <div class="filter-section" id="filter-section">
                 <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":kvalidation-core:dokkaHtmlPartial/main">jvm</button>
         </div>
-        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
-        <div id="searchBar"></div>
     </div>
-</div>
-<div id="container">
-    <div id="leftColumn">
-        <div id="sideMenu"></div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
     </div>
-    <div id="main">
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
 <div class="main-content" data-page-type="package" id="content" pageids="kvalidation-core::io.github.hwolf.kvalidation////PointingToDeclaration//658804960">
   <div class="breadcrumbs"><a href="../index.html">kvalidation-core</a><span class="delimiter">/</span><span class="current">io.github.hwolf.kvalidation</span></div>
   <div class="cover ">
@@ -318,13 +327,13 @@
           <div class="table-row" data-filterable-current=":kvalidation-core:dokkaHtmlPartial/main" data-filterable-set=":kvalidation-core:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-2065945771%2FClasslikes%2F658804960"><span><span>Locale</span></span></a></div>
+                  <div><a href="-locale/index.html"><span><span>Locale</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2065945771%2FClasslikes%2F658804960"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-2065945771%2FClasslikes%2F658804960">Locale</a><span class="token operator"> = </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html">java.util.Locale</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-locale/index.html">Locale</a><span class="token operator"> = </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html">java.util.Locale</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -363,13 +372,13 @@
           <div class="table-row" data-filterable-current=":kvalidation-core:dokkaHtmlPartial/main" data-filterable-set=":kvalidation-core:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#163386169%2FClasslikes%2F658804960"><span>Message</span><wbr><span>Code</span><wbr><span><span>Resolver</span></span></a></div>
+                  <div><a href="-message-code-resolver/index.html"><span>Message</span><wbr><span>Code</span><wbr><span><span>Resolver</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="163386169%2FClasslikes%2F658804960"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#163386169%2FClasslikes%2F658804960">MessageCodeResolver</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>violation<span class="token operator">: </span><a href="-constraint-violation/index.html">ConstraintViolation</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-message-code-resolver/index.html">MessageCodeResolver</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>violation<span class="token operator">: </span><a href="-constraint-violation/index.html">ConstraintViolation</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -378,13 +387,13 @@
           <div class="table-row" data-filterable-current=":kvalidation-core:dokkaHtmlPartial/main" data-filterable-set=":kvalidation-core:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#294431692%2FClasslikes%2F658804960"><span>Message</span><wbr><span><span>Formatter</span></span></a></div>
+                  <div><a href="-message-formatter/index.html"><span>Message</span><wbr><span><span>Formatter</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="294431692%2FClasslikes%2F658804960"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#294431692%2FClasslikes%2F658804960">MessageFormatter</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>template<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span>violation<span class="token operator">: </span><a href="-constraint-violation/index.html">ConstraintViolation</a><span class="token punctuation">, </span><span class="token keyword"></span>locale<span class="token operator">: </span><a href="index.html#-2065945771%2FClasslikes%2F658804960">Locale</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-message-formatter/index.html">MessageFormatter</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>template<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span>violation<span class="token operator">: </span><a href="-constraint-violation/index.html">ConstraintViolation</a><span class="token punctuation">, </span><span class="token keyword"></span>locale<span class="token operator">: </span><a href="-locale/index.html">Locale</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -399,7 +408,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-message-interpolator/index.html">MessageInterpolator</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">messageSource<span class="token operator">: </span><a href="index.html#472980849%2FClasslikes%2F658804960">MessageSource</a><span class="token punctuation">, </span></span><span class="parameter ">messageFormatter<span class="token operator">: </span><a href="index.html#294431692%2FClasslikes%2F658804960">MessageFormatter</a><span class="token punctuation">, </span></span><span class="parameter ">messageCodeResolver<span class="token operator">: </span><a href="index.html#163386169%2FClasslikes%2F658804960">MessageCodeResolver</a><span class="token operator"> = </span>DefaultMessageCodeResolver</span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-message-interpolator/index.html">MessageInterpolator</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">messageSource<span class="token operator">: </span><a href="-message-source/index.html">MessageSource</a><span class="token punctuation">, </span></span><span class="parameter ">messageFormatter<span class="token operator">: </span><a href="-message-formatter/index.html">MessageFormatter</a><span class="token punctuation">, </span></span><span class="parameter ">messageCodeResolver<span class="token operator">: </span><a href="-message-code-resolver/index.html">MessageCodeResolver</a><span class="token operator"> = </span>DefaultMessageCodeResolver</span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -408,13 +417,13 @@
           <div class="table-row" data-filterable-current=":kvalidation-core:dokkaHtmlPartial/main" data-filterable-set=":kvalidation-core:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#472980849%2FClasslikes%2F658804960"><span>Message</span><wbr><span><span>Source</span></span></a></div>
+                  <div><a href="-message-source/index.html"><span>Message</span><wbr><span><span>Source</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="472980849%2FClasslikes%2F658804960"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#472980849%2FClasslikes%2F658804960">MessageSource</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span>locale<span class="token operator">: </span><a href="index.html#-2065945771%2FClasslikes%2F658804960">Locale</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-message-source/index.html">MessageSource</a><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span>locale<span class="token operator">: </span><a href="-locale/index.html">Locale</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -528,13 +537,13 @@
           <div class="table-row" data-filterable-current=":kvalidation-core:dokkaHtmlPartial/main" data-filterable-set=":kvalidation-core:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1724895958%2FClasslikes%2F658804960"><span>Property</span><wbr><span><span>Validator</span></span></a></div>
+                  <div><a href="-property-validator/index.html"><span>Property</span><wbr><span><span>Validator</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1724895958%2FClasslikes%2F658804960"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1724895958%2FClasslikes%2F658804960">PropertyValidator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1724895958%2FClasslikes%2F658804960">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1724895958%2FClasslikes%2F658804960">T</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>value<span class="token operator">: </span><a href="index.html#1724895958%2FClasslikes%2F658804960">V</a><span class="token punctuation">, </span><span class="token keyword"></span>context<span class="token operator">: </span><a href="-validation-context/index.html">ValidationContext</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1724895958%2FClasslikes%2F658804960">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-property-validator/index.html">PropertyValidator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-property-validator/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-property-validator/index.html">T</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>value<span class="token operator">: </span><a href="-property-validator/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span>context<span class="token operator">: </span><a href="-validation-context/index.html">ValidationContext</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-property-validator/index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -573,13 +582,13 @@
           <div class="table-row" data-filterable-current=":kvalidation-core:dokkaHtmlPartial/main" data-filterable-set=":kvalidation-core:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1667020224%2FClasslikes%2F658804960"><span>Validation</span><wbr><span><span>Action</span></span></a></div>
+                  <div><a href="-validation-action/index.html"><span>Validation</span><wbr><span><span>Action</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1667020224%2FClasslikes%2F658804960"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#1667020224%2FClasslikes%2F658804960">ValidationAction</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1667020224%2FClasslikes%2F658804960">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1667020224%2FClasslikes%2F658804960">U</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token keyword"></span><a href="-validation-builder/index.html">ValidationBuilder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#1667020224%2FClasslikes%2F658804960">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html#1667020224%2FClasslikes%2F658804960">U</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-validation-action/index.html">ValidationAction</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-validation-action/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-validation-action/index.html">U</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token keyword"></span><a href="-validation-builder/index.html">ValidationBuilder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-validation-action/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-validation-action/index.html">U</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -633,13 +642,13 @@
           <div class="table-row" data-filterable-current=":kvalidation-core:dokkaHtmlPartial/main" data-filterable-set=":kvalidation-core:dokkaHtmlPartial/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1582936031%2FClasslikes%2F658804960"><span><span>Validator</span></span></a></div>
+                  <div><a href="-validator/index.html"><span><span>Validator</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1582936031%2FClasslikes%2F658804960"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="index.html#-1582936031%2FClasslikes%2F658804960">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1582936031%2FClasslikes%2F658804960">T</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>value<span class="token operator">: </span><a href="index.html#-1582936031%2FClasslikes%2F658804960">T</a><span class="token punctuation">, </span><span class="token keyword"></span>context<span class="token operator">: </span><a href="-validation-context/index.html">ValidationContext</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html#-1582936031%2FClasslikes%2F658804960">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Represents a type which validates an object and collects the found constraint violations in an instance <a href="-validation-context/index.html">ValidationContext</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">typealias </span><a href="-validator/index.html">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-validator/index.html">T</a><span class="token operator">&gt;</span><span class="token operator"> = </span><span class="token punctuation">(</span><span class="token keyword"></span>value<span class="token operator">: </span><a href="-validator/index.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span>context<span class="token operator">: </span><a href="-validation-context/index.html">ValidationContext</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-validator/index.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></div><div class="brief "><p class="paragraph">Represents a type which validates an object and collects the found constraint violations in an instance <a href="-validation-context/index.html">ValidationContext</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -823,7 +832,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="message-source-map.html"><span class="token function">messageSourceMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>messages<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span>locale<span class="token operator">: </span><a href="index.html#-2065945771%2FClasslikes%2F658804960">Locale</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="message-source-map.html"><span class="token function">messageSourceMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">messages<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#472980849%2FClasslikes%2F658804960">MessageSource</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="message-source-map.html"><span class="token function">messageSourceMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>messages<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span>locale<span class="token operator">: </span><a href="-locale/index.html">Locale</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="message-source-map.html"><span class="token function">messageSourceMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">messages<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-message-source/index.html">MessageSource</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -928,7 +937,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="use.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="use.html">V</a><span class="token operator">&gt; </span><a href="-validation-builder/index.html">ValidationBuilder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="use.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="use.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="use.html"><span class="token function">use</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">validator<span class="token operator">: </span><a href="index.html#-1582936031%2FClasslikes%2F658804960">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="use.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="use.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="use.html">V</a><span class="token operator">&gt; </span><a href="-validation-builder/index.html">ValidationBuilder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="use.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="use.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="use.html"><span class="token function">use</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">validator<span class="token operator">: </span><a href="-validator/index.html">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="use.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -943,7 +952,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token operator">&gt; </span><a href="index.html#-1582936031%2FClasslikes%2F658804960">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="validate.html"><span class="token function">validate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="validate.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-validation-result/index.html">ValidationResult</a></div><div class="brief "><p class="paragraph">Validate the object <a href="validate.html">value</a> with the receiver <a href="index.html#-1582936031%2FClasslikes%2F658804960">Validator</a> and returns a <a href="-validation-result/index.html">ValidationResult</a>.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validate.html">V</a><span class="token operator">&gt; </span><a href="-validation-builder/index.html">ValidationBuilder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validate.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="validate.html"><span class="token function">validate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">constraint<span class="token operator">: </span><a href="-constraint/index.html">Constraint</a><span class="token punctuation">, </span></span><span class="parameter ">test<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="validate.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validate.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token operator">&gt; </span><a href="-validator/index.html">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="validate.html"><span class="token function">validate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="validate.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-validation-result/index.html">ValidationResult</a></div><div class="brief "><p class="paragraph">Validate the object <a href="validate.html">value</a> with the receiver <a href="-validator/index.html">Validator</a> and returns a <a href="-validation-result/index.html">ValidationResult</a>.</p></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validate.html">V</a><span class="token operator">&gt; </span><a href="-validation-builder/index.html">ValidationBuilder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validate.html">T</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validate.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="validate.html"><span class="token function">validate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">constraint<span class="token operator">: </span><a href="-constraint/index.html">Constraint</a><span class="token punctuation">, </span></span><span class="parameter ">test<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="validate.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validate.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -958,7 +967,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validator.html">V</a><span class="token operator">&gt; </span><a href="validator.html"><span class="token function">validator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">init<span class="token operator">: </span><a href="index.html#1667020224%2FClasslikes%2F658804960">ValidationAction</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validator.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validator.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#-1582936031%2FClasslikes%2F658804960">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validator.html">V</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Builds a <a href="index.html#-1582936031%2FClasslikes%2F658804960">Validator</a> for the type <a href="validator.html">V</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":kvalidation-core:dokkaHtmlPartial/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validator.html">V</a><span class="token operator">&gt; </span><a href="validator.html"><span class="token function">validator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">init<span class="token operator">: </span><a href="-validation-action/index.html">ValidationAction</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validator.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="validator.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-validator/index.html">Validator</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="validator.html">V</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Builds a <a href="-validator/index.html">Validator</a> for the type <a href="validator.html">V</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -969,10 +978,11 @@
   </div>
 </div>
       <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
       </div>
+            </div>
+        </div>
     </div>
-</div>
 </body>
 </html>
 
