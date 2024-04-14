@@ -1,7 +1,7 @@
 plugins {
     id("org.jetbrains.dokka")
     id("org.sonarqube") version "5.0.0.4638"
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0-rc-2"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 repositories {
