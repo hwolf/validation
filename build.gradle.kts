@@ -13,7 +13,6 @@ sonarqube {
         property("sonar.projectKey", "hwolf_kvalidation")
         property("sonar.organization", "hwolf")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/kover/result.xml")
     }
 }
 
