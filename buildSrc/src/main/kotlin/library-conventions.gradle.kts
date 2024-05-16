@@ -27,10 +27,12 @@ dependencies {
     }
 }
 
-koverReport {
-    defaults {
-        xml {
-            setReportFile(layout.buildDirectory.file("kover/result.xml"))
+kover {
+    reports {
+        total {
+            xml {
+                xmlFile = layout.buildDirectory.file("kover/result.xml")
+            }
         }
     }
 }
