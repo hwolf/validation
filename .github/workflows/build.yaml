@@ -37,6 +37,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Publish Test Results
+        if: always()
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         with:
           junit_files: '**/build/test-results/**/*.xml'
